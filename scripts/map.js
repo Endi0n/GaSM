@@ -36,7 +36,10 @@ function drawTrucks(trucks) {
     TRUCKS_LAYER.clearLayers()
 
     for (let truck of trucks) {
-        let truckMarker = L.marker([truck.LastLatitude, truck.LastLongitude], { icon: TRUCK_ICON })
+        let truckMarker = L.marker([truck.LastLatitude, truck.LastLongitude], {
+            icon: TRUCK_ICON,
+            rotationAngle: truck.Heading + 90
+        })
         TRUCKS_LAYER.addLayer(truckMarker)
     }
 }
@@ -54,7 +57,9 @@ function drawBins(bins) {
 var map = initMap()
 
 var TRUCKS_LAYER = L.featureGroup().addTo(map)
-var BINS_LAYER = L.markerClusterGroup().addTo(map)
+var BINS_LAYER = L.markerClusterGroup({}).addTo(map)
+
+L.control.layers(null, { 'Vehicule': TRUCKS_LAYER, 'Pubele': BINS_LAYER }).addTo(map);
 
 refreshData()
-setInterval(refreshData, 12e4) // every 2 minutes
+setInterval(refreshData, 60e3) // every minute
