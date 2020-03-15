@@ -1,0 +1,304 @@
+
+.meniu_secundar {
+    width: 80%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    left: 10%;
+    border-radius: 0 0 1em 1em;
+}
+
+.meniu_secundar button {
+    transition: 0.5s;
+}
+
+.small-round-border {
+    border: 1px solid black;
+    border-radius: 0.3em;
+}
+
+.small-margin {
+    margin: 0.3em;
+}
+
+.next-button {
+    color: black;
+    text-decoration: none;
+    padding: 0.5em 1em;
+    border: 1px solid #d1d1d1;
+    border-radius: 0.5em;
+    margin: 0.3em;
+    transition: 0.5s;
+    font-size: 16px;
+}
+
+.next-button:hover {
+    background-color: #d1d1d1;
+}
+
+.sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    background-color: white;
+}
+
+.meniu_secundar {
+    width: 80%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    left: 10%;
+    border-radius: 0 0 1em 1em;
+}
+
+.meniu_secundar button {
+    transition: 0.5s;
+}
+
+.small-round-border {
+    border: 1px solid black;
+    border-radius: 0.3em;
+}
+
+.small-margin {
+    margin: 0.3em;
+}
+
+.next-button {
+    color: black;
+    text-decoration: none;
+    padding: 0.5em 1em;
+    border: 1px solid #d1d1d1;
+    border-radius: 0.5em;
+    margin: 0.3em;
+    transition: 0.5s;
+    font-size: 16px;
+}
+.next-button:hover {
+    background-color: #d1d1d1;
+}
+#date_range:hover {
+    background-color: #d1d1d1;
+}
+.sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    background-color: white;
+}
+body {
+    margin: 0;
+    background: linear-gradient(180deg, #00e800, transparent);
+}
+.center_flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.main_info {
+    height: 100vh;
+    display: flex;
+}
+.title {
+    text-align: center;
+    margin-top: 3em;
+}
+#div_stanga_top_info {
+    height: 100%;
+    width: 50vw;
+}
+#div_stanga_top_info ul li {
+    display: flex;
+    align-items: center;
+    margin: 1.5em 0;
+}
+#div_stanga_top_info ul li img{
+    margin-right: 1em;
+}
+#div_dreapta_tipuri_deseu {
+    width: 50vw;
+    height: 100%;
+}
+.tipuri_deseu_continut {
+    background-image: url("/images/recycling_symbol.png");
+    height: 25em;
+    width: 30em;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;        
+    top: 30%;
+    background-size: 25em;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.tipuri_deseu_continut a:nth-child(even) {
+    align-self: flex-end;
+}
+.tipuri_deseu_continut a:nth-child(3) {
+    align-self: flex-start;
+}
+.tipuri_deseu_continut a img {
+    border-radius: 50%;
+}
+#statistici {
+    border-radius: 10vw;
+    padding-bottom: 5em;
+    width: 100%;
+    background: white;
+    text-align: center;
+}
+#statistici_tabelare {
+    width: 100%;
+}
+#statistica_sortare {
+    height: 40vh;
+}
+[id*="statistica_top_"] {
+    width: 100%;
+    height: 20em;
+}
+.colectie {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.card {
+    border-radius: 10px;
+    height: 25em;
+    width: 30em;
+    background: #9cff9c;
+    margin-bottom: 2em;
+}
+.card:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transition: 0.5s;
+}
+.card h3 {
+    text-align: center;
+    border-bottom: 2px solid;
+    padding-bottom: 0.5em;
+}
+/* .card g[role="region"] {
+    transform: translate(-120px, -10px);
+} */
+.table {
+    overflow: auto;
+    background: linear-gradient(180deg, #00e800, transparent);
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 2em;
+}
+th, td {
+    text-align: center;
+    padding: 1.5em;
+}
+
+tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+.pagination {
+    text-align: center;
+    padding: 2em 0;
+}
+.pagination a:nth-child(2)
+{
+    background-color: chartreuse;
+    text-decoration: none;
+    padding: 0.5em 1em;
+}
+.red_background {
+    background-color: crimson;
+    color: white;
+}
+.download_options {
+    display: flex;
+    width: 90%;
+    left: 5%;
+    position: relative;
+    margin-bottom: 2em;
+}
+.download_options button {
+    border: 0;
+    padding: 1em 2em;
+    width: 100%;
+}
+.download_options button:first-child{
+    border-radius: 1em 0 0 1em;
+}
+.download_options button {
+    outline: none;
+}
+.download_options button:last-child {
+    border-radius: 0 1em 1em 0;
+}
+.download_options button:hover {
+    background-color: #dcdcdc;
+}
+.download_options button:focus {
+    background-color: #bebebe;
+}
+.meniu_secundar span {
+    padding: 1em;
+    border: 1px solid black;
+    background-color: white;
+}
+@media screen and (max-width: 800px){
+    .main_info {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 2em;
+        height: auto;
+    }
+    #div_stanga_top_info {
+        width: 100%;
+    }
+    #div_dreapta_tipuri_deseu {
+        width: 100%;
+    }
+    .tipuri_deseu_continut {
+        height: 20em;
+        width: 25em;
+        background-size: 20em;
+    }
+    #statistica_sortare {
+        height: 20em;
+    }
+    .card {
+        width: 80%;
+    }
+    #statistici_tabelare {
+        font-size: 15px;
+    }
+    td {
+        padding: 0.5em;
+    }
+}
+@media screen and (max-width: 500px){
+    .card {
+        width: 100%;
+    }
+    #statistici_tabelare {
+        font-size: 10px;
+    }
+}
+@media screen and (max-width: 450px)
+{
+    #div_stanga_top_info {
+        font-size: 0.75em;
+    }
+}
+
+@media screen and (max-height: 700px) 
+{
+    .tipuri_deseu_continut {
+        height: 15em;
+        width: 20em;
+        background-size: 15em;
+    }
+}
