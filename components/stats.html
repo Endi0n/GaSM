@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,24 +13,25 @@
     <link rel="stylesheet" href="/styles/stats.css">
 
     <script type="text/javascript" src="/scripts/stats.js"></script>
-    
+
 </head>
+
 <body>
     <div></div> <!-- navbar  -->
-    
+
     <div class="main_info">
         <div id="div_stanga_top_info" class="center_flex">
             <ul style="list-style-type: none;">
                 <li>
-                    <img src="https://picsum.photos/50/50">
+                    <img src="/images/stats.png" class="small-img">
                     <h2>2 tone de gunoi reciclate doar azi</h2>
                 </li>
                 <li>
-                    <img src="https://picsum.photos/50/50">
+                    <img src="/images/stats.png" class="small-img">
                     <h2>5 tone de gunoi colectat astazi</h2>
                 </li>
                 <li>
-                    <img src="https://picsum.photos/50/50">
+                    <img src="/images/stats.png" class="small-img">
                     <h2>170 de containere colectate</h2>
                 </li>
             </ul>
@@ -43,16 +45,23 @@
                 <a href="#card_sticla"><img src="https://picsum.photos/50/50"></a>
             </div>
         </div>
-
     </div>
+    <svg id="svg" xmlns="http://www.w3.org/2000/svg" viewBox="-50 0 950 280"
+        style="position: relative; bottom: -0.3em;">
+        <path
+            d="M-216.52927,381.40233C-136.80751,287.32366 -20.64178,252.8674 71.5249,251.37767C163.69158,249.88794 224.10279,308.44009 365.29326,313.36572C506.48373,318.29135 563.24004,253.57529 670.03642,237.79414C776.8328,222.01299 865.91082,237.42478 954.27928,273.32906"
+            fill="none" stroke="white" stroke-width="170" stroke-linecap="round">
+        </path>
+    </svg>
     <div id="statistici">
-            <div class="meniu_secundar sticky">
-                <button class="small-round-border next-button sma">&lt;</button>
-                <span class="small-round-border small-margin">Azi</span>
-                <button id="date_range" class="small-round-border small-margin"><img src="/images/date_range--black.png"></button>
-                <button class="small-round-border next-button">&gt;</button>
-            </div>
-        
+        <div class="meniu_secundar sticky">
+            <button class="small-round-border next-button sma">&lt;</button>
+            <span class="small-round-border small-margin">Azi</span>
+            <button id="date_range" class="small-round-border small-margin"><img
+                    src="/images/date_range--black.png"></button>
+            <button class="small-round-border next-button">&gt;</button>
+        </div>
+
         <h2 class="title">Sortarea gunoiului colectat</h2>
 
         <div id="statistica_sortare"></div>
@@ -64,46 +73,52 @@
                 <h3>Hartie</h3>
                 <div id="statistica_top_hartie"></div>
             </div>
-            <div class="card"  id="card_metal">
+            <div class="card" id="card_metal">
                 <h3>Metal</h3>
                 <div id="statistica_top_metal"></div>
             </div>
-            <div class="card"  id="card_sticla">
+            <div class="card" id="card_sticla">
                 <h3>Sticla</h3>
                 <div id="statistica_top_sticla"></div>
             </div>
-            <div class="card"  id="card_plastic">
+            <div class="card" id="card_plastic">
                 <h3>Plastic</h3>
                 <div id="statistica_top_plastic"></div>
             </div>
-            <div class="card"  id="card_menajer">
+            <div class="card" id="card_menajer">
                 <h3>Menajer</h3>
                 <div id="statistica_top_menajer"></div>
             </div>
         </div>
-
-        <h2 class="title">Kilograme de gunoi colectat per pubela</h2>
-        <div class="table">
-            <table>
-                <tr>
-                    <th>Id pubela</th>
-                    <th>Locatie</th>
-                    <th>Menajer</th>
-                    <th>Plastic</th>
-                    <th>Sticla</th>
-                    <th>Hartie</th>
-                    <th>Metal</th>
-                </tr>
-                <tr>
-                    <td>0</td>
-                    <td>Str.Closca nr.6</td>
-                    <td>174</td>
-                    <td>132</td>
-                    <td>104</td>
-                    <td>75</td>
-                    <td>121</td>
-                </tr>
-                <tr class="red_background">
+        <div id="statistici-tabelare">
+            <svg id="svg" xmlns="http://www.w3.org/2000/svg" viewBox="70 45 700 160">
+                <path
+                    d="M10.70793777823889,226.12514982819462 L192.0968994501143,125.64056428579745 L250.9928896010874,194.57564366705 L487.24612282033166,70.76020982693618 L546.1421129713046,189.22146274423432 L730.1920821930955,45.32785044356145 L791.0958901901245,255.47945166407902 L791.0958901901245,-9.552504015299817 L0.6849314594518425,-14.906684938115557 L10.70793777823889,226.12514982819462 z"
+                    fill="white" stroke-width="170" stroke-linecap="round">
+                </path>
+            </svg>
+            <h2 class="title" id="title-kg-pubela">Kilograme de gunoi colectat per pubela</h2>
+            <div class="table">
+                <table>
+                    <tr>
+                        <th>Id pubela</th>
+                        <th>Locatie</th>
+                        <th>Menajer</th>
+                        <th>Plastic</th>
+                        <th>Sticla</th>
+                        <th>Hartie</th>
+                        <th>Metal</th>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>Str.Closca nr.6</td>
+                        <td>174</td>
+                        <td>132</td>
+                        <td>104</td>
+                        <td>75</td>
+                        <td>121</td>
+                    </tr>
+                    <tr>
                         <td>1</td>
                         <td>Str.14 Decembrie nr.10</td>
                         <td>237</td>
@@ -111,8 +126,8 @@
                         <td>237</td>
                         <td>168</td>
                         <td>15</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>2</td>
                         <td>Str.G.Muzicescu nr.4</td>
                         <td>172</td>
@@ -120,8 +135,8 @@
                         <td>53</td>
                         <td>95</td>
                         <td>42</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>3</td>
                         <td>Str.G.Muzicescu nr.6</td>
                         <td>227</td>
@@ -129,8 +144,8 @@
                         <td>277</td>
                         <td>75</td>
                         <td>235</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>4</td>
                         <td>Str.Perju nr.3</td>
                         <td>238</td>
@@ -138,8 +153,8 @@
                         <td>286</td>
                         <td>70</td>
                         <td>10</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>5</td>
                         <td>Str.Splai Bahlui nr.37</td>
                         <td>171</td>
@@ -147,8 +162,8 @@
                         <td>26</td>
                         <td>88</td>
                         <td>116</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>6</td>
                         <td>Str.Prof.Sesan nr.38</td>
                         <td>226</td>
@@ -156,8 +171,8 @@
                         <td>119</td>
                         <td>190</td>
                         <td>80</td>
-                </tr>
-                <tr class="red_background">
+                    </tr>
+                    <tr>
                         <td>7</td>
                         <td>Str.Constantin F.N</td>
                         <td>285</td>
@@ -165,8 +180,8 @@
                         <td>201</td>
                         <td>139</td>
                         <td>299</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>8</td>
                         <td>Str.Splai Bahlui nr.33</td>
                         <td>23</td>
@@ -174,8 +189,8 @@
                         <td>20</td>
                         <td>193</td>
                         <td>297</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>9</td>
                         <td>Str.Splai Bahlui nr.31</td>
                         <td>12</td>
@@ -183,17 +198,17 @@
                         <td>84</td>
                         <td>187</td>
                         <td>127</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>10</td>
-                        <td>Str.Zimbru  nr.5</td>
+                        <td>Str.Zimbru nr.5</td>
                         <td>69</td>
                         <td>164</td>
                         <td>199</td>
                         <td>172</td>
                         <td>176</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>11</td>
                         <td>Str.Sf.Lazar 18</td>
                         <td>198</td>
@@ -201,8 +216,8 @@
                         <td>110</td>
                         <td>222</td>
                         <td>231</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>12</td>
                         <td>Str.O.Cazimir nr.15</td>
                         <td>218</td>
@@ -210,8 +225,8 @@
                         <td>166</td>
                         <td>214</td>
                         <td>101</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>13</td>
                         <td>Str.G.Ureche nr.3</td>
                         <td>49</td>
@@ -219,8 +234,8 @@
                         <td>99</td>
                         <td>290</td>
                         <td>232</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>14</td>
                         <td>Str.G.Ureche nr.6</td>
                         <td>48</td>
@@ -228,8 +243,8 @@
                         <td>187</td>
                         <td>197</td>
                         <td>180</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>15</td>
                         <td>Str.G.Ureche nr.4</td>
                         <td>26</td>
@@ -237,8 +252,8 @@
                         <td>146</td>
                         <td>78</td>
                         <td>179</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>16</td>
                         <td>Str.Balti nr.7</td>
                         <td>253</td>
@@ -246,8 +261,8 @@
                         <td>126</td>
                         <td>129</td>
                         <td>82</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>17</td>
                         <td>Str.G.Ureche nr.1</td>
                         <td>140</td>
@@ -255,8 +270,8 @@
                         <td>118</td>
                         <td>243</td>
                         <td>179</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>18</td>
                         <td>Str.Ghica Voda nr.2</td>
                         <td>70</td>
@@ -264,8 +279,8 @@
                         <td>245</td>
                         <td>29</td>
                         <td>201</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>19</td>
                         <td>Styr.Silvestru nr.14</td>
                         <td>207</td>
@@ -273,17 +288,17 @@
                         <td>210</td>
                         <td>62</td>
                         <td>150</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>20</td>
-                        <td>Str.A.PANU  nr.54</td>
+                        <td>Str.A.PANU nr.54</td>
                         <td>200</td>
                         <td>91</td>
                         <td>153</td>
                         <td>114</td>
                         <td>146</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>21</td>
                         <td>Str.Ghica Voda nr.5</td>
                         <td>153</td>
@@ -291,8 +306,8 @@
                         <td>56</td>
                         <td>166</td>
                         <td>89</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>22</td>
                         <td>Str.C.Negri nr.52</td>
                         <td>274</td>
@@ -300,8 +315,8 @@
                         <td>267</td>
                         <td>163</td>
                         <td>242</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>23</td>
                         <td>Str.Bancii nr.5</td>
                         <td>108</td>
@@ -309,8 +324,8 @@
                         <td>264</td>
                         <td>15</td>
                         <td>245</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>24</td>
                         <td>Str.Rascanu 3-5</td>
                         <td>87</td>
@@ -318,8 +333,8 @@
                         <td>167</td>
                         <td>129</td>
                         <td>152</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>25</td>
                         <td>Bd.Stefan cel Mare nr.9</td>
                         <td>61</td>
@@ -327,8 +342,8 @@
                         <td>57</td>
                         <td>183</td>
                         <td>295</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>26</td>
                         <td>Str.A.Panu nr.3</td>
                         <td>266</td>
@@ -336,8 +351,8 @@
                         <td>111</td>
                         <td>76</td>
                         <td>185</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>27</td>
                         <td>Str.Armeana nr.22</td>
                         <td>93</td>
@@ -345,8 +360,8 @@
                         <td>63</td>
                         <td>210</td>
                         <td>211</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>28</td>
                         <td>S-la Silvestru nr.22</td>
                         <td>119</td>
@@ -354,8 +369,8 @@
                         <td>233</td>
                         <td>31</td>
                         <td>141</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>29</td>
                         <td>Incinta Primarie</td>
                         <td>154</td>
@@ -363,8 +378,8 @@
                         <td>40</td>
                         <td>50</td>
                         <td>183</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>30</td>
                         <td>Str.Barboi nr.6</td>
                         <td>166</td>
@@ -372,8 +387,8 @@
                         <td>62</td>
                         <td>219</td>
                         <td>269</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>31</td>
                         <td>Bd.Stefan Cel Mare nr.12</td>
                         <td>168</td>
@@ -381,8 +396,8 @@
                         <td>137</td>
                         <td>98</td>
                         <td>231</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>32</td>
                         <td>Str.Dancu nr.5</td>
                         <td>152</td>
@@ -390,8 +405,8 @@
                         <td>61</td>
                         <td>289</td>
                         <td>92</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>33</td>
                         <td>Bd.Stefan cel Mare nr.7</td>
                         <td>164</td>
@@ -399,8 +414,8 @@
                         <td>230</td>
                         <td>266</td>
                         <td>25</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>34</td>
                         <td>Bd.Stefan cel Mare nr.5</td>
                         <td>236</td>
@@ -408,8 +423,8 @@
                         <td>297</td>
                         <td>150</td>
                         <td>130</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>35</td>
                         <td>Fd.Armeana nr.6</td>
                         <td>214</td>
@@ -417,8 +432,8 @@
                         <td>136</td>
                         <td>47</td>
                         <td>47</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>36</td>
                         <td>Str.Horia nr.18</td>
                         <td>182</td>
@@ -426,8 +441,8 @@
                         <td>190</td>
                         <td>80</td>
                         <td>173</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>37</td>
                         <td>Str.Armeana nr.1</td>
                         <td>20</td>
@@ -435,8 +450,8 @@
                         <td>166</td>
                         <td>268</td>
                         <td>276</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>38</td>
                         <td>Bd.Stefan cel Mare nr.3</td>
                         <td>223</td>
@@ -444,8 +459,8 @@
                         <td>211</td>
                         <td>286</td>
                         <td>94</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>39</td>
                         <td>Str.G.Enescu nr.2</td>
                         <td>14</td>
@@ -453,8 +468,8 @@
                         <td>81</td>
                         <td>196</td>
                         <td>106</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>40</td>
                         <td>Str.Cuza-Voda nr.4-8</td>
                         <td>203</td>
@@ -462,8 +477,8 @@
                         <td>25</td>
                         <td>230</td>
                         <td>188</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>41</td>
                         <td>Bd.Stefan cel Mare nr.6</td>
                         <td>22</td>
@@ -471,8 +486,8 @@
                         <td>39</td>
                         <td>33</td>
                         <td>163</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>42</td>
                         <td>Bd.Stefan cel Mare nr.2</td>
                         <td>97</td>
@@ -480,8 +495,8 @@
                         <td>94</td>
                         <td>286</td>
                         <td>32</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>43</td>
                         <td>Str.Cuza Voda nr.2</td>
                         <td>51</td>
@@ -489,8 +504,8 @@
                         <td>172</td>
                         <td>256</td>
                         <td>102</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>44</td>
                         <td>Str.Cuza Voda nr.1</td>
                         <td>261</td>
@@ -498,8 +513,8 @@
                         <td>23</td>
                         <td>261</td>
                         <td>214</td>
-                </tr>
-                <tr>
+                    </tr>
+                    <tr>
                         <td>45</td>
                         <td>Bld.Independentei nr.34</td>
                         <td>153</td>
@@ -507,8 +522,9 @@
                         <td>164</td>
                         <td>99</td>
                         <td>184</td>
-                </tr>
-            </table>
+                    </tr>
+                </table>
+            </div>
         </div>
         <div class="pagination">
             <a href="#" class="next-button">&lt;</a>
@@ -525,4 +541,5 @@
         <button>CSV</button>
     </div>
 </body>
+
 </html>
