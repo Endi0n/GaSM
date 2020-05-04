@@ -5,15 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stats</title>
-    <script src="https://www.amcharts.com/lib/4/core.js"></script>
-    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
-    <script src="https://www.amcharts.com/lib/4/themes/frozen.js"></script>
-    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
     <link rel="stylesheet" href="/styles/stats.css">
 
-    <script type="text/javascript" src="/scripts/stats.js"></script>
-
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    
 </head>
 
 <body>
@@ -48,53 +49,72 @@
     </div>
     <svg id="svg" xmlns="http://www.w3.org/2000/svg" viewBox="-50 0 950 280"
         style="position: relative; bottom: -0.3em;">
+        <defs>
+            <filter id="shadow1" x="0" width="100%" height="220%" y="-100%">
+                <feDropShadow dx="0" result="shadow1" stdDeviation="15" dy="-10" flood-opacity="0.6"></feDropShadow>
+                <feMerge>
+                    <feMergeNode in="shadow1"></feMergeNode>
+                    <feMergeNode in="SourceGraphic"></feMergeNode>
+                </feMerge>
+            </filter>
+        </defs>
         <path
             d="M-216.52927,381.40233C-136.80751,287.32366 -20.64178,252.8674 71.5249,251.37767C163.69158,249.88794 224.10279,308.44009 365.29326,313.36572C506.48373,318.29135 563.24004,253.57529 670.03642,237.79414C776.8328,222.01299 865.91082,237.42478 954.27928,273.32906"
-            fill="none" stroke="white" stroke-width="170" stroke-linecap="round">
+            fill="none" stroke="white" stroke-width="170" stroke-linecap="round" filter="url(#shadow1)">
         </path>
     </svg>
     <div id="statistici">
         <div class="meniu_secundar sticky">
-            <button class="small-round-border next-button sma">&lt;</button>
-            <span class="small-round-border small-margin">Azi</span>
-            <button id="date_range" class="small-round-border small-margin"><img
-                    src="/images/date_range--black.png"></button>
-            <button class="small-round-border next-button">&gt;</button>
+            <input name="daterange">
+            <!-- <button class="small-round-border next-button">Aplica</button> -->
         </div>
 
         <h2 class="title">Sortarea gunoiului colectat</h2>
-
-        <div id="statistica_sortare"></div>
+        
+        <div class="colectie">
+            <div class="canvas_container">
+                <canvas id="statistica_sortare"></canvas>
+            </div>
+        </div>
 
         <h2 class="title">Top cartiere gunoi colectat</h2>
 
         <div class="colectie">
             <div class="card" id="card_hartie">
                 <h3>Hartie</h3>
-                <div id="statistica_top_hartie"></div>
+                <canvas id="statistica_top_hartie"></canvas>
             </div>
             <div class="card" id="card_metal">
                 <h3>Metal</h3>
-                <div id="statistica_top_metal"></div>
+                <canvas id="statistica_top_metal"></canvas>
             </div>
             <div class="card" id="card_sticla">
                 <h3>Sticla</h3>
-                <div id="statistica_top_sticla"></div>
+                <canvas id="statistica_top_sticla"></canvas>
             </div>
             <div class="card" id="card_plastic">
                 <h3>Plastic</h3>
-                <div id="statistica_top_plastic"></div>
+                <canvas id="statistica_top_plastic"></canvas>
             </div>
             <div class="card" id="card_menajer">
                 <h3>Menajer</h3>
-                <div id="statistica_top_menajer"></div>
+                <canvas id="statistica_top_menajer"></canvas>
             </div>
         </div>
         <div id="statistici-tabelare">
-            <svg id="svg" xmlns="http://www.w3.org/2000/svg" viewBox="70 45 700 160">
+            <svg id="svg" xmlns="http://www.w3.org/2000/svg" viewBox="70 45 700 210">
+                <defs>
+                    <filter id="shadow2" x="0" width="100%" height="220%" y="-100%">
+                        <feDropShadow dx="0" result="shadow2" stdDeviation="15" dy="0" flood-opacity="0.7"></feDropShadow>
+                        <feMerge>
+                            <feMergeNode in="shadow2"></feMergeNode>
+                            <feMergeNode in="SourceGraphic"></feMergeNode>
+                        </feMerge>
+                    </filter>
+                </defs>
                 <path
                     d="M10.70793777823889,226.12514982819462 L192.0968994501143,125.64056428579745 L250.9928896010874,194.57564366705 L487.24612282033166,70.76020982693618 L546.1421129713046,189.22146274423432 L730.1920821930955,45.32785044356145 L791.0958901901245,255.47945166407902 L791.0958901901245,-9.552504015299817 L0.6849314594518425,-14.906684938115557 L10.70793777823889,226.12514982819462 z"
-                    fill="white" stroke-width="170" stroke-linecap="round">
+                    fill="white" stroke-width="170" stroke-linecap="round" filter="url(#shadow2)">
                 </path>
             </svg>
             <h2 class="title" id="title-kg-pubela">Kilograme de gunoi colectat per pubela</h2>
@@ -540,6 +560,8 @@
         <button>PDF</button>
         <button>CSV</button>
     </div>
+    
 </body>
 
+    <script type="text/javascript" src="/scripts/stats.js"></script>
 </html>

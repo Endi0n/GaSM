@@ -1,160 +1,141 @@
-am4core.ready(function() {
-            
-    // Themes begin
-    am4core.useTheme(am4themes_frozen);
-    am4core.useTheme(am4themes_animated);
-    // Themes end
-    
-    var chart = am4core.create("statistica_sortare", am4charts.PieChart);
-    chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
-    
-    chart.data = [
-      {
-        waste: "Hartie",
-        value: 300
-      },
-      {
-        waste: "Sticla",
-        value: 200
-      },
-      {
-        waste: "Plastic",
-        value: 600
-      },
-      {
-        waste: "Metal",
-        value: 150
-      },
-      {
-        waste: "Menajer",
-        value: 900
-      }
-    ];
-    chart.radius = am4core.percent(70);
-    chart.innerRadius = am4core.percent(40);
-    chart.startAngle = 180;
-    chart.endAngle = 360;  
-    
-    var series = chart.series.push(new am4charts.PieSeries());
-    series.dataFields.value = "value";
-    series.dataFields.category = "waste";
-    
-    series.slices.template.cornerRadius = 10;
-    series.slices.template.innerCornerRadius = 7;
-    series.slices.template.inert = true;
-    series.alignLabels = false;
-    series.hiddenState.properties.startAngle = 90;
-    series.hiddenState.properties.endAngle = 90;
-    
-    chart.legend = new am4charts.Legend();
-    
-    }); // end am4core.ready()
 
+function semi_doughnut_chart(id, labels, data) {
+    var ctx = document.getElementById(id).getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: '# of Votes',
+                data: data,
+                backgroundColor: [
+                    'rgb(199, 134, 253)',
+                    'rgb(178, 86, 254)',
+                    'rgb(154, 33, 254)',
+                    'rgb(104, 0, 190)',
+                    'rgb(75, 25, 116)'
 
-function pictorial_chart(data, id) {
-    am4core.ready(function() {
-    
-    // Themes begin
-    am4core.useTheme(am4themes_frozen);
-    am4core.useTheme(am4themes_animated);
-    // Themes end
-    
-    var iconPath = "M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z";
-    
-    var chart = am4core.create(id, am4charts.SlicedChart);
-    chart.hiddenState.properties.opacity = 0; // this makes initial fade in effect
-    chart.paddingLeft = 150;
-    
-    chart.data = data;
-    
-    var series = chart.series.push(new am4charts.PictorialStackedSeries());
-    series.dataFields.value = "valoare";
-    series.dataFields.category = "cartier";
-    series.alignLabels = true;
-    // this makes only A label to be visible
-    series.labels.template.propertyFields.disabled = "disabled";
-    series.ticks.template.propertyFields.disabled = "disabled";
-    
-    
-    series.maskSprite.path = iconPath;
-    series.ticks.template.locationX = 1;
-    series.ticks.template.locationY = 0;
-    
-    series.labelsContainer.width = 100;
-    
-    chart.legend = new am4charts.Legend();
-    chart.legend.position = "top";
-    chart.legend.paddingRight = 160;
-    chart.legend.paddingBottom = 40;
-    let marker = chart.legend.markers.template.children.getIndex(0);
-    chart.legend.markers.template.width = 40;
-    chart.legend.markers.template.height = 40;
-    marker.cornerRadius(20,20,20,20);
-    
-    }); // end am4core.ready()
+                ],
+                borderColor: [
+                    'rgb(199, 134, 253)',
+                    'rgb(178, 86, 254)',
+                    'rgb(154, 33, 254)',
+                    'rgb(104, 0, 190)',
+                    'rgb(75, 25, 116)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            },
+            circumference: Math.PI,
+            rotation: -Math.PI
+        }
+    });
 }
 
-pictorial_chart([{
-                    "cartier": "Restul cartierelor",
-                    "valoare": 40,
-                    "disabled":true
-                }, {
-                    "cartier": "Frumoasa",
-                    "valoare": 60
-                }, {
-                    "cartier": "Pacurari",
-                    "valoare": 30
+
+
+function bar_chart(id, name, labels, data)
+{
+    var ctx = document.getElementById(id).getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Kg ' + name,
+                data: data,
+                backgroundColor: [
+                    'rgb(173, 123, 255)',
+                    'rgb(173, 123, 255)',
+                    'rgb(173, 123, 255)'
+                ],
+                borderColor: [
+                    'rgb(173, 123, 255)',
+                    'rgb(173, 123, 255)',
+                    'rgb(173, 123, 255)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
                 }]
-                , "statistica_top_hartie");
-pictorial_chart([{
-                    "cartier": "Restul cartierelor",
-                    "valoare": 40,
-                    "disabled":true
-                }, {
-                    "cartier": "Dacia",
-                    "valoare": 40
-                },
-                {
-                    "cartier": "Frumoasa",
-                    "valoare": 50
-                }]
-                , "statistica_top_metal");
-pictorial_chart([{
-                    "cartier": "Restul cartierelor",
-                    "valoare": 40,
-                    "disabled":true
-                }, {
-                    "cartier": "Alexandru",
-                    "valoare": 40
-                },
-                {
-                    "cartier": "Tatarasi",
-                    "valoare": 50
-                }]
-                , "statistica_top_sticla");
-pictorial_chart([{
-                    "cartier": "Restul cartierelor",
-                    "valoare": 20,
-                    "disabled":true
-                }, {
-                    "cartier": "Dacia",
-                    "valoare": 70
-                },
-                {
-                    "cartier": "Nicolina",
-                    "valoare": 50
-                }]
-                , "statistica_top_plastic");
-pictorial_chart([{
-                    "cartier": "Restul cartierelor",
-                    "valoare": 320,
-                    "disabled":true
-                }, {
-                    "cartier": "Tatarasi",
-                    "valoare": 170
-                },
-                {
-                    "cartier": "Pacurari",
-                    "valoare": 150
-                }]
-                , "statistica_top_menajer");
+            }
+        }
+    });
+}
+
+semi_doughnut_chart('statistica_sortare', ['Hartie', 'Sticla', 'Plastic', 'Metal', 'Menajer'], [300, 200, 600, 150, 900]);
+bar_chart('statistica_top_hartie', 'hartie', ['Frumoasa', 'Pacurari', 'Restul cartierelor'], [60, 30, 40]);
+bar_chart('statistica_top_metal', 'metal', ['Dacia', 'Frumoasa', 'Restul cartierelor'], [40, 50, 40]);
+bar_chart('statistica_top_sticla', 'sticla', ['Alexandru', 'Tatarasi', 'Restul cartierelor'], [40, 50, 40]);
+bar_chart('statistica_top_plastic', 'plastic', ['Dacia', 'Nicolina', 'Restul cartierelor'], [70, 50, 20]);
+bar_chart('statistica_top_menajer','gunoi menajer', ['Tatarasi', 'Pacurari', 'Restul cartierelor'], [170, 150, 320]);
+
+
+$(function() {
+    $('input[name="daterange"]').daterangepicker({
+        opens: 'center',
+        "locale": {
+            "format": "DD/MM/YYYY",
+            "separator": " - ",
+            "applyLabel": "Ok",
+            "cancelLabel": "Cancel",
+            "fromLabel": "From",
+            "toLabel": "To",
+            "customRangeLabel": "Custom",
+            "weekLabel": "W",
+            "daysOfWeek": [
+                "Du",
+                "Lu",
+                "Ma",
+                "Mi",
+                "Jo",
+                "Vi",
+                "Sa"
+            ],
+            "monthNames": [
+                "Ianuarie",
+                "Februarie",
+                "Martie",
+                "Aprilie",
+                "Mai",
+                "Iunie",
+                "Iulie",
+                "August",
+                "Septembrie",
+                "Octombrie",
+                "Noiembrie",
+                "Decembrie"
+            ],
+            "firstDay": 1
+        },
+        ranges: {
+            'Azi': [moment(), moment()],
+            'Ieri': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Ultimele 7 zile': [moment().subtract(6, 'days'), moment()],
+            'Ultimele 30 zile': [moment().subtract(29, 'days'), moment()],
+            'Luna aceasta': [moment().startOf('month'), moment().endOf('month')],
+            'Luna trecuta': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            },
+        "startDate": "28/04/2020",
+        "endDate": "04/05/2020"
+        },
+         function(start, end, label) {
+        console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+        }
+    );
+});

@@ -55,7 +55,7 @@
 
 body {
     margin: 0;
-    background-image: linear-gradient(90deg, #000000 0%, #00c92b 50%, #00e800 100%);
+    background-image: linear-gradient(90deg, #3b00a5 0%, #6417ed 30%, #b883ff 100%);
 }
 .center_flex {
     display: flex;
@@ -120,9 +120,7 @@ body {
 #statistici_tabelare {
     width: 100%;
 }
-#statistica_sortare {
-    height: 40vh;
-}
+
 [id*="statistica_top_"] {
     width: 100%;
     height: 20em;
@@ -136,13 +134,13 @@ body {
     border-radius: 10px;
     height: 25em;
     width: 30em;
-    background: #9cff9c;
-    margin-bottom: 2em;
-}
-.card:hover {
+    background: #edecff;
+    margin: 2em 1em 2em 1em;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    transition: 0.5s;
+    /* transition: 0.5s; */
 }
+/* .card:hover {
+} */
 .card h3 {
     text-align: center;
     border-bottom: 2px solid;
@@ -153,26 +151,24 @@ body {
 } */
 .table {
     overflow: auto;
-    background-image: linear-gradient(90deg, #000000 0%, #00c92b 50%, #00e800 100%);
+    background-image: linear-gradient(90deg, #3b00a5 0%, #6417ed 30%, #b883ff 100%);
     position: relative;
     top: -0.6em;
+    color: white;
 }
 table {
     border-collapse: collapse;
     width: 100%;
     margin-bottom: 2em;
 }
-th, td {
+.table th, .table td {
     text-align: center;
     padding: 1.5em;
 }
 
-tr:nth-child(odd) td:first-child, tr:nth-child(odd) td:nth-child(2), th:first-child, th:nth-child(2) {
-    color: white;
-}
-
-tr:nth-child(even){
-    background-color: #8cfa90;
+.table tr:nth-child(even){
+    background-color: #edecff;
+    color: black;
 }
 .pagination {
     text-align: center;
@@ -180,7 +176,7 @@ tr:nth-child(even){
 }
 .pagination a:nth-child(2)
 {
-    background-color: chartreuse;
+    background-color: #a75fff;
     text-decoration: none;
     padding: 0.5em 1em;
 }
@@ -220,15 +216,37 @@ tr:nth-child(even){
     border: 1px solid black;
     background-color: white;
 }
+
+.meniu_secundar input {
+    width: 11.5em;
+    padding: 1em;
+    margin: 0.5em;
+}
+
 #title-kg-pubela {
-    background-image: linear-gradient(90deg, #000000 0%, #00c92b 50%, #00e800 100%);
+    background-image: linear-gradient(90deg, #3b00a5 0%, #6417ed 30%, #b883ff 100%);
     position: relative;
     top: -0.3em;
     padding: 0.5em;
     margin: 0;
+    color: white;
 }
 #statistici-tabelare {
-    background: linear-gradient(90deg, #000000 0%, #00c92b 50%, #00e800 100%);
+    background-image: linear-gradient(90deg, #3b00a5 0%, #6417ed 30%, #b883ff 100%);
+}
+.canvas_container {
+    width: 40%;
+}
+.daterangepicker .ranges li.active{
+    background-color: #7d00d2;
+}
+.daterangepicker td.in-range {
+    background-color: #dfafff;
+}
+.daterangepicker td.active, .daterangepicker td.active:hover {
+    background-color: #7d00d2;
+    border-color: transparent;
+    color: #fff;
 }
 @media screen and (max-width: 800px){
     .main_info {
@@ -249,10 +267,10 @@ tr:nth-child(even){
         width: 25em;
         background-size: 20em;
     }
-    #statistica_sortare {
-        height: 20em;
-    }
     .card {
+        width: 80%;
+    }    
+    .canvas_container {
         width: 80%;
     }
     #statistici_tabelare {
