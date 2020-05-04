@@ -1,4 +1,4 @@
-const API_ROOT_URL = 'https://roms.vodafone.ro/sal/webapi/';
+const API_ROOT_URL = 'https://gps.i-track.ro/sal/webapi/';
 const TRUCKS_JSON_URL = API_ROOT_URL + 'getvehicles';
 const BINS_JSON_URL = API_ROOT_URL + 'getpois'
 
