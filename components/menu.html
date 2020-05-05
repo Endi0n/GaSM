@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <link rel="stylesheet" href="../styles/menu.css">
+    <script src="https://kit.fontawesome.com/df8e637184.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    
+    <nav>
+      <span><a class="logo" href="#">GaSM</a></span>
+      
+      <button class='menu-btn'><i class="fas fa-bars"></i></button>
+      
+      <ul id="menu-list">
+        <ul id="menu-nav">
+          <li><span><a class="logo" href="#">GaSM</a></span></li>
+          <li><button class='menu-btn'><i class="fas fa-times"></i></button></li>
+        </ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Live Map  <i class="fas fa-map-marker-alt"></i></a></li>
+        <li><a href="#">Alerts  <i class="fas fa-exclamation-triangle"></i></a></li>
+        <li><a href="#">Info  <i class="fas fa-hands-helping"></i></a></li>
+        <li><a href="#">Login</a></li>
+      </ul>
+    </nav>
+    <script>
+        const menu_btn = document.getElementsByClassName('menu-btn');
+        const menu_list = document.getElementById('menu-list');
+
+        menu_btn[0].addEventListener('click', () => {
+                        menu_list.classList.toggle('show');
+                        });
+        menu_btn[1].addEventListener('click', () => {
+                        menu_list.classList.toggle('show');
+                        });
+    </script>
+</body>
+</html>
