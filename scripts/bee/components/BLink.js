@@ -8,8 +8,8 @@ export default class BLink extends BBaseComponent {
             const newLocation = this.attributes.href.value
             
             history.pushState(
-                {'page': newLocation},
-                `Page {newLocation}`,
+                null,
+                null,
                 newLocation
             )
 

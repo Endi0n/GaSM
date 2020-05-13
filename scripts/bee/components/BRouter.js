@@ -21,14 +21,12 @@ export default class BRouter extends BBaseComponent {
     }
 
     static route(url) {
-        history.pushState(null, null, url)
         BRouter._routers.forEach(router => router.update())
     }
 }
 
 window.addEventListener('popstate', (e) => {
-    if (history.state)
-        BRouter.route(e.originalEvent.page)
+    BRouter.route(window.location.pathname)
 })
 
 window.customElements.define('b-router', BRouter)
