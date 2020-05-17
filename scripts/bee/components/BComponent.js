@@ -7,7 +7,7 @@ export default class BComponent extends BBaseComponent {
     }
 
     async connectedCallback() {
-        await this.loadShadowFrom(this.getAttribute('url'))
+        await this.loadComponentFrom(this.getAttribute('url'))
     }
 }
 

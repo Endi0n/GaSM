@@ -3,9 +3,7 @@ import BBaseComponent from '/scripts/bee/BBaseComponent.js'
 class XCard extends BBaseComponent {
 
     async componentDidMount() {
-        const shadow = await this.loadShadowFrom('/components/card.html')
-
-        shadow.getElementById('test')
+        this.getElementsByTagName('h1')[0]
             .addEventListener('click', () => alert('Hello'))
     }
 

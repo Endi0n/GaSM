@@ -3,7 +3,7 @@
     padding: 0;
 }
 
-body {
+html {
     min-width: 100vw;
     min-height: 100vh;
 }

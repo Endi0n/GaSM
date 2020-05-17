@@ -1,13 +1,8 @@
-#map {
-    width: 100vw;
-    height: 100vh;
-}
-
-.marker-cluster  {
+x-map .marker-cluster  {
     background-color: rgba(106, 164, 222, 0.6);
 }
 
-.marker-cluster div {
+x-map .marker-cluster div {
     background-color: rgba(0, 177, 252, 0.6);
     color: white;
 }

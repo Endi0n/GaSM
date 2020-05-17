@@ -45,11 +45,7 @@ export default class BBaseComponent extends HTMLElement {
 
     async componentDidMount() { }
 
-    async loadShadowFrom(componentURL) {
-        const shadow = this.attachShadow({mode: 'open'})
-
-        shadow.innerHTML = await BComponentsManager.load(componentURL)
-
-        return shadow
+    async loadComponentFrom(componentURL) {
+        this.innerHTML = await BComponentsManager.load(componentURL)
     }
 }

@@ -1,5 +1,5 @@
 import BBaseComponent from '/scripts/bee/BBaseComponent.js'
-import Page from '/scripts/bee/components/BComponent.js'
+import BComponent from '/scripts/bee/components/BComponent.js'
 
 export default class BRouter extends BBaseComponent {
     static _routers = [] 
@@ -17,7 +17,7 @@ export default class BRouter extends BBaseComponent {
     }
 
     update() {
-        this.replaceChild(new Page(this.routes[window.location.pathname]), this.firstChild)
+        this.replaceChild(new BComponent(this.routes[window.location.pathname]), this.firstChild)
     }
 
     static route(url) {
