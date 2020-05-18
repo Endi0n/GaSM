@@ -1,10 +1,20 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-html {
-    min-width: 100vw;
-    min-height: 100vh;
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: #efefef;
+    font-family: 'Poppins', sans-serif;
+
+    display: flex;
+    flex-direction: column;
 }
 
+b-router, b-component {
+    display: flex;
+    flex-grow: 1;
+}

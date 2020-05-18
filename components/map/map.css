@@ -6,3 +6,9 @@ x-map .marker-cluster div {
     background-color: rgba(0, 177, 252, 0.6);
     color: white;
 }
+
+x-map {
+    display: block;
+    width: 100vw;
+    height: 100%;
+}
