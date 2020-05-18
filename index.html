@@ -31,24 +31,25 @@
     
     <script type="module" src="/components/card.js"></script>
     <script type="module" src="/components/map/map.js"></script>
+	<script type="module" src="/components/menu/menu.js"></script>
 
     <script type="module" src="/scripts/bee/components.js"></script>
 
     <link href='/styles/main.css' rel='stylesheet' />
     <link href='/components/map/map.css' rel='stylesheet' />
+	
+	<link href='/components/menu/menu.css' rel='stylesheet' />	
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/df8e637184.js" crossorigin="anonymous"></script>
 
     <title>Document</title>
 
-    <style>
-        x-map {
-            display: block;
-            width: 100vw;
-            height: 100vh;
-        }
-    </style>
 </head>
 
 <body>
+
+	<x-menu></x-menu>
+
     <b-component url="/pages/test.html"></b-component>
 
     <hr><br>
@@ -64,5 +65,6 @@
     <!-- <b-router>
         <b-route path="/" page="/components/map/map.html"></b-route>
     </b-router> -->
+	
 </body>
 </html>

@@ -37,8 +37,8 @@ export default class BBaseComponent extends HTMLElement {
     }
 
     async connectedCallback() {
-        await this._init()
         await this.componentDidMount()
+		await this._init()
     }
 
     async componentDidLoad() {}
