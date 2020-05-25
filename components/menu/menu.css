@@ -17,14 +17,14 @@ nav span a{
   text-decoration: none;
 }
 
-#menu-list {
+.menu-list {
   display: flex;
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-#menu-list li {
+.menu-list li {
   margin: 0 10px;
 }
 
@@ -39,13 +39,13 @@ nav span a{
   outline: none;
 }
 
-#menu-list li a {
+.menu-list li a {
   color: #2c405e;
   text-decoration: none;
   position: relative;
 }
 
-#menu-list li a::after {
+.menu-list li a::after {
   content: '';
   background-color: #2c405e;
   opacity: 0;
@@ -58,7 +58,7 @@ nav span a{
   transition: transform 0.2s ease;
 }
 
-#menu-list li a:hover::after {
+.menu-list li a:hover::after {
   transform: translateY(-15px);
   opacity: 1;
 }
@@ -80,7 +80,7 @@ nav span a{
     display: block;
   }
   
-  #menu-list {
+  .menu-list {
     background-color: #fff;
     box-shadow: 0.3px 5px rgba(0, 0, 0, 0.1);
     position: fixed;
@@ -94,15 +94,15 @@ nav span a{
     transition: transform 0.4s ease;
   }
   
-  #menu-list.show {
+  .menu-list.show {
     transform: translateX(0);
   }
   
-  #menu-list li {
+  .menu-list li {
     margin: 15px;
   }
 
-  #menu-list li a {
+  .menu-list li a {
     font-size: 2em;
   }
   

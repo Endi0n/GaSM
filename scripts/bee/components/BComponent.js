@@ -1,13 +1,15 @@
-import BBaseComponent from '/scripts/bee/BBaseComponent.js'
+import Component from '/scripts/bee/Component.js'
+import ComponentsManager from '/scripts/bee/ComponentsManager.js'
 
-export default class BComponent extends BBaseComponent {
-    constructor(url) {
+
+export default class BComponent extends Component {
+    constructor(type) {
         super()
-        if (url) this.setAttribute('url', url)
+        if (type) this.setAttribute('type', type)
     }
 
     async connectedCallback() {
-        await this.loadComponentFrom(this.getAttribute('url'))
+        this.appendChild(new ComponentsManager.components[this.getAttribute('type')].class())
     }
 }
 

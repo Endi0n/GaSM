@@ -1,7 +1,7 @@
-import BBaseComponent from '/scripts/bee/BBaseComponent.js'
+import Component from '/scripts/bee/Component.js'
 import BComponent from '/scripts/bee/components/BComponent.js'
 
-export default class BRouter extends BBaseComponent {
+export default class BRouter extends Component {
     static _routers = [] 
 
     async componentDidLoad() {
@@ -11,7 +11,7 @@ export default class BRouter extends BBaseComponent {
 
         Array.from(this.childNodes)
             .filter(el => el.tagName === 'B-ROUTE')
-            .forEach(el => this.routes[el.attributes.path.value] = el.attributes.page.value)
+            .forEach(el => this.routes[el.attributes.path.value] = el.attributes.component.value)
         
         this.update()
     }

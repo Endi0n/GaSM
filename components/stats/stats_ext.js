@@ -86,56 +86,56 @@ bar_chart('statistica_top_plastic', 'plastic', ['Dacia', 'Nicolina', 'Restul car
 bar_chart('statistica_top_menajer','gunoi menajer', ['Tatarasi', 'Pacurari', 'Restul cartierelor'], [170, 150, 320]);
 
 
-$(function() {
-    $('input[name="daterange"]').daterangepicker({
-        opens: 'center',
-        "locale": {
-            "format": "DD/MM/YYYY",
-            "separator": " - ",
-            "applyLabel": "Ok",
-            "cancelLabel": "Cancel",
-            "fromLabel": "From",
-            "toLabel": "To",
-            "customRangeLabel": "Custom",
-            "weekLabel": "W",
-            "daysOfWeek": [
-                "Du",
-                "Lu",
-                "Ma",
-                "Mi",
-                "Jo",
-                "Vi",
-                "Sa"
-            ],
-            "monthNames": [
-                "Ianuarie",
-                "Februarie",
-                "Martie",
-                "Aprilie",
-                "Mai",
-                "Iunie",
-                "Iulie",
-                "August",
-                "Septembrie",
-                "Octombrie",
-                "Noiembrie",
-                "Decembrie"
-            ],
-            "firstDay": 1
+
+$('input[name="daterange"]').daterangepicker({
+    opens: 'center',
+    "locale": {
+        "format": "DD/MM/YYYY",
+        "separator": " - ",
+        "applyLabel": "Ok",
+        "cancelLabel": "Cancel",
+        "fromLabel": "From",
+        "toLabel": "To",
+        "customRangeLabel": "Custom",
+        "weekLabel": "W",
+        "daysOfWeek": [
+            "Du",
+            "Lu",
+            "Ma",
+            "Mi",
+            "Jo",
+            "Vi",
+            "Sa"
+        ],
+        "monthNames": [
+            "Ianuarie",
+            "Februarie",
+            "Martie",
+            "Aprilie",
+            "Mai",
+            "Iunie",
+            "Iulie",
+            "August",
+            "Septembrie",
+            "Octombrie",
+            "Noiembrie",
+            "Decembrie"
+        ],
+        "firstDay": 1
+    },
+    ranges: {
+        'Azi': [moment(), moment()],
+        'Ieri': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+        'Ultimele 7 zile': [moment().subtract(6, 'days'), moment()],
+        'Ultimele 30 zile': [moment().subtract(29, 'days'), moment()],
+        'Luna aceasta': [moment().startOf('month'), moment().endOf('month')],
+        'Luna trecuta': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
         },
-        ranges: {
-            'Azi': [moment(), moment()],
-            'Ieri': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-            'Ultimele 7 zile': [moment().subtract(6, 'days'), moment()],
-            'Ultimele 30 zile': [moment().subtract(29, 'days'), moment()],
-            'Luna aceasta': [moment().startOf('month'), moment().endOf('month')],
-            'Luna trecuta': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-            },
-        "startDate": "28/04/2020",
-        "endDate": "04/05/2020"
-        },
-         function(start, end, label) {
+    "startDate": "28/04/2020",
+    "endDate": "04/05/2020"
+    },
+    
+    function(start, end, label) {
         console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
-        }
-    );
-});
+    }
+);

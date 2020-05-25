@@ -6,53 +6,23 @@
 
     <!-- JQuery -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
-
-    <!-- Leaflet.js -->
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-    crossorigin=""></script>
-
-    <!-- Leaflet.js -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-    crossorigin="" />
-
-    <!-- Leaflet.js Fullscreen plugin -->
-    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
-    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css'
-    rel='stylesheet' />
-
-    <!-- Leaflet.js MarkerCluster plugin -->
-    <script src='https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js'></script>
-    <link href='https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css' rel='stylesheet' />
-    <link href='https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css' rel='stylesheet' />
-
-    <script src="/scripts/leaflet-rotated-icon.js"></script>
     
-    <script type="module" src="/components/card.js"></script>
     <script type="module" src="/components/map/map.js"></script>
-	<script type="module" src="/components/menu/menu.js"></script>
+    <script type="module" src="/components/menu/menu.js"></script>
+    <script type="module" src="/components/stats/stats.js"></script>
 
     <script type="module" src="/scripts/bee/components.js"></script>
 
     <link href='/styles/main.css' rel='stylesheet' />
-    <link href='/components/map/map.css' rel='stylesheet' />
-	
-	<link href='/components/menu/menu.css' rel='stylesheet' />	
-	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
-	<script src="https://kit.fontawesome.com/df8e637184.js" crossorigin="anonymous"></script>
 
     <title>Document</title>
-
 </head>
 
 <body>
-
-	<x-menu></x-menu>
+    <x-menu></x-menu>
 
     <b-router>
-        <b-route path="/" page="/components/map/map.html"></b-route>
+        <b-route path="/" component="x-map"></b-route>
     </b-router>
-	
 </body>
 </html>

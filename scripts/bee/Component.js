@@ -1,13 +1,12 @@
-import BComponentsManager from './BComponentsManager.js'
+import ComponentsManager from './ComponentsManager.js'
 
-export default class BBaseComponent extends HTMLElement {
+export default class Component extends HTMLElement {
     // https://gist.github.com/franktopel/5d760330a936e32644660774ccba58a7
 
     constructor(...args) {
-        const self = super(...args)
-        self.parsed = false // guard to make it easy to do certain stuff only once
-        self.parentNodes = []
-        return self
+        super(...args)
+        this.parsed = false // guard to make it easy to do certain stuff only once
+        this.parentNodes = []
     }
     
     async _init() {
@@ -36,16 +35,33 @@ export default class BBaseComponent extends HTMLElement {
         }
     }
 
+    static define(name, cls, props) {
+        ComponentsManager.define(name, cls, props)
+    }
+
+    async _loadTemplateFrom(templateURL) {
+        this.innerHTML = await ComponentsManager._loadURL(templateURL)
+    }
+
+    async _loadScriptsFrom(scriptsURLs) {
+
+    }
+
+    async _loadStylesFrom(stylesURLs) {
+
+    }
+
     async connectedCallback() {
+        await ComponentsManager.loadDependecies(this.constructor)
+
+        if (this.constructor.template)
+            this.innerHTML = await ComponentsManager.getComponent(this.constructor.template)
+    
         await this.componentDidMount()
 		await this._init()
     }
 
-    async componentDidLoad() {}
-
     async componentDidMount() { }
 
-    async loadComponentFrom(componentURL) {
-        this.innerHTML = await BComponentsManager.load(componentURL)
-    }
+    async componentDidLoad() {}
 }

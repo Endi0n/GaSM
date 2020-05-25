@@ -1,7 +1,5 @@
-import BBaseComponent from '/scripts/bee/BBaseComponent.js'
+import Component from '/scripts/bee/Component.js'
 
-class BRoute extends BBaseComponent {
-    
-}
+class BRoute extends Component {}
 
 window.customElements.define('b-route', BRoute)

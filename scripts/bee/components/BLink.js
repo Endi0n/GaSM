@@ -1,7 +1,7 @@
-import BBaseComponent from '/scripts/bee/BBaseComponent.js'
+import Component from '/scripts/bee/Component.js'
 import BRouter from '/scripts/bee/components/BRouter.js'
 
-export default class BLink extends BBaseComponent {
+export default class BLink extends Component {
     constructor() {
         super()
         this.onclick = (e) => {
@@ -19,4 +19,3 @@ export default class BLink extends BBaseComponent {
 }
 
 window.customElements.define('b-link', BLink)
-
