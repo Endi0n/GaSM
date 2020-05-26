@@ -15,7 +15,9 @@ Component.define('x-stats', XStats, {
         'https://cdn.jsdelivr.net/momentjs/latest/moment.min.js',
         'https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js',
         'https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js',
-        
+    ],
+
+    lazyScripts: [
         '/components/stats/stats_ext.js'
     ]
 })

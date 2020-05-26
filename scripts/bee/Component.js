@@ -22,11 +22,11 @@ export default class Component extends HTMLElement {
         // if not (no whitespace at all between tags and no nextElementSiblings either)
         // resort to DOMContentLoaded or load having triggered
         if ([this, ...this.parentNodes].some(el => el.nextSibling) || document.readyState !== 'loading') {
-            this.componentDidLoad()
+            this._componentDidLoad()
         } else {
             this.mutationObserver = new MutationObserver(async () => {
                 if ([this, ...this.parentNodes].some(el => el.nextSibling) || document.readyState !== 'loading') {
-                    await this.componentDidLoad()
+                    await this._componentDidLoad()
                     this.mutationObserver.disconnect()
                 }
             });
@@ -39,29 +39,22 @@ export default class Component extends HTMLElement {
         ComponentsManager.define(name, cls, props)
     }
 
-    async _loadTemplateFrom(templateURL) {
-        this.innerHTML = await ComponentsManager._loadURL(templateURL)
-    }
-
-    async _loadScriptsFrom(scriptsURLs) {
-
-    }
-
-    async _loadStylesFrom(stylesURLs) {
-
-    }
-
     async connectedCallback() {
         await ComponentsManager.loadDependecies(this.constructor)
 
         if (this.constructor.template)
-            this.innerHTML = await ComponentsManager.getComponent(this.constructor.template)
+            this.innerHTML = await ComponentsManager.getTemplate(this.constructor)
     
         await this.componentDidMount()
 		await this._init()
     }
 
     async componentDidMount() { }
+
+    async _componentDidLoad() {
+        await ComponentsManager.loadLazyDependencies(this.constructor)
+        await this.componentDidLoad()
+    }
 
     async componentDidLoad() {}
 }

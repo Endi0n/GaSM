@@ -1,4 +1,3 @@
-
 function semi_doughnut_chart(id, labels, data) {
     var ctx = document.getElementById(id).getContext('2d');
     var myChart = new Chart(ctx, {
