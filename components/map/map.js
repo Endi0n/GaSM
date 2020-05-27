@@ -2,13 +2,17 @@ import Component from '/scripts/bee/Component.js'
 
 class XMap extends Component {
     initXMap() {
+        if (XMap.inited) return
+
         const API_ROOT_URL = 'https://gps.i-track.ro/sal/webapi/';
 
-        this.TRUCKS_JSON_URL = API_ROOT_URL + 'getvehicles';
-        this.BINS_JSON_URL = API_ROOT_URL + 'getpois'
+        XMap.TRUCKS_JSON_URL = API_ROOT_URL + 'getvehicles';
+        XMap.BINS_JSON_URL = API_ROOT_URL + 'getpois'
 
-        this.TRUCK_ICON = L.icon({ iconUrl: '/images/truck--green.svg', iconSize: [26, 26], iconAnchor: [13, 13] })
-        this.BIN_ICON = L.icon({ iconUrl: '/images/dumpster--green.svg', iconSize: [26, 26], iconAnchor: [13, 13] })
+        XMap.TRUCK_ICON = L.icon({ iconUrl: '/images/truck--green.svg', iconSize: [26, 26], iconAnchor: [13, 13] })
+        XMap.BIN_ICON = L.icon({ iconUrl: '/images/dumpster--green.svg', iconSize: [26, 26], iconAnchor: [13, 13] })
+    
+        XMap.inited = true
     }
 
     async componentDidMount() {
@@ -18,11 +22,13 @@ class XMap extends Component {
         this.trucksLayer = L.featureGroup().addTo(this.map)
         this.binsLayer = L.markerClusterGroup({}).addTo(this.map)
     
-        L.control.layers(null, { 'Vehicule': this.trucksLayer, 'Pubele': this.binsLayer })
-            .addTo(this.map);
+        L.control.layers(null,
+            { 'Vehicule': this.trucksLayer, 'Pubele': this.binsLayer },
+            { position: 'bottomleft' }
+        ).addTo(this.map)
     
         this.refreshData()
-        setInterval(this.refreshData, 60e3) // every minute
+        setInterval(this.refreshData.bind(this), 60e3) // every minute
     }
     
     initMap(mapDiv) {
@@ -46,17 +52,16 @@ class XMap extends Component {
     }
 
     refreshData() {
-        $.get(this.TRUCKS_JSON_URL, (data) => this.drawTrucks(data))
-        $.get(this.BINS_JSON_URL, (data) => this.drawBins(data))
+        $.get(XMap.TRUCKS_JSON_URL, (data) => this.drawTrucks(data))
+        $.get(XMap.BINS_JSON_URL, (data) => this.drawBins(data))
     }
 
     drawTrucks(trucks) {
-        console.log(this)
         this.trucksLayer.clearLayers()
 
         for (let truck of trucks) {
             let truckMarker = L.marker([truck.LastLatitude, truck.LastLongitude], {
-                icon: this.TRUCK_ICON,
+                icon: XMap.TRUCK_ICON,
                 rotationAngle: truck.Heading + 90
             })
             this.trucksLayer.addLayer(truckMarker)
@@ -67,7 +72,7 @@ class XMap extends Component {
         this.binsLayer.clearLayers()
 
         for (let bin of bins) {
-            let binMarker = L.marker([bin.Latitude, bin.Longitude], { icon: this.BIN_ICON })
+            let binMarker = L.marker([bin.Latitude, bin.Longitude], { icon: XMap.BIN_ICON })
             this.binsLayer.addLayer(binMarker)
         }
     }

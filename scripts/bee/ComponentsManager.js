@@ -49,7 +49,7 @@ export default class ComponentsManager {
                 scriptEl.type = 'text/javascript'
 
                 let scriptPromise = new Promise(
-                    resolve => scriptEl.onload = () => resolve()
+                    resolve => scriptEl.onload = resolve
                 )
 
                 scriptEl.src = script
@@ -70,14 +70,8 @@ export default class ComponentsManager {
                 let scriptEl = document.createElement('script')
                 scriptEl.type = 'text/javascript'
 
-                let scriptPromise = new Promise(
-                    resolve => scriptEl.onload = () => resolve()
-                )
-
                 scriptEl.src = script
                 document.body.appendChild(scriptEl)
-
-                await scriptPromise
 
                 ComponentsManager._loaded_scripts[script] = {count: 0, element: scriptEl}
             }
