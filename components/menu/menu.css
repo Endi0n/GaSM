@@ -1,3 +1,9 @@
+x-menu {
+  position: sticky;    
+  top: 0;       
+  z-index: 4000000000; 
+}
+
 nav {
   background-color: #fff;
   box-shadow: 0.3px 5px rgba(0, 0, 0, 0.1);
@@ -5,7 +11,6 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 15px;
-  overflow:hidden;
 }
 
 nav span a{
@@ -92,6 +97,7 @@ nav span a{
     text-align: left;
     transform: translateX(-105%);
     transition: transform 0.4s ease;
+    z-index: 4000000000;
   }
   
   .menu-list.show {
