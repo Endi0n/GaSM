@@ -1,13 +1,12 @@
-.meniu_secundar {
+#meniu_secundar {
     width: 80%;
-    position: relative;
     display: flex;
     justify-content: center;
     left: 10%;
     border-radius: 0 0 1em 1em;
 }
 
-.meniu_secundar button {
+#meniu_secundar button {
     transition: 0.5s;
 }
 
@@ -139,16 +138,12 @@ body {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     /* transition: 0.5s; */
 }
-/* .card:hover {
-} */
 .card h3 {
     text-align: center;
     border-bottom: 2px solid;
     padding-bottom: 0.5em;
+    margin-top: 0.5em;
 }
-/* .card g[role="region"] {
-    transform: translate(-120px, -10px);
-} */
 .table {
     overflow: auto;
     background-image: linear-gradient(90deg, #3b00a5 0%, #6417ed 30%, #b883ff 100%);
@@ -211,14 +206,14 @@ table {
 .download_options button:focus {
     background-color: #bebebe;
 }
-.meniu_secundar span {
+#meniu_secundar span {
     padding: 1em;
     border: 1px solid black;
     background-color: white;
 }
 
-.meniu_secundar input {
-    width: 11.5em;
+#meniu_secundar input {
+    width: 13.5em;
     padding: 1em;
     margin: 0.5em;
 }
@@ -233,6 +228,10 @@ table {
 }
 #statistici-tabelare {
     background-image: linear-gradient(90deg, #3b00a5 0%, #6417ed 30%, #b883ff 100%);
+}
+#start_stats_svg {
+    position: relative;
+    bottom: -0.5em;
 }
 .canvas_container {
     width: 40%;
