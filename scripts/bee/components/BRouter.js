@@ -3,21 +3,27 @@ import BComponent from '/scripts/bee/components/BComponent.js'
 
 export default class BRouter extends Component {
     static _routers = [] 
+    
+    _routes = {}
 
     async componentDidLoad() {
         BRouter._routers.push(this)
 
-        this.routes = {}
-
         Array.from(this.childNodes)
             .filter(el => el.tagName === 'B-ROUTE')
-            .forEach(el => this.routes[el.attributes.path.value] = el.attributes.component.value)
+            .forEach(el => this._routes[el.attributes.path.value] = el.attributes.component.value)
         
         this.update()
     }
 
     update() {
-        this.replaceChild(new BComponent(this.routes[window.location.pathname]), this.firstChild)
+        for (const [route, componentType] of Object.entries(this._routes)) {
+            if (!new RegExp(route).test(window.location.pathname))
+                continue
+
+            this.replaceChild(new BComponent(componentType), this.firstChild)
+            break
+        }
     }
 
     static route(url) {
