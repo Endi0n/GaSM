@@ -20,10 +20,10 @@ export default class Server {
 
             res.headers.set('Content-Type', 'application/json')
 
-            let handler = Router.endpoints['get']['/404'] 
-            if(req.method.toLowerCase() in Router.endpoints)
-                handler = Router.endpoints[req.method.toLowerCase()][req.url] || Router.endpoints['default'][req.url] || 
-                          Router.endpoints['get']['/404'] 
+            let handler = Router.endpoints['/404']['get'] 
+            if(req.url in Router.endpoints)
+                handler = Router.endpoints[req.url][req.method.toLowerCase()] || Router.endpoints[req.url]['default'] || 
+                          Router.endpoints['/404']['get'] 
             
             let json = handler(req)
 
