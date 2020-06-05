@@ -1,18 +1,16 @@
 import * as deno from 'https://deno.land/std@0.53.0/http/server.ts'
-import Request from './request.ts'
 import Response from './response.ts'
+import Router from './router.ts'
+
 
 export default class Server {
     private readonly server: deno.Server
     readonly port: number
     readonly root: string
-    readonly routes: Record<string, (req: Request) => void>
 
-    constructor(port: number, root: string, routes: Record<string, (req: Request) => void>) {
+    constructor(port: number, root: string) {
         this.port = port
         this.root = root
-        this.routes = routes
-
         this.server = deno.serve({port: port})
     }
 
@@ -22,8 +20,11 @@ export default class Server {
 
             res.headers.set('Content-Type', 'application/json')
 
-            let handler = this.routes[req.url] || this.routes[404]
-
+            let handler = Router.endpoints['get']['/404'] 
+            if(req.method.toLowerCase() in Router.endpoints)
+                handler = Router.endpoints[req.method.toLowerCase()][req.url] || Router.endpoints['default'][req.url] || 
+                          Router.endpoints['get']['/404'] 
+            
             let json = handler(req)
 
             res.body = JSON.stringify(json)
