@@ -19,7 +19,7 @@ export default class BRouter extends Component {
 
     update() {
         for (const [route, componentType] of Object.entries(this._routes)) {
-            if (!new RegExp(route).test(window.location.pathname))
+            if (!new RegExp(`^${route}$`).test(window.location.pathname))
                 continue
 
             ComponentsManager.removeDependencies(this.firstChild)

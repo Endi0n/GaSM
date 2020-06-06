@@ -103,6 +103,5 @@ export default class ComponentsManager {
                 delete ComponentsManager._loadedResources[key]
             }
         }
-            
     }
 }
