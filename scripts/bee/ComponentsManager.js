@@ -3,8 +3,7 @@ export default class ComponentsManager {
 
     static _templates = {}
 
-    static _loaded_styles = {}
-    static _loaded_scripts = {}
+    static _loadedResources = {}
 
     static async define(name, cls, props) {
         cls.componentName = name
@@ -13,10 +12,7 @@ export default class ComponentsManager {
         cls.scripts = props.scripts
         cls.lazyScripts = props.lazyScripts
 
-        ComponentsManager.components[name] = {
-            class: cls,
-            ...props
-        }
+        ComponentsManager.components[name] = cls
 
         window.customElements.define(name, cls)
     }
@@ -35,16 +31,21 @@ export default class ComponentsManager {
 
     static async loadDependecies(component) {
         for (let style of component.styles || []) {
-            if (!(style in ComponentsManager._loaded_styles)) {
-                document.head.insertAdjacentHTML('beforeend', `<link rel='stylesheet' href='${style}' />`)
-                ComponentsManager._loaded_styles[style] = 0
+            if (!(style in ComponentsManager._loadedResources)) {
+                let styleEl = document.createElement('link')
+                styleEl.rel = 'stylesheet'
+                styleEl.href = style
+
+                document.head.appendChild(styleEl)
+
+                ComponentsManager._loadedResources[style] = { count: 0, element: styleEl }
             }
 
-            ComponentsManager._loaded_styles[style] += 1
+            ComponentsManager._loadedResources[style].count += 1
         }
 
         for (let script of component.scripts || []) {
-            if (!(script in ComponentsManager._loaded_scripts)) {
+            if (!(script in ComponentsManager._loadedResources)) {
                 let scriptEl = document.createElement('script')
                 scriptEl.type = 'text/javascript'
 
@@ -57,26 +58,51 @@ export default class ComponentsManager {
 
                 await scriptPromise
 
-                ComponentsManager._loaded_scripts[script] = {count: 0, element: scriptEl}
+                ComponentsManager._loadedResources[script] = { count: 0, element: scriptEl }
             }
 
-            ComponentsManager._loaded_scripts[script].count += 1
+            ComponentsManager._loadedResources[script].count += 1
         }
     }
 
-    static async loadLazyDependencies(component) {
+    static loadLazyDependencies(component) {
         for (let script of component.lazyScripts || []) {
-            if (!(script in ComponentsManager._loaded_scripts)) {
+            if (!(script in ComponentsManager._loadedResources)) {
                 let scriptEl = document.createElement('script')
                 scriptEl.type = 'text/javascript'
 
                 scriptEl.src = script
                 document.body.appendChild(scriptEl)
 
-                ComponentsManager._loaded_scripts[script] = {count: 0, element: scriptEl}
+                ComponentsManager._loadedResources[script] = { count: 0, element: scriptEl }
             }
 
-            ComponentsManager._loaded_scripts[script].count += 1
+            ComponentsManager._loadedResources[script].count += 1
         }
+    }
+
+    static _removeDependenciesCascade(component) {
+        if (!component.tagName) return
+
+        for (const subComponent of component.childNodes)
+            ComponentsManager._removeDependenciesCascade(subComponent)
+        
+        const componentCls = ComponentsManager.components[component.tagName.toLowerCase()]
+        if (!componentCls) return
+
+        for (const resource of [...componentCls.styles || [], ...componentCls.scripts || [], ...componentCls.lazyScripts || []])
+            ComponentsManager._loadedResources[resource].count -= 1    
+    }
+    
+    static removeDependencies(component) {
+        ComponentsManager._removeDependenciesCascade(component)
+        
+        for (const [key, value] of Object.entries(ComponentsManager._loadedResources)) {
+            if (value.count < 1) {
+                value.element.remove()
+                delete ComponentsManager._loadedResources[key]
+            }
+        }
+            
     }
 }

@@ -1,5 +1,6 @@
 import Component from '/scripts/bee/Component.js'
 import BComponent from '/scripts/bee/components/BComponent.js'
+import ComponentsManager from '/scripts/bee/ComponentsManager.js'
 
 export default class BRouter extends Component {
     static _routers = [] 
@@ -20,6 +21,8 @@ export default class BRouter extends Component {
         for (const [route, componentType] of Object.entries(this._routes)) {
             if (!new RegExp(route).test(window.location.pathname))
                 continue
+
+            ComponentsManager.removeDependencies(this.firstChild)
 
             this.replaceChild(new BComponent(componentType), this.firstChild)
             break

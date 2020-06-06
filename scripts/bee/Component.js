@@ -52,7 +52,7 @@ export default class Component extends HTMLElement {
     async componentDidMount() { }
 
     async _componentDidLoad() {
-        await ComponentsManager.loadLazyDependencies(this.constructor)
+        ComponentsManager.loadLazyDependencies(this.constructor)
         await this.componentDidLoad()
     }
 

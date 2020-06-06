@@ -9,7 +9,7 @@ export default class BComponent extends Component {
     }
 
     async connectedCallback() {
-        this.appendChild(new ComponentsManager.components[this.getAttribute('type')].class())
+        this.appendChild(new ComponentsManager.components[this.getAttribute('type')]())
     }
 }
 
