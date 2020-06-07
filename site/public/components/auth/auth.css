@@ -1,0 +1,160 @@
+x-menu {
+    position: absolute;
+    width: 100vw;
+}
+
+x-register {
+    box-sizing: border-box;
+    background-color: #0594ec;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+.formular {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    width: 400px;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.info {
+    border-radius: 5px;
+    width: 350px;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.info h1 {
+    color: #fff;
+}
+
+.header {
+    background-color: #f7f7f7;
+    border-bottom: 1px #f0f0f0;
+    padding: 10px 40px;
+}
+
+.header h2 {
+    margin: 0;
+}
+
+.form {
+    padding: 20px 40px;
+}
+
+.form-control {
+    margin-bottom: 5px;
+    padding-bottom: 20px;
+    position: relative;
+}
+
+.form-control label {
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.form-control input {
+    border: 2px solid #f0f0f0;
+    border-radius: 4px;
+    display: block;
+    font-size: 1em;
+    padding: 8px;
+    font-family: 'Poppins', sans-serif;
+    width: 230px;
+}
+
+.form-control.success input {
+    border-color: green;
+}
+
+.form-control.success.send small{
+    visibility: visible;
+    color: green;
+}
+
+.form-control.error input {
+    border-color: red;
+}
+
+.form-control i {
+    position: absolute;
+    top: 40px;
+    right: 10px;
+    visibility: hidden;
+}
+
+.form-control small {
+    position: absolute;
+    visibility: hidden;
+    bottom: 0;
+    left: 0;
+}
+
+.form-control.error small {
+    visibility: visible;
+    color: red;
+}
+
+.form-control small b-link {
+
+}
+
+.form button {
+    background-color: #0594ec;
+    border: 2px solid #0594ec;
+    color: #fff;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 4px;
+}
+
+.info h1{
+    font-size: 1.8em;
+}
+
+.forgot b-link {
+    text-decoration: none;
+}
+
+.in {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@media (max-width: 970px) {
+    body {
+        background-color: #0594ec;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    .formular {
+        margin-top: 5vh;
+        width: 350px;
+    }
+
+    .in {
+        flex-direction: column;
+        align-items: flex-start !important;
+    }
+
+    .info {
+        margin: 5vh 5vh;
+        padding: 15px;
+        background-color: #1B1725;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(87, 87, 87, 0.3);
+        width: 350px;
+        max-width: 100%;
+    }
+    
+  }
