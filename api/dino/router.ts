@@ -37,8 +37,10 @@ export default class Router {
         }
     }
 
-    static routeRequest(req: Request) {
+    static async routeRequest(req: Request) {
         let res = new Response()
+
+        res.headers.set('Access-Control-Allow-Origin', '*')
 
         res.headers.set('Content-Type', 'application/json')
 
@@ -72,10 +74,10 @@ export default class Router {
                 // ^ try specified method handler or resort to the default handler
                 
                 json_response = handler
-                    ? handler(req, ...route_params)             // handler found
+                    ? await handler(req, ...route_params)             // handler found
                     : Router.errorHandler.error501        
-                    ? Router.errorHandler.error501(req)       // no handler found try 501 error handler
-                    : Router.errorHandler.default(501, req)    // no 501 handler, try default error handler
+                    ? await Router.errorHandler.error501(req)       // no handler found try 501 error handler
+                    : await Router.errorHandler.default(501, req)    // no 501 handler, try default error handler
                 
                 break  // route found
             }
@@ -84,16 +86,16 @@ export default class Router {
                 // If no route matched:
 
                 json_response = Router.errorHandler.error404
-                    ? Router.errorHandler.error404(req)       // try 404 error handler
-                    : Router.errorHandler.default(404, req)    // no 404 handler, try default error handler
+                    ? await Router.errorHandler.error404(req)       // try 404 error handler
+                    : await Router.errorHandler.default(404, req)    // no 404 handler, try default error handler
             }
 
         } catch (exception) {
             // Exception throwed
 
             json_response = Router.errorHandler.error505
-                ? Router.errorHandler.error505(req, exception)        // try 505 error handler
-                : Router.errorHandler.default(500, req, exception)     // no 505 handler, resort to default error handler
+                ? await Router.errorHandler.error505(req, exception)        // try 505 error handler
+                : await Router.errorHandler.default(500, req, exception)     // no 505 handler, resort to default error handler
         }
 
         // return JSON response

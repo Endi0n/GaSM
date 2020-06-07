@@ -13,7 +13,7 @@ export default class Server {
 
     async serve() {
         for await (const req of this.server) {
-            Router.routeRequest(req)
+            await Router.routeRequest(req)
         }
     }
 }
