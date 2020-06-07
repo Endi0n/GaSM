@@ -1,6 +1,10 @@
 import Component from '/scripts/bee/Component.js'
 
-class XStats extends Component { }
+class XStats extends Component {
+    async componentRemoved() {
+        document.getElementsByClassName('daterangepicker')[0].remove()
+    }
+}
 
 Component.define('x-stats', XStats, {
     template: '/components/stats/stats.html',
