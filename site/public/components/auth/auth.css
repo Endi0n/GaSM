@@ -3,7 +3,7 @@ x-menu {
     width: 100vw;
 }
 
-x-register, x-login {
+x-register, x-login, x-forgot {
     box-sizing: border-box;
     background-color: #0594ec;
     display: flex;
