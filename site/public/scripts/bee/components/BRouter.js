@@ -14,14 +14,16 @@ export default class BRouter extends Component {
             .filter(el => el.tagName === 'B-ROUTE')
             .forEach(el => this._routes[el.attributes.path.value] = el.attributes.component.value)
         
-        this.update()
+        await this.update()
     }
 
-    update() {
+    async update() {
         for (const [route, componentType] of Object.entries(this._routes)) {
             if (!new RegExp(`^${route}$`).test(window.location.pathname))
                 continue
-
+            
+            if (this.firstChild._componentRemoved)
+                await this.firstChild._componentRemoved()
             ComponentsManager.removeDependencies(this.firstChild)
 
             this.replaceChild(new BComponent(componentType), this.firstChild)
@@ -29,13 +31,13 @@ export default class BRouter extends Component {
         }
     }
 
-    static route(url) {
-        BRouter._routers.forEach(router => router.update())
+    static async route(url) {
+        BRouter._routers.forEach(async router => await router.update())
     }
 }
 
-window.addEventListener('popstate', (e) => {
-    BRouter.route(window.location.pathname)
+window.addEventListener('popstate', async (e) => {
+    await BRouter.route(window.location.pathname)
 })
 
 window.customElements.define('b-router', BRouter)

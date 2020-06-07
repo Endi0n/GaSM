@@ -57,4 +57,14 @@ export default class Component extends HTMLElement {
     }
 
     async componentDidLoad() {}
+
+    async _componentRemoved() {        
+        await this.componentRemoved()
+
+        for (const subComponent of this.childNodes)
+            if (subComponent._componentRemoved)
+                await subComponent._componentRemoved()
+    }
+
+    async componentRemoved() {}
 }
