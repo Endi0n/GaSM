@@ -27,7 +27,7 @@ export default class User {
     }
   
     static async findByEmail(email: string) {
-        const query = await client.query("select * from user where email = ? limit 1", [email])
+        const query = (await client.query("select * from user where email = ? limit 1", [email]))[0]
         if (!query) return null
 
         let user = new User(query.email, query.password, query.first_name, query.last_name,
@@ -38,7 +38,7 @@ export default class User {
     }
   
     static async findById(id: number) {
-        const query = await client.query("select * from user where id = ? limit 1", [id])
+        const query = (await client.query("select * from user where id = ? limit 1", [id]))[0]
         if (!query) return null
 
         let user = new User(query.email, query.password, query.first_name, query.last_name,
