@@ -1,6 +1,8 @@
 import Component from '/scripts/bee/Component.js'
 
 class XMenu extends Component {
+    static inited = false
+
 	async componentDidLoad() {
 		const menu_btn = this.getElementsByClassName('menu-btn')
         const menu_list = this.getElementsByClassName('menu-list')[0]
@@ -8,6 +10,10 @@ class XMenu extends Component {
         menu_btn[0].addEventListener('click', () => menu_list.classList.toggle('show'))
 
         menu_btn[1].addEventListener('click', () => menu_list.classList.toggle('show'))
+
+        if (!XMenu.inited) $(() => $("b-link").click(() => menu_list.classList.toggle('show')))
+
+        XMenu.inited = true
     }
 }
 

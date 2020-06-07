@@ -138,7 +138,7 @@ x-register, x-login, x-forgot {
     }
 
     .formular {
-        margin-top: 5vh;
+        margin-top: 15vh;
         width: 350px;
     }
 
@@ -155,6 +155,10 @@ x-register, x-login, x-forgot {
         box-shadow: 0 2px 5px rgba(87, 87, 87, 0.3);
         width: 350px;
         max-width: 100%;
+    }
+
+    x-register, x-login, x-forgot {
+        flex-direction: column;
     }
     
   }
