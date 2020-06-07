@@ -1,5 +1,4 @@
-import Request from './request.ts'
-import Response from './response.ts'
+import Context from './context.ts'
 import DefaultErrorHandler from './default_error_handler.ts'
 
 
@@ -18,90 +17,81 @@ export default class Router {
         Router.errorHandler = cls
     }
 
-    static middlewares(middlewares: Array<(callforward: (req: Request, ...args: any[]) => any, req: Request, ...args: any) => void>) {
+    static middlewares(middlewares: Array<(callforward: (ctx: Context, ...args: any[]) => void, ctx: Context, ...args: any) => void>) {
         return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
-            const originalFunc: (req: Request, ...args: any[]) => any = descriptor.value
+            const originalFunc: (ctx: Context, ...args: any[]) => void = descriptor.value
 
-            descriptor.value = (req: Request, ...args: any[]) => {
+            descriptor.value = (ctx: Context, ...args: any[]) => {
                 middlewares.reverse()
                 
-                let finalCallee: (req: Request, ...args: any[]) => any = (req: Request, ...args: any[]) => middlewares[0](originalFunc, req, ...args)
+                let finalCallee: (ctx: Context, ...args: any[]) => void = (ctx: Context, ...args: any[]) => middlewares[0](originalFunc, ctx, ...args)
 
                 for (const middleware of middlewares.slice(1)) {
                     const callee = finalCallee
-                    finalCallee = (req: Request, ...args: any[]) => middleware(callee, req, ...args)
+                    finalCallee = (ctx: Context, ...args: any[]) => middleware(callee, ctx, ...args)
                 }
 
-                return finalCallee(req, ...args)
+                finalCallee(ctx, ...args)
             }
         }
     }
 
-    static async routeRequest(req: Request) {
-        let res = new Response()
-
-        res.headers.set('Access-Control-Allow-Origin', '*')
-
-        res.headers.set('Content-Type', 'application/json')
-
-        let json_response: any | null = null
-
+    static async routeRequest(ctx: Context) {
         try {
-
             next_route:
             for (let [route_def, cls] of Object.entries(Router.endpoints)) {
-                const route_def_split = route_def.split('/')
-                const route_req_split = req.url.split('/')
+                const routeSplit = route_def.split('/')
+                const reqRouteSplit = ctx.request.url.split('/')
 
-                if (route_def_split.length != route_req_split.length) continue
+                if (routeSplit.length != reqRouteSplit.length) continue
 
-                let route_params = []
+                let routeParams = []
 
-                for (let i = 0; i < route_def_split.length; ++i) {
-                    if (route_def_split[i].indexOf(':') === 0) {
+                for (let i = 0; i < routeSplit.length; ++i) {
+                    if (routeSplit[i].indexOf(':') === 0) {
                         // extracting route-params
-                        route_params.push(route_req_split[i])
+                        routeParams.push(reqRouteSplit[i])
                         continue
                     }
 
-                    if (route_def_split[i] !== route_req_split[i]) continue next_route
+                    if (routeSplit[i] !== reqRouteSplit[i]) continue next_route
                     // ^ path doesn't match so we skip try another route
                 }
 
                 // At this point, the route matches, and we obtained the route-params
 
-                let handler = cls[req.method.toLowerCase()] || cls['default']
+                let handler = cls[ctx.request.method.toLowerCase()] || cls['default']
                 // ^ try specified method handler or resort to the default handler
                 
-                json_response = handler
-                    ? await handler(req, ...route_params)             // handler found
+                handler
+                    ? await handler(ctx, ...routeParams)            // handler found
                     : Router.errorHandler.error501        
-                    ? await Router.errorHandler.error501(req)       // no handler found try 501 error handler
-                    : await Router.errorHandler.default(501, req)    // no 501 handler, try default error handler
+                    ? await Router.errorHandler.error501(ctx)       // no handler found try 501 error handler
+                    : await Router.errorHandler.default(501, ctx)   // no 501 handler, try default error handler
                 
                 break  // route found
             }
             
-            if (!json_response) {
+            if (!ctx.response.body) {
                 // If no route matched:
 
-                json_response = Router.errorHandler.error404
-                    ? await Router.errorHandler.error404(req)       // try 404 error handler
-                    : await Router.errorHandler.default(404, req)    // no 404 handler, try default error handler
+                Router.errorHandler.error404
+                    ? await Router.errorHandler.error404(ctx)       // try 404 error handler
+                    : await Router.errorHandler.default(404, ctx)   // no 404 handler, try default error handler
             }
 
         } catch (exception) {
             // Exception throwed
 
-            json_response = Router.errorHandler.error505
-                ? await Router.errorHandler.error505(req, exception)        // try 505 error handler
-                : await Router.errorHandler.default(500, req, exception)     // no 505 handler, resort to default error handler
+            Router.errorHandler.error505
+                ? await Router.errorHandler.error505(ctx, exception)        // try 505 error handler
+                : await Router.errorHandler.default(500, ctx, exception)    // no 505 handler, resort to default error handler
         }
 
         // return JSON response
+        if (typeof ctx.response.body === 'object')
+            ctx.response.body = JSON.stringify(ctx.response.body)
 
-        res.body = JSON.stringify(json_response!)  
-
-        req.respond(res)
+        ctx.request.respond(ctx.response)
     }
 }

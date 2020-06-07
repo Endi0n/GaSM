@@ -1,5 +1,6 @@
 import * as deno from 'https://deno.land/std@0.53.0/http/server.ts'
 import Router from './router.ts'
+import Context from './context.ts'
 
 
 export default class Server {
@@ -13,7 +14,7 @@ export default class Server {
 
     async serve() {
         for await (const req of this.server) {
-            await Router.routeRequest(req)
+            await Router.routeRequest(new Context(req))
         }
     }
 }

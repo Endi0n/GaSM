@@ -1,5 +1,5 @@
 import Server from './dino/server.ts'
-import './api/routes.ts'
+import './routes/mod.ts'
 
 let server = new Server(5000)
 
