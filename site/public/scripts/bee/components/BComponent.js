@@ -8,7 +8,7 @@ export default class BComponent extends Component {
         if (type) this.setAttribute('type', type)
     }
 
-    async connectedCallback() {
+    async componentDidMount() {
         this.appendChild(new ComponentsManager.components[this.getAttribute('type')]())
     }
 }
