@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- JQuery -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    
+    <script type="module" src="/components/map/map.js"></script>
+    <script type="module" src="/components/menu/menu.js"></script>
+    <script type="module" src="/components/stats/stats.js"></script>
+
+    <script type="module" src="/scripts/bee/components.js"></script>
+
+    <link href='/styles/main.css' rel='stylesheet' />
+
+    <title>Document</title>
+</head>
+
+<body>
+    <x-menu></x-menu>
+
+    <b-router>
+        <b-route path="/" component="x-map"></b-route>
+        <b-route path="/stats" component="x-stats"></b-route>
+    </b-router>
+</body>
+</html>
