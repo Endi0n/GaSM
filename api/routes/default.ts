@@ -1,9 +1,10 @@
 import Router from '../dino/router.ts'
-import DefaultErrorHandler from '../dino/default_error_handler.ts'
 import Context from '../dino/context.ts'
+import RequestHandler from '../dino/request_handler.ts'
+import DefaultErrorHandler from '../dino/default_error_handler.ts'
 
 
-function test(callforward: (ctx: Context, ...args: any[]) => void, ctx: Context, ...args: any[]) {
+function test(callforward: RequestHandler, ctx: Context, ...args: any[]) {
     console.log('Hello', args)
     callforward(ctx, 1, ...args)
 }
@@ -12,7 +13,7 @@ function test(callforward: (ctx: Context, ...args: any[]) => void, ctx: Context,
 @Router.route('/')
 export class Index {
 
-    @Router.middlewares([test, test])
+    @Router.middleware([test, test])
     static get(ctx: Context, x: number, y: number) {
         ctx.response.body = { message: 'Hello world!', nums: [x, y] }
     }

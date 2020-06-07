@@ -1,5 +1,9 @@
 import Context from './context.ts'
+import RequestHandler from './request_handler.ts'
 import DefaultErrorHandler from './default_error_handler.ts'
+
+
+type Middleware = (callforward: RequestHandler, ctx: Context, ...args: any[]) => void
 
 
 export default class Router {
@@ -17,16 +21,18 @@ export default class Router {
         Router.errorHandler = cls
     }
 
-    static middlewares(middlewares: Array<(callforward: (ctx: Context, ...args: any[]) => void, ctx: Context, ...args: any) => void>) {
+    static middleware(middlewares: Array<Middleware> | Middleware) {
+        let middlewares_arr: Middleware[] = (middlewares instanceof Array) ? middlewares : [ middlewares ]
+
         return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
-            const originalFunc: (ctx: Context, ...args: any[]) => void = descriptor.value
+            const originalFunc: RequestHandler = descriptor.value
 
             descriptor.value = (ctx: Context, ...args: any[]) => {
-                middlewares.reverse()
+                middlewares_arr.reverse()
                 
-                let finalCallee: (ctx: Context, ...args: any[]) => void = (ctx: Context, ...args: any[]) => middlewares[0](originalFunc, ctx, ...args)
+                let finalCallee: RequestHandler = (ctx: Context, ...args: any[]) => middlewares_arr[0](originalFunc, ctx, ...args)
 
-                for (const middleware of middlewares.slice(1)) {
+                for (const middleware of middlewares_arr.slice(1)) {
                     const callee = finalCallee
                     finalCallee = (ctx: Context, ...args: any[]) => middleware(callee, ctx, ...args)
                 }
