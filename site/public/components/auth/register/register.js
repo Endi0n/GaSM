@@ -89,7 +89,6 @@ class XRegister extends Component {
             if (!ok) {
                 const formData = new FormData(document.getElementsByTagName('form')[0]);
                 const jsonFormData = JSON.stringify(Object.fromEntries(formData));
-                console.log(jsonFormData);
                 axios.post(routes.REGISTER_ROUTE, jsonFormData)
                 .then(resp => console.log(resp))
                 .catch(err => console.log(err.response))
