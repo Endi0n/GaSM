@@ -3,6 +3,7 @@ import Router from '../../dino/router.ts'
 import Context from '../../dino/context.ts'
 import User from "../../models/user.ts";
 
+
 @Router.route('/auth/login')
 export default class Login {
 
@@ -23,7 +24,7 @@ export default class Login {
             return
         }
 
-        const jwt = ctx.createJWT({'user_id': user.id})
+        const jwt = ctx.createJWT({ userId: user.id })
 
         ctx.response.body = { status: 'success', token: jwt }
     }

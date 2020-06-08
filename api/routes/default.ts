@@ -1,19 +1,13 @@
 import Router from '../dino/router.ts'
 import Context from '../dino/context.ts'
-import RequestHandler from '../dino/request_handler.ts'
 import DefaultErrorHandler from '../dino/default_error_handler.ts'
-
-
-function test(callforward: RequestHandler, ctx: Context, ...args: any[]) {
-    console.log('Hello', args)
-    callforward(ctx, 1, ...args)
-}
+import authRequired from './auth/auth_required.ts'
+import User from '../models/user.ts'
 
 
 @Router.route('/')
 export class Index {
 
-    @Router.middleware([test, test])
     static get(ctx: Context, x: number, y: number) {
         ctx.response.body = { message: 'Hello world!', nums: [x, y] }
     }
@@ -34,6 +28,17 @@ export class Hello {
 
     static post(ctx: Context) {
         ctx.response.body = { message : 'Hey postboy!'}
+    }
+
+}
+
+
+@Router.route('/hello/auth')
+export class HelloAuthUser {
+
+    @Router.middleware(authRequired)
+    static async get(ctx: Context, user: User) {
+        ctx.response.body = { message: `Hello ${user.first_name}!` }
     }
 
 }
