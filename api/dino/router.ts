@@ -3,7 +3,7 @@ import RequestHandler from './request_handler.ts'
 import DefaultErrorHandler from './default_error_handler.ts'
 
 
-type Middleware = (callforward: RequestHandler, ctx: Context, ...args: any[]) => void
+type Middleware = (callforward: RequestHandler, ctx: Context, ...args: any[]) => Promise<void>
 
 
 export default class Router {
@@ -27,17 +27,17 @@ export default class Router {
         return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
             const originalFunc: RequestHandler = descriptor.value
 
-            descriptor.value = (ctx: Context, ...args: any[]) => {
+            descriptor.value = async (ctx: Context, ...args: any[]) => {
                 middlewares_arr.reverse()
                 
-                let finalCallee: RequestHandler = (ctx: Context, ...args: any[]) => middlewares_arr[0](originalFunc, ctx, ...args)
+                let finalCallee: RequestHandler = async (ctx: Context, ...args: any[]) => await middlewares_arr[0](originalFunc, ctx, ...args)
 
                 for (const middleware of middlewares_arr.slice(1)) {
                     const callee = finalCallee
-                    finalCallee = (ctx: Context, ...args: any[]) => middleware(callee, ctx, ...args)
+                    finalCallee = async (ctx: Context, ...args: any[]) => await middleware(callee, ctx, ...args)
                 }
 
-                finalCallee(ctx, ...args)
+                await finalCallee(ctx, ...args)
             }
         }
     }
