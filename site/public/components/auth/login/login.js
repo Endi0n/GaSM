@@ -9,12 +9,12 @@ class XLogin extends Component {
 
         let ok = 0;
         
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            checkInputs();
+            await checkInputs();
         })
 
-        function checkInputs() {
+        async function checkInputs() {
             const emailValue = email.value.trim();
             const passwordValue = password.value.trim();
 
@@ -37,8 +37,8 @@ class XLogin extends Component {
                 const jsonFormData = JSON.stringify(Object.fromEntries(formData));
 
                 axios.post(routes.LOGIN_ROUTE, jsonFormData)
-                .then(resp => console.log(resp))
-                .catch(err => console.log(err.response))
+                    .then(resp => console.log(resp.data))
+                    .catch(error => console.log(error.data))
             }
 
             ok = 0;
