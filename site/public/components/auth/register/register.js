@@ -3,7 +3,8 @@ import Component from '/scripts/bee/Component.js'
 
 class XRegister extends Component {
 	async componentDidLoad() {
-		const form = document.getElementById('form');
+        const form = document.getElementById('form');
+        const formular = document.getElementById('formular');
         const email = document.getElementById('email');
         const name = document.getElementById('name');
         const surname = document.getElementById('surname');
@@ -13,6 +14,12 @@ class XRegister extends Component {
         const password2 = document.getElementById('password2');
 
         let ok = 0
+        const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+        console.log(vh);
+        if (vh < 800) {
+            formular.style.overflowY = "scroll";
+            formular.style.height = "60vh";
+        }
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();
