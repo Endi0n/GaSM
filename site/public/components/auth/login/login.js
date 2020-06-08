@@ -1,3 +1,4 @@
+import * as routes from '/scripts/routes.js'
 import Component from '/scripts/bee/Component.js'
 
 class XLogin extends Component {
@@ -6,6 +7,8 @@ class XLogin extends Component {
         const email = document.getElementById('email');
         const password = document.getElementById('password');
 
+        let ok = 0;
+        
         form.addEventListener('submit', (e) => {
             e.preventDefault();
             checkInputs();
@@ -25,12 +28,20 @@ class XLogin extends Component {
 
             if (passwordValue === '') {
                 setErrorFor(password, 'Parola trebuie completata.');
-            } else if (passwordValue.length < 7) {
-                setErrorFor(password, 'Minim 7 caractere.')
             } else {
                 setSuccessFor(password);
             }
 
+            if (!ok) {
+                const formData = new FormData(document.getElementsByTagName('form')[0]);
+                const jsonFormData = JSON.stringify(Object.fromEntries(formData));
+
+                axios.post(routes.LOGIN_ROUTE, jsonFormData)
+                .then(resp => console.log(resp))
+                .catch(err => console.log(err.response))
+            }
+
+            ok = 0;
         }
 
         function setErrorFor(input, message) {
@@ -39,6 +50,7 @@ class XLogin extends Component {
 
             small.innerText = message;
             formControl.className = 'form-control error';
+            ok++;
         }
 
         function setSuccessFor(input) {
