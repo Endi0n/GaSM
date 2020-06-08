@@ -1,4 +1,4 @@
-import {client} from '../core/database.ts'
+import DatabaseConnection from '../core/database.ts'
 
 export default class User {
     private _id: number | null 
@@ -27,7 +27,10 @@ export default class User {
     }
   
     static async findByEmail(email: string) {
+        let client = new DatabaseConnection()
+        
         const query = (await client.query("select * from user where email = ? limit 1", [email]))[0]
+        client.close()
         if (!query) return null
 
         let user = new User(query.email, query.password, query.first_name, query.last_name,
@@ -38,7 +41,10 @@ export default class User {
     }
   
     static async findById(id: number) {
+        let client = new DatabaseConnection()
+
         const query = (await client.query("select * from user where id = ? limit 1", [id]))[0]
+        client.close()
         if (!query) return null
 
         let user = new User(query.email, query.password, query.first_name, query.last_name,
@@ -49,6 +55,7 @@ export default class User {
     }
 
     async save() {
+        let client = new DatabaseConnection()
         if(this._id !== null) 
             await client.execute("update user set email = ?, password = ?, first_name = ?, last_name = ?,\
                                   phone_number = ?, address = ?, user_type_id = ? where id = ?", 
@@ -60,5 +67,6 @@ export default class User {
                                              [this.email, this.password, this.first_name, this.last_name,
                                              this.phone_number, this.address, this.user_type_id]))
                                              .lastInsertId || null
+        client.close()
     }
 }
