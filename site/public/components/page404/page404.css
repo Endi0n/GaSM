@@ -1,0 +1,47 @@
+x-page-404 {
+    box-sizing: border-box;
+    background-color: #0594ec;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+.sad {
+    display: flex;
+    flex-direction: column;
+}
+
+.info {
+    border-radius: 5px;
+    width: 350px;
+    max-width: 100%;
+    color: white;
+}
+
+.info h1 {
+    font-size: 3em;
+}
+
+img {
+    height: 20vw;
+}
+
+@media (max-width: 970px) {
+    x-page-404 {
+        background-color: #0594ec;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .info h1 {
+        font-size: 2em;
+    }
+
+    img {
+        height: 40vw;
+    }
+}

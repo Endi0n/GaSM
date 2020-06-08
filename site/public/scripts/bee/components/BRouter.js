@@ -12,27 +12,46 @@ export default class BRouter extends Component {
 
         Array.from(this.childNodes)
             .filter(el => el.tagName === 'B-ROUTE')
-            .forEach(el => this._routes[el.attributes.path.value] = el.attributes.component.value)
+            .forEach(el => {
+                if (el.attributes.fallback) {
+                    this._fallback = el.attributes.component.value
+                    return
+                }
+                
+                this._routes[el.attributes.path.value] = el.attributes.component.value
+            })
         
-        await this.update()
+        await this.update(window.location.pathname)
     }
 
-    async update() {
+    async _replaceComponent(componentType) {
+        if (this.firstChild._componentRemoved)
+            await this.firstChild._componentRemoved()
+        
+        ComponentsManager.removeDependencies(this.firstChild)
+
+        this.replaceChild(new BComponent(componentType), this.firstChild)
+    }
+
+    async update(url) {
+        let routeFound = false
+
         for (const [route, componentType] of Object.entries(this._routes)) {
-            if (!new RegExp(`^${route}$`).test(window.location.pathname))
+            if (!new RegExp(`^${route}$`).test(url))
                 continue
             
-            if (this.firstChild._componentRemoved)
-                await this.firstChild._componentRemoved()
-            ComponentsManager.removeDependencies(this.firstChild)
-
-            this.replaceChild(new BComponent(componentType), this.firstChild)
+            await this._replaceComponent(componentType)
+            
+            routeFound = true
             break
         }
+
+        if (!routeFound && this._fallback)
+            await this._replaceComponent(this._fallback)
     }
 
     static async route(url) {
-        BRouter._routers.forEach(async router => await router.update())
+        BRouter._routers.forEach(async router => await router.update(url))
     }
 }
 
