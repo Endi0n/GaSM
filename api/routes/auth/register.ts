@@ -3,6 +3,7 @@ import Router from '../../dino/router.ts'
 import Context from '../../dino/context.ts'
 import User from "../../models/user.ts";
 
+
 @Router.route('/auth/register')
 export default class Register {
 
@@ -17,10 +18,20 @@ export default class Register {
             return
         }
 
-        user = new User(requestBody.email, await bcrypt.hash(requestBody.password), requestBody.name, requestBody.surname, requestBody.phone, 
-            requestBody.address, 2)
+        user = new User(
+            requestBody.email,
+            await bcrypt.hash(requestBody.password),
+            requestBody.name,
+            requestBody.surname,
+            requestBody.phone, 
+            requestBody.address,
+            2
+        )
 
         user.save()
+
+        ctx.response.status = 201
+        ctx.response.body = { status: 'success', error: 'Registration succeded.' }
     }
 
 }
