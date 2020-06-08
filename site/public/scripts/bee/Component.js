@@ -22,7 +22,7 @@ export default class Component extends HTMLElement {
         // if not (no whitespace at all between tags and no nextElementSiblings either)
         // resort to DOMContentLoaded or load having triggered
         if ([this, ...this.parentNodes].some(el => el.nextSibling) || document.readyState !== 'loading') {
-            this._componentDidLoad()
+            await this._componentDidLoad()
         } else {
             this.mutationObserver = new MutationObserver(async () => {
                 if ([this, ...this.parentNodes].some(el => el.nextSibling) || document.readyState !== 'loading') {
