@@ -44,6 +44,8 @@ export default class Router {
 
     static async routeRequest(ctx: Context) {
         try {
+            let routeFound = false
+
             next_route:
             for (let [route_def, cls] of Object.entries(Router.endpoints)) {
                 const routeSplit = route_def.split('/')
@@ -75,10 +77,11 @@ export default class Router {
                     ? await Router.errorHandler.error501(ctx)       // no handler found try 501 error handler
                     : await Router.errorHandler.default(501, ctx)   // no 501 handler, try default error handler
                 
-                break  // route found
+                routeFound = true
+                break
             }
             
-            if (!ctx.response.body) {
+            if (!routeFound) {
                 // If no route matched:
 
                 Router.errorHandler.error404
