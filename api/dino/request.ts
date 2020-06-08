@@ -1,13 +1,18 @@
 import * as deno from 'https://deno.land/std@0.53.0/http/server.ts'
 import { decode } from 'https://deno.land/std/encoding/utf8.ts'
+import Server from './server.ts'
 import Response from './response.ts'
+import { validateJwt } from "https://deno.land/x/djwt/validate.ts"
 
 
 export default class Request {
+    #server: Server
     #serverRequest: deno.ServerRequest
     #body: any | null
+    #token: any | null
 
-    constructor(serverRequest: deno.ServerRequest) {
+    constructor(server: Server, serverRequest: deno.ServerRequest) {
+        this.#server = server
         this.#serverRequest = serverRequest
     }
 
@@ -26,6 +31,30 @@ export default class Request {
 
     get method() {
         return this.#serverRequest.method
+    }
+
+    private async parseToken() {
+        const authorization = this.#serverRequest.headers.get('Authorization')
+        if (!authorization) return null
+
+        const authorizationSplit = authorization.split(' ')
+        if (authorizationSplit.length != 2) return null
+
+        if (authorizationSplit[0].toLocaleUpperCase() !== 'BEARER')
+            return null
+
+        const jwt = authorizationSplit[1]
+
+        const token = await validateJwt(jwt, this.#server.secretKey, { isThrowing: false })
+        if (!token) return null
+
+        this.#token = token.payload
+
+        return this.#token
+    }
+
+    get token(): any {
+        return (async() => this.#token ? this.#token : await this.parseToken())()
     }
 
     respond(response: Response) {

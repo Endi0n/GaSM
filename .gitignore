@@ -1,2 +1,3 @@
 .*
 api/core/database_config.ts
+api/core/app_config.ts
