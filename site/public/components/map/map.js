@@ -1,16 +1,16 @@
 import Component from '/scripts/bee/Component.js'
+import { DUMPSTERS_ROUTE } from '/scripts/routes.js'
+
 
 class XMap extends Component {
     initXMap() {
         if (XMap.inited) return
 
-        const API_ROOT_URL = 'https://gps.i-track.ro/sal/webapi/';
-
-        XMap.TRUCKS_JSON_URL = API_ROOT_URL + 'getvehicles';
-        XMap.BINS_JSON_URL = API_ROOT_URL + 'getpois'
+        XMap.TRUCKS_JSON_URL = 'https://gps.i-track.ro/sal/webapi/getvehicles'
+        XMap.DUMPSTERS_JSON_URL = DUMPSTERS_ROUTE
 
         XMap.TRUCK_ICON = L.icon({ iconUrl: '/images/truck--green.svg', iconSize: [26, 26], iconAnchor: [13, 13] })
-        XMap.BIN_ICON = L.icon({ iconUrl: '/images/dumpster--green.svg', iconSize: [26, 26], iconAnchor: [13, 13] })
+        XMap.DUMPSTER_ICON = L.icon({ iconUrl: '/images/dumpster--green.svg', iconSize: [26, 26], iconAnchor: [13, 13] })
     
         XMap.inited = true
     }
@@ -20,14 +20,14 @@ class XMap extends Component {
         this.initMap()
 
         this.trucksLayer = L.featureGroup().addTo(this.map)
-        this.binsLayer = L.markerClusterGroup({}).addTo(this.map)
+        this.dumpstersLayer = L.markerClusterGroup({}).addTo(this.map)
     
         L.control.layers(null,
-            { 'Vehicule': this.trucksLayer, 'Pubele': this.binsLayer },
+            { 'Vehicule': this.trucksLayer, 'Pubele': this.dumpstersLayer },
             { position: 'bottomleft' }
         ).addTo(this.map)
     
-        this.refreshData()
+        this.loadData()
         setInterval(this.refreshData.bind(this), 60e3) // every minute
     }
     
@@ -51,9 +51,13 @@ class XMap extends Component {
         return this.map
     }
 
+    loadData() {
+        $.get(XMap.TRUCKS_JSON_URL, (data) => this.drawTrucks(data))
+        $.get(XMap.DUMPSTERS_JSON_URL, (data) => this.drawDumpsters(data))
+    }
+
     refreshData() {
         $.get(XMap.TRUCKS_JSON_URL, (data) => this.drawTrucks(data))
-        $.get(XMap.BINS_JSON_URL, (data) => this.drawBins(data))
     }
 
     drawTrucks(trucks) {
@@ -68,13 +72,22 @@ class XMap extends Component {
         }
     }
 
-    drawBins(bins) {
-        this.binsLayer.clearLayers()
+    drawDumpsters(dumpsters) {
+        this.dumpstersLayer.clearLayers()
 
-        for (let bin of bins) {
-            let binMarker = L.marker([bin.Latitude, bin.Longitude], { icon: XMap.BIN_ICON })
-            this.binsLayer.addLayer(binMarker)
+        for (let dumpster of dumpsters) {
+            let dumpsterMarker = L.marker([dumpster.lat, dumpster.lon], { icon: XMap.DUMPSTER_ICON })
+
+            dumpsterMarker.bindPopup(this.createDumpsterMarker(dumpster.id), {
+                minWidth: 250
+            })
+
+            this.dumpstersLayer.addLayer(dumpsterMarker)
         }
+    }
+
+    createDumpsterMarker(id) {
+        return `<x-dumpster id="${id}"></x-dumpster>`
     }
 }
 

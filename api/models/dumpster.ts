@@ -35,7 +35,7 @@ export default class Dumpster {
             this.#garbageTypes = []
 
             const query = await client.query("select type from public_dumpster d join garbage_type g \
-                                               on d.garbage_type_id = g.id where d.id = ?", [this.#id])
+                                               on d.garbage_type_id = g.id where d.dumpster_address_id = ?", [this.#id])
             await client.close()
             if (!query[0]) return null
 
