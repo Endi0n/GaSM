@@ -30,11 +30,13 @@ export default class Dumpster {
             return this.#garbageTypes
         return (async () => {
             let client = new DatabaseConnection()
+            await client.connect()
+
             this.#garbageTypes = []
 
             const query = await client.query("select type from public_dumpster d join garbage_type g \
                                                on d.garbage_type_id = g.id where d.id = ?", [this.#id])
-            client.close()
+            await client.close()
             if (!query[0]) return null
 
             for (const row of query)
@@ -46,8 +48,9 @@ export default class Dumpster {
 
     static async findById(id: number) {
         let client = new DatabaseConnection()
+        await client.connect()
         const query = (await client.query("select * from dumpster_address where id = ? limit 1", [id]))[0]
-        client.close()
+        await client.close()
         if (!query) return null
 
         let dumpAddr = new Dumpster(query.address, query.lon, query.lat, query.active,
@@ -58,23 +61,35 @@ export default class Dumpster {
     }
 
     static async getAllActiveDumpsters() {
-        let client = new DatabaseConnection()
-        const query = await client.query("select * from dumpster_address where active = 1")
-        client.close()
-        if (!query[0]) return null
         let dumpsterArr = []
-        for(const row of query){
-            let dumpAddr = new Dumpster(row.address, row.lon, row.lat, row.active,
-                                        new Date(row.date_created), query.date_updated ? new Date(query.date_updated) : null)
-            dumpAddr.#id = row.id
-            dumpsterArr.push(dumpAddr)
-        }
+        let lastId = 1
+        let client = new DatabaseConnection()
+        await client.connect()
+        while(true){
+            const query = await client.query("select * from dumpster_address where active = 1 and id >= ? limit 10", [lastId])
 
-        return dumpsterArr
+            if (!query[0]) {
+                await client.close()
+
+                if(dumpsterArr.length !== 0)
+                    return dumpsterArr
+                return null
+            }
+
+            for(const row of query) {
+                let dumpAddr = new Dumpster(row.address, row.lon, row.lat, row.active,
+                                            new Date(row.date_created), query.date_updated ? new Date(query.date_updated) : null)
+                dumpAddr.#id = row.id
+                dumpsterArr.push(dumpAddr)
+                lastId = row.id
+            }
+            lastId += 1
+        }
     }
 
     async save() {
         let client = new DatabaseConnection()
+        await client.connect()
         if(this.#id !== null) 
             await client.execute("update dumpster_address set address = ?, lon = ?, lat = ?, active = ?,\
                                   date_created = ?, date_updated = ? where id = ?", 
@@ -86,6 +101,6 @@ export default class Dumpster {
                                              [this.address, this.lon, this.lat, this.active,
                                              this.dateCreated, this.dateUpdated]))
                                              .lastInsertId || null
-        client.close()
+        await client.close()
     }
 }
