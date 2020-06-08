@@ -87,6 +87,36 @@ export default class Dumpster {
         }
     }
 
+    static async getGarbageDataWithinRange(dateStart: Date, dateEnd: Date) {
+        let client = new DatabaseConnection()
+        await client.connect()
+        const query = await client.query("SELECT type, SUM(quantity) quantity FROM\
+                                          collected c JOIN garbage_type g ON c.garbage_type_id = g.id\
+                                          WHERE date BETWEEN ? AND ? GROUP BY TYPE",
+                                         [dateStart, dateEnd])
+        await client.close()
+        if (!query[0]) return null
+
+        let res : Record<string, number> = {}
+        query.map((row : Record<string, string>) => res[row.type] = Number(row.quantity))
+        return res
+    }
+
+    static async getSpecificGarbageDataWithinRange(dateStart: Date, dateEnd: Date, id: any) {
+        let client = new DatabaseConnection()
+        await client.connect()
+        const query = await client.query("SELECT type, SUM(quantity) quantity FROM\
+                                          collected c JOIN garbage_type g ON c.garbage_type_id = g.id\
+                                          WHERE date BETWEEN ? AND ? and c.dumpster_address_id = ? GROUP BY TYPE",
+                                         [dateStart, dateEnd, id])
+        await client.close()
+        if (!query[0]) return null
+
+        let res : Record<string, number> = {}
+        query.map((row : Record<string, string>) => res[row.type] = Number(row.quantity))
+        return res
+    }
+
     async save() {
         let client = new DatabaseConnection()
         await client.connect()

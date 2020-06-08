@@ -49,7 +49,7 @@ export default class Router {
             next_route:
             for (let [route_def, cls] of Object.entries(Router.endpoints)) {
                 const routeSplit = route_def.split('/')
-                const reqRouteSplit = ctx.request.url.split('/')
+                const reqRouteSplit = ctx.request.url.split('?', 2)[0].split('/')
 
                 if (routeSplit.length != reqRouteSplit.length) continue
 
