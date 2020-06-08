@@ -1,4 +1,5 @@
 export * from './login.ts'
+export * from './register.ts'
 
 import Context from '../../dino/context.ts'
 

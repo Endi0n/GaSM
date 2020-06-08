@@ -1,3 +1,4 @@
+import * as routes from '/scripts/routes.js'
 import Component from '/scripts/bee/Component.js'
 
 class XRegister extends Component {
@@ -10,6 +11,8 @@ class XRegister extends Component {
         const address =  document.getElementById('address');
         const password = document.getElementById('password');
         const password2 = document.getElementById('password2');
+
+        let ok = 0
 
         form.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -75,6 +78,17 @@ class XRegister extends Component {
             } else {
                 setSuccessFor(password2);
             }
+
+            if (!ok) {
+                const formData = new FormData(document.getElementsByTagName('form')[0]);
+                const jsonFormData = JSON.stringify(Object.fromEntries(formData));
+                console.log(jsonFormData);
+                axios.post(routes.REGISTER_ROUTE, jsonFormData)
+                .then(resp => console.log(resp))
+                .catch(err => console.log(err.response))
+            }
+
+            ok = 0;
         }
 
         function setErrorFor(input, message) {
@@ -83,6 +97,7 @@ class XRegister extends Component {
             
             small.innerText = message;
             formControl.className = 'form-control error';
+            ok++;
         }
 
         function setSuccessFor(input) {
