@@ -9,4 +9,4 @@ USER deno
 
 ADD . .
 
-CMD ["run", "-c", "tsconfig.json", "--allow-net", "app.ts"]
+CMD ["run", "-c", "tsconfig.json", "--unstable", "--allow-net", "app.ts"]
