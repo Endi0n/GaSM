@@ -5,6 +5,9 @@ export default class Component extends HTMLElement {
 
     constructor(...args) {
         super(...args)
+
+        this.style.visibility = 'hidden'; 
+
         this.parsed = false // guard to make it easy to do certain stuff only once
         this.parentNodes = []
     }
@@ -54,6 +57,7 @@ export default class Component extends HTMLElement {
     async _componentDidLoad() {
         ComponentsManager.loadLazyDependencies(this.constructor)
         await this.componentDidLoad()
+        this.style.removeProperty('visibility')
     }
 
     async componentDidLoad() {}
