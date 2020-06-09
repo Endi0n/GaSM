@@ -1,6 +1,7 @@
 import Component from '/scripts/bee/Component.js'
 import * as routes from '/scripts/routes.js'
 import BHistory from '/scripts/bee/BHistory.js'
+import Authentication from '/scripts/auth.js'
 
 class XLogin extends Component {
 	async componentDidLoad() {
@@ -46,10 +47,10 @@ class XLogin extends Component {
         }
 
         async function onAuthSuccess(data) {
-            console.log(data)
-            axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
+            Authentication.token = data.token
 
             if (history.state && history.state.refferal) {
+                console.log(history.state.refferal)
                 BHistory.replaceState(history.state.refferal)
                 return
             }

@@ -4,7 +4,7 @@ import BHistory from '/scripts/bee/BHistory.js'
 
 class XMenu extends Component {
 	async componentDidLoad() {
-        await authGuard(this)
+        await authGuard()
 
 		const menu_btn = this.getElementsByClassName('menu-btn')
         const menu_list = this.getElementsByClassName('menu-list')[0]
@@ -14,12 +14,6 @@ class XMenu extends Component {
         menu_btn[1].addEventListener('click', () => menu_list.classList.toggle('show'))
 
         $(() => $(".menu-link").click(() => menu_list.classList.toggle('show')))
-
-        BHistory.addObserver(this)
-    }
-
-    async update() {
-        await authGuard(this)
     }
 }
 
