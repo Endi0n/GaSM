@@ -15,6 +15,9 @@ export default class ComponentsManager {
         ComponentsManager.components[name] = cls
 
         window.customElements.define(name, cls)
+
+        // Asynchronous preload
+        ComponentsManager.getTemplate(this.constructor)
     }
 
     static async getTemplate(component) {
