@@ -18,3 +18,7 @@ b-router, b-component {
 b-link {
     cursor: pointer;
 }
+
+.hidden {
+    display: none;
+}

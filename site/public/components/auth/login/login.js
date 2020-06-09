@@ -1,5 +1,6 @@
-import * as routes from '/scripts/routes.js'
 import Component from '/scripts/bee/Component.js'
+import * as routes from '/scripts/routes.js'
+import BHistory from '/scripts/bee/BHistory.js'
 
 class XLogin extends Component {
 	async componentDidLoad() {
@@ -37,11 +38,27 @@ class XLogin extends Component {
                 const jsonFormData = JSON.stringify(Object.fromEntries(formData));
 
                 axios.post(routes.LOGIN_ROUTE, jsonFormData)
-                    .then(resp => console.log(resp.data))
-                    .catch(error => console.log(error.data))
+                    .then(async resp => await onAuthSuccess(resp.data))
+                    .catch(async error => await OnAuthFailure(error))
             }
 
             ok = 0;
+        }
+
+        async function onAuthSuccess(data) {
+            console.log(data)
+            axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
+
+            if (history.state && history.state.refferal) {
+                BHistory.replaceState(history.state.refferal)
+                return
+            }
+
+            await BHistory.pushState('/')
+        }
+
+        async function OnAuthFailure(data) {
+            console.log(data)
         }
 
         function setErrorFor(input, message) {
@@ -61,7 +78,6 @@ class XLogin extends Component {
         function isEmail(email) {
             return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
         }
-
     }
 }
 
