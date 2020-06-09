@@ -28,8 +28,8 @@ export class DumpstersStats{
     static async get(ctx: Context) {
         let params = new URLSearchParams(ctx.request.url.split('?', 2)[1])
         
-        const dateStart = new Date(Number(params.get('dateStart')))
-        const dateEnd = new Date(Number(params.get('dateEnd')))
+        const dateStart = new Date(Number(params.get('dateStart'))*1000)
+        const dateEnd = new Date(Number(params.get('dateEnd'))*1000)
         
         ctx.response.body = await Dumpster.getGarbageDataWithinRange(dateStart, dateEnd) || {}
     }
@@ -40,8 +40,8 @@ export class SpecificDumpsterStats {
     static async get(ctx: Context, id: any) {
         let params = new URLSearchParams(ctx.request.url.split('?', 2)[1])
         
-        const dateStart = new Date(Number(params.get('dateStart')))
-        const dateEnd = new Date(Number(params.get('dateEnd')))
+        const dateStart = new Date(Number(params.get('dateStart'))*1000)
+        const dateEnd = new Date(Number(params.get('dateEnd'))*1000)
         
         ctx.response.body = await Dumpster.getSpecificGarbageDataWithinRange(dateStart, dateEnd, id) || {}
     }

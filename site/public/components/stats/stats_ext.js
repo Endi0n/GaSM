@@ -1,3 +1,6 @@
+import { DUMPSTERS_STATS_ROUTE } from '/scripts/routes.js'
+
+
 function setTopStickyDateRangePicker() {
     let height  = $('x-menu').outerHeight()
     $("#meniu_secundar").css('top', height)
@@ -88,6 +91,7 @@ function barChart(id, name, labels, data)
         }
     });
 }
+
 function newStats(){
     let doughnutChart = semiDoughnutChart('statistica_sortare', ['Hartie', 'Sticla', 'Plastic', 'Metal', 'Menajer'], []);
     let barChartHartie = barChart('statistica_top_hartie', 'hartie', ['Frumoasa', 'Pacurari', 'Restul cartierelor'], [60, 30, 40]);
@@ -97,7 +101,7 @@ function newStats(){
     let barChartMenajer = barChart('statistica_top_menajer','gunoi menajer', ['Tatarasi', 'Pacurari', 'Restul cartierelor'], [170, 150, 320]);
 
     function newRange(start, end) {
-        axios.get(`/api/dumpsters/stats?dateStart=${start.unix()*1000}&dateEnd=${end.unix()*1000}`)
+        axios.get(DUMPSTERS_STATS_ROUTE(start.unix(), end.unix()))
         .then(function (response) {
             doughnutChart.data.datasets[0].data = [response.data['hârtie'] || 0, response.data['sticlă'] || 0,
                                                    response.data['plastic'] || 0, response.data['metal'] || 0,

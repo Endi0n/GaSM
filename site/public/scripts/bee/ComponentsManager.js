@@ -72,8 +72,7 @@ export default class ComponentsManager {
         for (let script of component.lazyScripts || []) {
             if (!(script in ComponentsManager._loadedResources)) {
                 let scriptEl = document.createElement('script')
-                scriptEl.type = 'text/javascript'
-
+                scriptEl.type = 'module'
                 scriptEl.src = script
                 document.body.appendChild(scriptEl)
 
