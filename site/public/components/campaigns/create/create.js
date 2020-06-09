@@ -1,4 +1,3 @@
-import * as routes from '/scripts/routes.js'
 import Component from '/scripts/bee/Component.js'
 
 class XCampaignCreate extends Component {

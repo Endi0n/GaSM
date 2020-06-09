@@ -6,14 +6,41 @@ class XCampaigns extends Component {
         const container = document.getElementById('container');
         const loading = document.querySelector('.loading');
 
-        getPost();
-        getPost();
-        getPost();
+        axios.get(routes.VIEW_CAMPAIGNS_ROUTE)
+                .then(resp => addDataToDOM(resp.data))
+                .catch(err => console.log(err))
+
+        function addDataToDOM(resp) {
+            const postElement = document.createElement('div');
+            for (let i = 0; i < resp.length; i++) {
+                postElement.classList.add('campaign');
+                postElement.innerHTML = `
+                <h2 class="title">${resp[i].title}</h2>
+                <p class="description">${resp[i].content}</p>
+
+                <a href="${resp[i].id}">Citeste mai mult</a>
+                
+                <div class="info">
+                <div>
+                <h4>Adresa</h4>
+                    <span class="address">${resp[i].location}</span>
+                </div>
+                <div>
+                <h4>Data</h4>
+                    <span class="name">${resp[i].date}</span>
+                </div>
+                <div>
+                <h4>Organizator</h4>
+                
+                </div>
+                `;
+                container.appendChild(postElement);
+            }
+            loading.classList.remove('show');
+        }
 
         window.addEventListener('scroll', () => {
             const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-            
-            console.log( { scrollTop, scrollHeight, clientHeight });
             
             if(clientHeight + scrollTop >= scrollHeight - 5) {
                 showLoading();
@@ -22,53 +49,12 @@ class XCampaigns extends Component {
 
         function showLoading() {
             loading.classList.add('show');
-            
-            setTimeout(getPost, 1000)
+            axios.get(routes.VIEW_CAMPAIGNS_ROUTE)
+                .then(resp => addDataToDOM(resp.data))
+                .catch(err => console.log(err))
         }
 
-        async function getPost() {
-            const postResponse = await fetch(`https://jsonplaceholder.typicode.com/posts/${getRandomNr()}`);
-            const postData = await postResponse.json();
-            
-            const userResponse = await fetch('https://randomuser.me/api');
-            const userData = await userResponse.json();
-            
-            const data = { post: postData, user: userData.results[0] };
-            
-            addDataToDOM(data);
-        }
-
-        function getRandomNr() {
-            return Math.floor(Math.random() * 100) + 1;
-        }
-
-        function addDataToDOM(data) {
-            const postElement = document.createElement('div');
-            postElement.classList.add('campaign');
-            postElement.innerHTML = `
-            <h2 class="title">${data.post.title}</h2>
-            <p class="description">${data.post.content}</p>
-
-            <a href="${data.post.id}">Citeste mai mult</a>
-            
-            <div class="info">
-            <div>
-            <h4>Adresa</h4>
-                <span class="address">${data.user.name.address}</span>
-            </div>
-            <div>
-            <h4>Data</h4>
-                <span class="name">${data.user.name.date}</span>
-            </div>
-            <div>
-            <h4>Organizator</h4>
-                <span class="date">${data.user.name.surname} ${data.user.name}</span>
-            </div>
-            `;
-            container.appendChild(postElement);
-            
-            loading.classList.remove('show');
-        }
+        
     }
 }
 
