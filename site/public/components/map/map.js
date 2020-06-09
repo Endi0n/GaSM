@@ -1,5 +1,6 @@
 import Component from '/scripts/bee/Component.js'
 import { DUMPSTERS_ROUTE } from '/scripts/routes.js'
+import Cache from '/scripts/cache.js'
 
 
 class XMap extends Component {
@@ -52,8 +53,16 @@ class XMap extends Component {
     }
 
     loadData() {
-        $.get(XMap.TRUCKS_JSON_URL, (data) => this.drawTrucks(data))
-        $.get(XMap.DUMPSTERS_JSON_URL, (data) => this.drawDumpsters(data))
+        $.get(XMap.TRUCKS_JSON_URL, data => this.drawTrucks(data))
+        
+        if (Cache.dumpsters) {
+            this.drawDumpsters(Cache.dumpsters)
+        } else {
+            $.get(XMap.DUMPSTERS_JSON_URL, data => {
+                Cache.dumpsters = data
+                this.drawDumpsters(data)
+            })
+        }
     }
 
     refreshData() {
