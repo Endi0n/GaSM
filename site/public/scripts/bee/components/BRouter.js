@@ -33,7 +33,7 @@ export default class BRouter extends Component {
         const componentEffectiveType = await componentType()
 
         if (componentEffectiveType)
-            this.replaceChild(new BComponent(await componentType()), this.firstChild)
+            this.replaceChild(new BComponent(componentEffectiveType), this.firstChild)
     }
 
     async update(url) {

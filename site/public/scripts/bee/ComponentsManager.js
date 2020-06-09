@@ -94,7 +94,8 @@ export default class ComponentsManager {
         if (!componentCls) return
 
         for (const resource of [...componentCls.styles || [], ...componentCls.scripts || [], ...componentCls.lazyScripts || []])
-            ComponentsManager._loadedResources[resource].count -= 1    
+            if (resource in ComponentsManager._loadedResources)
+                ComponentsManager._loadedResources[resource].count -= 1
     }
     
     static removeDependencies(component) {

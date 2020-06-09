@@ -38,9 +38,9 @@
         <b-route path="/auth/forgot-password" component="x-forgot"></b-route>
 
         <b-route path="/campaigns" component="x-campaigns"></b-route>
-        <x-auth-required-route path="/campaign/create" component="x-campaign-create"></b-route>
+        <x-auth-required-route path="/campaign/create" component="x-campaign-create"></x-auth-required-route>
 
-        <x-auth-required-route path="/alerts" component="x-alerts"></b-route>
+        <x-auth-required-route path="/alerts" component="x-alerts"></x-auth-required-route>
         
         <b-route fallback component="x-page-404"></b-route>
     </b-router>
