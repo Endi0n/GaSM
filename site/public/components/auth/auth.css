@@ -3,7 +3,7 @@ x-menu {
     width: 100vw;
 }
 
-x-register, x-login, x-forgot, x-campaigns, x-alerts {
+x-register, x-login, x-forgot, x-campaign-create, x-alerts, x-campaigns {
     box-sizing: border-box;
     background-color: #0594ec;
     display: flex;
@@ -154,7 +154,7 @@ x-register, x-login, x-forgot, x-campaigns, x-alerts {
         max-width: 100%;
     }
 
-    x-register, x-login, x-forgot, x-campaigns, x-alerts {
+    x-register, x-login, x-forgot, x-campaign-create, x-alerts, x-campaigns {
         flex-direction: column;
     }
     

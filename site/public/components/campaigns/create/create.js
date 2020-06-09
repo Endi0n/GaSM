@@ -1,7 +1,7 @@
 import * as routes from '/scripts/routes.js'
 import Component from '/scripts/bee/Component.js'
 
-class XCampaigns extends Component {
+class XCampaignCreate extends Component {
 	async componentDidLoad() {
         const form = document.getElementById('form');
         const formular = document.getElementById('formular');
@@ -86,8 +86,8 @@ class XCampaigns extends Component {
     }
 }
 
-Component.define('x-campaigns', XCampaigns, {
-    template: '/components/campaigns/campaigns.html',
+Component.define('x-campaign-create', XCampaignCreate, {
+    template: '/components/campaigns/create/create.html',
 
     styles: [
         'https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap',

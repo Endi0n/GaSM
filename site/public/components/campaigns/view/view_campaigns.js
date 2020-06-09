@@ -1,7 +1,7 @@
 import * as routes from '/scripts/routes.js'
 import Component from '/scripts/bee/Component.js'
 
-class XViewCampaigns extends Component {
+class XCampaigns extends Component {
 	async componentDidLoad() {
         const container = document.getElementById('container');
         const loading = document.querySelector('.loading');
@@ -72,13 +72,13 @@ class XViewCampaigns extends Component {
     }
 }
 
-Component.define('x-view-campaigns', XViewCampaigns, {
-    template: '/components/view_campaigns/view_campaigns.html',
+Component.define('x-campaigns', XCampaigns, {
+    template: '/components/campaigns/view/view_campaigns.html',
 
     styles: [
         'https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap',
 
-        '/components/view_campaigns/view_campaigns.css'
+        '/components/campaigns/view/view_campaigns.css'
     ],
 
     scripts: ['https://kit.fontawesome.com/df8e637184.js']
