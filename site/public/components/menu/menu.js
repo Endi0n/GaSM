@@ -11,7 +11,7 @@ class XMenu extends Component {
 
         menu_btn[1].addEventListener('click', () => menu_list.classList.toggle('show'))
 
-        if (!XMenu.inited) $(() => $("b-link").click(() => menu_list.classList.toggle('show')))
+        if (!XMenu.inited) $(() => $(".menu-link").click(() => menu_list.classList.toggle('show')))
 
         XMenu.inited = true
     }

@@ -77,7 +77,7 @@ x-menu span b-link{
 }
 
 
-@media (max-width: 480px) {
+@media (max-width: 490px) {
   .menu-btn {
     display: block;
   }

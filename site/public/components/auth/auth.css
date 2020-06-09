@@ -3,7 +3,7 @@ x-menu {
     width: 100vw;
 }
 
-x-register, x-login, x-forgot {
+x-register, x-login, x-forgot, x-campaigns, x-alerts {
     box-sizing: border-box;
     background-color: #0594ec;
     display: flex;
@@ -59,7 +59,7 @@ x-register, x-login, x-forgot {
     margin-bottom: 5px;
 }
 
-.form-control input {
+.form-control input, .form-control textarea{
     border: 2px solid #f0f0f0;
     border-radius: 4px;
     display: block;
@@ -69,7 +69,7 @@ x-register, x-login, x-forgot {
     width: 230px;
 }
 
-.form-control.success input {
+.form-control.success input,  .form-control.success textarea{
     border-color: green;
 }
 
@@ -78,7 +78,7 @@ x-register, x-login, x-forgot {
     color: green;
 }
 
-.form-control.error input {
+.form-control.error input, .form-control.error textarea {
     border-color: red;
 }
 
@@ -146,14 +146,15 @@ x-register, x-login, x-forgot {
     .info {
         margin: 5vh 5vh;
         padding: 15px;
-        background-color: #1B1725;
+        background-color: #2c405e;
+        ;
         border-radius: 5px;
         box-shadow: 0 2px 5px rgba(87, 87, 87, 0.3);
         width: 350px;
         max-width: 100%;
     }
 
-    x-register, x-login, x-forgot {
+    x-register, x-login, x-forgot, x-campaigns, x-alerts {
         flex-direction: column;
     }
     
