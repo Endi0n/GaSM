@@ -2,18 +2,13 @@ import Component from '/scripts/bee/Component.js'
 import BRoute from '/scripts/bee/components/BRoute.js'
 import BComponent from '/scripts/bee/components/BComponent.js'
 import ComponentsManager from '/scripts/bee/ComponentsManager.js'
+import BHistory from '/scripts/bee/BHistory.js'
 
 export default class BRouter extends Component {
-    static _observers = [] 
-    
     _routes = {}
 
-    static addObserver(observer) {
-        BRouter._observers.push(observer)
-    }
-
     async componentDidLoad() {
-        BRouter.addObserver(this)
+        BHistory.addObserver(this)
 
         Array.from(this.childNodes)
             .filter(el => el instanceof BRoute)
@@ -35,7 +30,10 @@ export default class BRouter extends Component {
         
         ComponentsManager.removeDependencies(this.firstChild)
 
-        this.replaceChild(new BComponent(await componentType()), this.firstChild)
+        const componentEffectiveType = await componentType()
+
+        if (componentEffectiveType)
+            this.replaceChild(new BComponent(await componentType()), this.firstChild)
     }
 
     async update(url) {
@@ -54,23 +52,6 @@ export default class BRouter extends Component {
         if (!routeFound && this._fallback)
             await this._replaceComponent(this._fallback)
     }
-
-    static async route(url) {
-        BRouter._observers.forEach(async observer => await observer.update(url))
-    }
-
-    static async push(url) {
-        history.pushState(
-            null,
-            null,
-            url
-        )
-        await BRouter.route(url)
-    }
 }
-
-window.addEventListener('popstate', async (e) => {
-    await BRouter.route(window.location.pathname)
-})
 
 window.customElements.define('b-router', BRouter)
