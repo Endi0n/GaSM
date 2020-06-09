@@ -117,6 +117,47 @@ export default class Dumpster {
         return res
     }
 
+    static async getTableData(dateStart: Date, dateEnd: Date, last_id: any) {
+        let res : Record<number, Record<string, any>>= {}
+        ++last_id
+        let client = new DatabaseConnection()
+        await client.connect()
+        for(let i=0; i<20 && Object.keys(res).length < 40; ++i) {
+            const query = await client.query('SELECT dumpster_address_id, address, type, sum(c.quantity) quantity \
+                                            FROM collected c \
+                                            JOIN garbage_type g ON g.id = c.garbage_type_id \
+                                            JOIN dumpster_address da ON c.dumpster_address_id = da.id \
+                                            WHERE date BETWEEN ? AND ? AND da.id >= ? \
+                                            group by dumpster_address_id, garbage_type_id limit 10',
+                                            [dateStart, dateEnd, last_id||0])
+            if(!query[0]) {
+                if(Object.keys(res).length !== 0)
+                    break
+                return null
+            }
+
+            for(const row of query) {
+                if(!(row['dumpster_address_id'] in res))
+                    res[row.dumpster_address_id] = {}
+                
+                res[row.dumpster_address_id]['address'] = row.address
+                res[row.dumpster_address_id][row.type] = Number(row.quantity)
+                last_id = row.dumpster_address_id
+            }
+            ++last_id
+        }
+        await client.close()
+
+        let final_res = []
+        for(let [key, val] of Object.entries(res)) {
+            val.id = Number(key)
+            final_res.push(val)
+            if(Object.keys(final_res).length === 40)
+                break
+        }
+        return final_res
+    }
+
     async save() {
         let client = new DatabaseConnection()
         await client.connect()

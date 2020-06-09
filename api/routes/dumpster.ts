@@ -36,7 +36,7 @@ export class DumpstersStats{
 }
 
 @Router.route('/dumpster/:id/stats')
-export class SpecificDumpsterStats{
+export class SpecificDumpsterStats {
     static async get(ctx: Context, id: any) {
         let params = new URLSearchParams(ctx.request.url.split('?', 2)[1])
         
@@ -44,5 +44,18 @@ export class SpecificDumpsterStats{
         const dateEnd = new Date(Number(params.get('dateEnd')))
         
         ctx.response.body = await Dumpster.getSpecificGarbageDataWithinRange(dateStart, dateEnd, id) || {}
+    }
+}
+
+@Router.route('/dumpsters/stats/list')
+export class DumpstersStatsList {
+    static async get(ctx: Context) {
+        let params = new URLSearchParams(ctx.request.url.split('?', 2)[1])
+
+        const dateStart = new Date(Number(params.get('dateStart'))*1000)
+        const dateEnd = new Date(Number(params.get('dateEnd'))*1000)
+        const id = params.get('last_id')
+        
+        ctx.response.body = await Dumpster.getTableData(dateStart, dateEnd, id) || []
     }
 }
