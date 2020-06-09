@@ -4,12 +4,16 @@ import BComponent from '/scripts/bee/components/BComponent.js'
 import ComponentsManager from '/scripts/bee/ComponentsManager.js'
 
 export default class BRouter extends Component {
-    static _routers = [] 
+    static _observers = [] 
     
     _routes = {}
 
+    static addObserver(observer) {
+        BRouter._observers.push(observer)
+    }
+
     async componentDidLoad() {
-        BRouter._routers.push(this)
+        BRouter.addObserver(this)
 
         Array.from(this.childNodes)
             .filter(el => el instanceof BRoute)
@@ -52,7 +56,16 @@ export default class BRouter extends Component {
     }
 
     static async route(url) {
-        BRouter._routers.forEach(async router => await router.update(url))
+        BRouter._observers.forEach(async observer => await observer.update(url))
+    }
+
+    static async push(url) {
+        history.pushState(
+            null,
+            null,
+            url
+        )
+        await BRouter.route(url)
     }
 }
 
