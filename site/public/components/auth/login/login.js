@@ -55,7 +55,7 @@ class XLogin extends Component {
                 return
             }
 
-            await BHistory.pushState('/')
+            BHistory.pushState('/')
         }
 
         async function OnAuthFailure(data) {
