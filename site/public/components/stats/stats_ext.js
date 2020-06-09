@@ -10,9 +10,9 @@ $(window).scroll(function(){
         $(".cancelBtn").click()
 });
 
-function semi_doughnut_chart(id, labels, data) {
+function semiDoughnutChart(id, labels, data) {
     var ctx = document.getElementById(id).getContext('2d');
-    var myChart = new Chart(ctx, {
+    return new Chart(ctx, {
         type: 'doughnut',
         data: {
             labels: labels,
@@ -49,15 +49,15 @@ function semi_doughnut_chart(id, labels, data) {
             circumference: Math.PI,
             rotation: -Math.PI
         }
-    });
+    })
 }
 
 
 
-function bar_chart(id, name, labels, data)
+function barChart(id, name, labels, data)
 {
     var ctx = document.getElementById(id).getContext('2d');
-    var myChart = new Chart(ctx, {
+    return new Chart(ctx, {
         type: 'bar',
         data: {
             labels: labels,
@@ -88,65 +88,80 @@ function bar_chart(id, name, labels, data)
         }
     });
 }
+function newStats(){
+    let doughnutChart = semiDoughnutChart('statistica_sortare', ['Hartie', 'Sticla', 'Plastic', 'Metal', 'Menajer'], []);
+    let barChartHartie = barChart('statistica_top_hartie', 'hartie', ['Frumoasa', 'Pacurari', 'Restul cartierelor'], [60, 30, 40]);
+    let barChartSetal = barChart('statistica_top_metal', 'metal', ['Dacia', 'Frumoasa', 'Restul cartierelor'], [40, 50, 40]);
+    let barChartSticla = barChart('statistica_top_sticla', 'sticla', ['Alexandru', 'Tatarasi', 'Restul cartierelor'], [40, 50, 40]);
+    let barChartPlastic = barChart('statistica_top_plastic', 'plastic', ['Dacia', 'Nicolina', 'Restul cartierelor'], [70, 50, 20]);
+    let barChartMenajer = barChart('statistica_top_menajer','gunoi menajer', ['Tatarasi', 'Pacurari', 'Restul cartierelor'], [170, 150, 320]);
 
-semi_doughnut_chart('statistica_sortare', ['Hartie', 'Sticla', 'Plastic', 'Metal', 'Menajer'], [300, 200, 600, 150, 900]);
-bar_chart('statistica_top_hartie', 'hartie', ['Frumoasa', 'Pacurari', 'Restul cartierelor'], [60, 30, 40]);
-bar_chart('statistica_top_metal', 'metal', ['Dacia', 'Frumoasa', 'Restul cartierelor'], [40, 50, 40]);
-bar_chart('statistica_top_sticla', 'sticla', ['Alexandru', 'Tatarasi', 'Restul cartierelor'], [40, 50, 40]);
-bar_chart('statistica_top_plastic', 'plastic', ['Dacia', 'Nicolina', 'Restul cartierelor'], [70, 50, 20]);
-bar_chart('statistica_top_menajer','gunoi menajer', ['Tatarasi', 'Pacurari', 'Restul cartierelor'], [170, 150, 320]);
-
-
-
-$('input[name="daterange"]').daterangepicker({
-    opens: 'center',
-    "locale": {
-        "format": "DD/MM/YYYY",
-        "separator": " - ",
-        "applyLabel": "Ok",
-        "cancelLabel": "Cancel",
-        "fromLabel": "From",
-        "toLabel": "To",
-        "customRangeLabel": "Custom",
-        "weekLabel": "W",
-        "daysOfWeek": [
-            "Du",
-            "Lu",
-            "Ma",
-            "Mi",
-            "Jo",
-            "Vi",
-            "Sa"
-        ],
-        "monthNames": [
-            "Ianuarie",
-            "Februarie",
-            "Martie",
-            "Aprilie",
-            "Mai",
-            "Iunie",
-            "Iulie",
-            "August",
-            "Septembrie",
-            "Octombrie",
-            "Noiembrie",
-            "Decembrie"
-        ],
-        "firstDay": 1
-    },
-    ranges: {
-        'Azi': [moment(), moment()],
-        'Ieri': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-        'Ultimele 7 zile': [moment().subtract(6, 'days'), moment()],
-        'Ultimele 30 zile': [moment().subtract(29, 'days'), moment()],
-        'Luna aceasta': [moment().startOf('month'), moment().endOf('month')],
-        'Luna trecuta': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        },
-    "startDate": "28/04/2020",
-    "endDate": "04/05/2020"
-    },
-    
-    function(start, end, label) {
-        console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+    function newRange(start, end) {
+        axios.get(`/api/dumpsters/stats?dateStart=${start.unix()*1000}&dateEnd=${end.unix()*1000}`)
+        .then(function (response) {
+            doughnutChart.data.datasets[0].data = [response.data['hârtie'] || 0, response.data['sticlă'] || 0,
+                                                   response.data['plastic'] || 0, response.data['metal'] || 0,
+                                                   response.data['menajer'] || 0]
+                                            
+            doughnutChart.update()
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
     }
-);
+
+    newRange(moment().subtract(29, 'days'), moment())
+
+    $('input[name="daterange"]').daterangepicker({
+        opens: 'center',
+        locale: {
+            "format": "DD/MM/YYYY",
+            "separator": " - ",
+            "applyLabel": "Ok",
+            "cancelLabel": "Cancel",
+            "fromLabel": "From",
+            "toLabel": "To",
+            "customRangeLabel": "Custom",
+            "weekLabel": "W",
+            "daysOfWeek": [
+                "Du",
+                "Lu",
+                "Ma",
+                "Mi",
+                "Jo",
+                "Vi",
+                "Sa"
+            ],
+            "monthNames": [
+                "Ianuarie",
+                "Februarie",
+                "Martie",
+                "Aprilie",
+                "Mai",
+                "Iunie",
+                "Iulie",
+                "August",
+                "Septembrie",
+                "Octombrie",
+                "Noiembrie",
+                "Decembrie"
+            ],
+            "firstDay": 1
+        },
+        ranges: {
+            'Azi': [moment(), moment()],
+            'Ieri': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Ultimele 7 zile': [moment().subtract(6, 'days'), moment()],
+            'Ultimele 30 zile': [moment().subtract(29, 'days'), moment()],
+            'Luna aceasta': [moment().startOf('month'), moment().endOf('month')],
+            'Luna trecuta': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            },
+        startDate: moment().subtract(29, 'days').format('DD/MM/YYYY'),
+        endDate: moment().format('DD/MM/YYYY')
+        },
+        newRange
+        
+    );
+}
+
+newStats()
