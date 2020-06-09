@@ -54,8 +54,12 @@ export class DumpstersStatsList {
 
         const dateStart = new Date(Number(params.get('dateStart'))*1000)
         const dateEnd = new Date(Number(params.get('dateEnd'))*1000)
-        const id = params.get('last_id')
-        
-        ctx.response.body = await Dumpster.getTableData(dateStart, dateEnd, id) || []
+        const id = params.get('lastId')
+        let ord = params.get('order') || 1
+        if(ord == 'desc')
+            ord = 0
+        else
+            ord = 1
+        ctx.response.body = await Dumpster.getTableData(dateStart, dateEnd, id, ord) || []
     }
 }

@@ -247,6 +247,9 @@ table {
     border-color: transparent;
     color: #fff;
 }
+.overflow {
+    overflow: auto;
+}
 @media screen and (max-width: 800px){
     .main_info {
         flex-direction: column;

@@ -117,18 +117,22 @@ export default class Dumpster {
         return res
     }
 
-    static async getTableData(dateStart: Date, dateEnd: Date, last_id: any) {
+    static async getTableData(dateStart: Date, dateEnd: Date, last_id: any, asc: number) {
         let res : Record<number, Record<string, any>>= {}
-        ++last_id
+        if(asc)
+            ++last_id
+        else
+            --last_id
         let client = new DatabaseConnection()
         await client.connect()
         for(let i=0; i<20 && Object.keys(res).length < 40; ++i) {
-            const query = await client.query('SELECT dumpster_address_id, address, type, sum(c.quantity) quantity \
+            const query = await client.query(`SELECT dumpster_address_id, address, type, sum(c.quantity) quantity \
                                             FROM collected c \
                                             JOIN garbage_type g ON g.id = c.garbage_type_id \
                                             JOIN dumpster_address da ON c.dumpster_address_id = da.id \
-                                            WHERE date BETWEEN ? AND ? AND da.id >= ? \
-                                            group by dumpster_address_id, garbage_type_id limit 10',
+                                            WHERE date BETWEEN ? AND ? AND da.id ${asc ? ">=" : "<="} ? \
+                                            group by dumpster_address_id, garbage_type_id \
+                                            order by dumpster_address_id ${asc ? "" : "desc"} limit 10`,
                                             [dateStart, dateEnd, last_id||0])
             if(!query[0]) {
                 if(Object.keys(res).length !== 0)

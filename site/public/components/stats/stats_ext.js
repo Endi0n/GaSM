@@ -92,6 +92,11 @@ function barChart(id, name, labels, data)
     });
 }
 
+const xStatsTable = document.getElementsByTagName('x-stats-table')[0]
+
+$('.next-button')[0].addEventListener('click', xStatsTable.back.bind(xStatsTable))
+$('.next-button')[1].addEventListener('click', xStatsTable.next.bind(xStatsTable))
+
 function newStats(){
     let doughnutChart = semiDoughnutChart('statistica_sortare', ['Hartie', 'Sticla', 'Plastic', 'Metal', 'Menajer'], []);
     let barChartHartie = barChart('statistica_top_hartie', 'hartie', ['Frumoasa', 'Pacurari', 'Restul cartierelor'], [60, 30, 40]);
@@ -108,6 +113,7 @@ function newStats(){
                                                    response.data['menajer'] || 0]
                                             
             doughnutChart.update()
+            document.getElementsByTagName('x-stats-table')[0].updateTable(start, end, 0, 'asc')
         })
         .catch(function (error) {
             console.log(error);
