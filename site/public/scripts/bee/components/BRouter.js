@@ -1,4 +1,5 @@
 import Component from '/scripts/bee/Component.js'
+import BRoute from '/scripts/bee/components/BRoute.js'
 import BComponent from '/scripts/bee/components/BComponent.js'
 import ComponentsManager from '/scripts/bee/ComponentsManager.js'
 
@@ -11,14 +12,14 @@ export default class BRouter extends Component {
         BRouter._routers.push(this)
 
         Array.from(this.childNodes)
-            .filter(el => el.tagName === 'B-ROUTE')
+            .filter(el => el instanceof BRoute)
             .forEach(el => {
                 if (el.attributes.fallback) {
-                    this._fallback = el.attributes.component.value
+                    this._fallback = el.getComponent.bind(el)
                     return
                 }
                 
-                this._routes[el.attributes.path.value] = el.attributes.component.value
+                this._routes[el.attributes.path.value] = el.getComponent.bind(el)
             })
         
         await this.update(window.location.pathname)
@@ -30,7 +31,7 @@ export default class BRouter extends Component {
         
         ComponentsManager.removeDependencies(this.firstChild)
 
-        this.replaceChild(new BComponent(componentType), this.firstChild)
+        this.replaceChild(new BComponent(await componentType()), this.firstChild)
     }
 
     async update(url) {
