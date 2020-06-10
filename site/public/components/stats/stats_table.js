@@ -94,7 +94,10 @@ class XStatsTable extends Component {
                 return false
             for(const row of response.data) {
                 for(let i=0; i < ths.length - 1; ++i) 
-                    table += `${row[ths[i]] || 0},`
+                    if(i === 1)
+                        table += `"${row[ths[i]] || 0}",`
+                    else
+                        table += `${row[ths[i]] || 0},`
                 
                 table += `${row[ths[ths.length - 1]] || 0}\n`
             }
