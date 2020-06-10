@@ -101,15 +101,6 @@ body {
     background-repeat: no-repeat;
     background-position: center;
 }
-.tipuri_deseu_continut a:nth-child(even) {
-    align-self: flex-end;
-}
-.tipuri_deseu_continut a:nth-child(3) {
-    align-self: flex-start;
-}
-.tipuri_deseu_continut a img {
-    border-radius: 50%;
-}
 #statistici {
     padding-bottom: 5em;
     width: 100%;

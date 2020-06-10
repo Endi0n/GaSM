@@ -7,5 +7,6 @@ export const REGISTER_ROUTE = BASE_API_ROUTE + '/auth/register'
 export const DUMPSTERS_ROUTE = BASE_API_ROUTE + '/dumpsters'
 export const DUMPSTER_ROUTE = id => BASE_API_ROUTE + `/dumpster/${id}`
 export const DUMPSTERS_STATS_ROUTE = (start, end) => BASE_API_ROUTE + `/dumpsters/stats?dateStart=${start}&dateEnd=${end}`
-export const DUMPSTERS_STATS_LIST_ROUTE = (start, end, lastId, order) => BASE_API_ROUTE + `/dumpsters/stats/list?dateStart=${start}&dateEnd=${end}&lastId=${lastId}&order=${order}`
+export const DUMPSTERS_STATS_LIST_ROUTE = (start, end, lastId, order, limit) => BASE_API_ROUTE + `/dumpsters/stats/list?dateStart=${start}&dateEnd=${end}&lastId=${lastId}&order=${order}&limit=${limit}`
+
 export const VIEW_CAMPAIGNS_ROUTE = BASE_API_ROUTE + '/campaigns'

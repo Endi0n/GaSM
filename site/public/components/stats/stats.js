@@ -9,6 +9,20 @@ class XStats extends Component {
             if ($( ".daterangepicker" ).css('display') !== 'none') 
                 $(".cancelBtn").click()
         });
+
+        const xStatsTable = document.getElementsByTagName('x-stats-table')[0]
+        $('#download_csv')[0].addEventListener('click', () => {
+            let ranges = $('input[name="daterange"]').val().split(' - ')
+            xStatsTable.downloadCSV(moment(ranges[0], 'DD/MM/YYYY'), moment(ranges[1], 'DD/MM/YYYY'))
+        })
+        $('#download_html')[0].addEventListener('click', () => {
+            let ranges = $('input[name="daterange"]').val().split(' - ')
+            xStatsTable.downloadHTML(moment(ranges[0], 'DD/MM/YYYY'), moment(ranges[1], 'DD/MM/YYYY'))
+        })
+        $('#download_pdf')[0].addEventListener('click', () => {
+            let ranges = $('input[name="daterange"]').val().split(' - ')
+            xStatsTable.downloadPDF(moment(ranges[0], 'DD/MM/YYYY'), moment(ranges[1], 'DD/MM/YYYY'))
+        })
     }
     async componentRemoved() {
         document.getElementsByClassName('daterangepicker')[0].remove()
