@@ -6,7 +6,7 @@ import Campaign from '../models/campaign.ts'
 export default class Campaigns {
 
     static async get(ctx: Context) {
-       ctx.response.body = await Campaign.findPosts()
+        ctx.response.body = await Campaign.findPosts(ctx.request.params.get('lastId') || undefined)
     }
 
 }

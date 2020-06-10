@@ -26,9 +26,7 @@ export default class Campaign {
         return this.#userId;
     }
 
-
-
-    static async findPosts(lastId?: number) {
+    static async findPosts(lastId?: string) {
         let client = new DatabaseConnection()
         await client.connect()
         let query: Promise<any> | null = null
@@ -41,8 +39,6 @@ export default class Campaign {
         const result = await query
         
         await client.close()
-        
-        console.log(result);
 
         return result
     }

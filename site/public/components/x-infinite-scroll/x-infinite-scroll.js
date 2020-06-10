@@ -48,9 +48,13 @@ class XInfiniteScroll extends Component {
 
         this.loadingAnimation.classList.add('show')
 
-        const data = (await axios.get(this.endpoint)).data
+        const data = (await axios.get(this.endpoint + `?lastId=${this.lastId}`)).data
         this.appendChildren(data)
-        this.lastId = data[data.length - 1].id
+
+        if (this.canLoadMore)
+            this.lastId = data[data.length - 1].id
+
+        this.loadingAnimation.classList.remove('show')
 
         this.loading = false
     }

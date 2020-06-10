@@ -10,10 +10,12 @@ export default class Request {
     #serverRequest: deno.ServerRequest
     #body: any | null
     #token: any | null
+    readonly params: URLSearchParams
 
     constructor(server: Server, serverRequest: deno.ServerRequest) {
         this.#server = server
         this.#serverRequest = serverRequest
+        this.params = new URLSearchParams(serverRequest.url.split('?', 2)[1])
     }
 
     private async parseBody() {
