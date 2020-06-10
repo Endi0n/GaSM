@@ -8,9 +8,9 @@ class XCampaign extends Component {
     }
 
     async componentDidLoad() {
-        $(this).find('.title').html(this.data.title)
-        $(this).find('.description').html(this.data.content)
-        $(this).find('.address').html(this.data.location)
+        $(this).find('.title').text(this.data.title)
+        $(this).find('.description').text(this.data.content)
+        $(this).find('.address').text(this.data.location)
         $(this).find('.date').html(this.data.date)
     }
 }
