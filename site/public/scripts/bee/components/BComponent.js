@@ -3,13 +3,18 @@ import ComponentsManager from '/scripts/bee/ComponentsManager.js'
 
 
 export default class BComponent extends Component {
-    constructor(type) {
+    constructor(type, data) {
         super()
-        if (type) this.setAttribute('type', type)
+        if (!type) return
+
+        this.setAttribute('type', type)
+        this.data = data
     }
 
     async componentDidMount() {
-        this.appendChild(new ComponentsManager.components[this.getAttribute('type')]())
+        console.log(ComponentsManager.components)
+        console.log(this.getAttribute('type'), this.data)
+        this.appendChild(new ComponentsManager.components[this.getAttribute('type')](this.data))
     }
 }
 
