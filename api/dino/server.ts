@@ -17,7 +17,11 @@ export default class Server {
 
     async serve() {
         for await (const req of this.server) {
-            await Router.routeRequest(new Context(this, req))
+            try {
+                await Router.routeRequest(new Context(this, req))
+            } catch (exception) {
+                console.error(exception)
+            }
         }
     }
 }
