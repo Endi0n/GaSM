@@ -7,10 +7,13 @@ export default class ComponentsManager {
 
     static async define(name, cls, props) {
         cls.componentName = name
-        cls.template = props.template
-        cls.styles = props.styles
-        cls.scripts = props.scripts
-        cls.lazyScripts = props.lazyScripts
+
+        if (props) {
+            cls.template = props.template
+            cls.styles = props.styles
+            cls.scripts = props.scripts
+            cls.lazyScripts = props.lazyScripts
+        }
 
         ComponentsManager.components[name] = cls
 

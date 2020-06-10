@@ -64,4 +64,4 @@ class XStatsTable extends Component {
     }
 }
 
-Component.define('x-stats-table', XStatsTable, {})
+Component.define('x-stats-table', XStatsTable)
