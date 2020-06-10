@@ -45,8 +45,8 @@ export default class Request {
 
         const jwt = authorizationSplit[1]
 
-        const token = await validateJwt(jwt, this.#server.secretKey, { isThrowing: false })
-        if (!token) return null
+        const token = await validateJwt(jwt, this.#server.secretKey)
+        if (!token.isValid) return null
 
         this.#token = token.payload
 
