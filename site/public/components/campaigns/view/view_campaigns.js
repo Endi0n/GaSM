@@ -2,7 +2,12 @@ import * as routes from '/scripts/routes.js'
 import Component from '/scripts/bee/Component.js'
 
 class XCampaigns extends Component {
-	async componentDidLoad() {
+    async componentDidLoad() {
+        const xInfiniteScroll = this.getElementsByTagName('x-infinite-scroll')[0]
+        await xInfiniteScroll.loadFrom(routes.VIEW_CAMPAIGNS_ROUTE)
+    }
+
+	async componentDidLoad2() {
         const container = document.getElementById('container');
         const loading = document.querySelector('.loading');
 
@@ -10,51 +15,21 @@ class XCampaigns extends Component {
                 .then(resp => addDataToDOM(resp.data))
                 .catch(err => console.log(err))
 
-        function addDataToDOM(resp) {
-            const postElement = document.createElement('div');
-            for (let i = 0; i < resp.length; i++) {
-                postElement.classList.add('campaign');
-                postElement.innerHTML = `
-                <h2 class="title">${resp[i].title}</h2>
-                <p class="description">${resp[i].content}</p>
-
-                <a href="${resp[i].id}">Citeste mai mult</a>
-                
-                <div class="info">
-                <div>
-                <h4>Adresa</h4>
-                    <span class="address">${resp[i].location}</span>
-                </div>
-                <div>
-                <h4>Data</h4>
-                    <span class="name">${resp[i].date}</span>
-                </div>
-                <div>
-                <h4>Organizator</h4>
-                
-                </div>
-                `;
-                container.appendChild(postElement);
-            }
-            loading.classList.remove('show');
-        }
-
         window.addEventListener('scroll', () => {
             const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
             
             if(clientHeight + scrollTop >= scrollHeight - 5) {
-                showLoading();
+                showLoading()
             }
         });
 
         function showLoading() {
+            console.log('herre')
             loading.classList.add('show');
             axios.get(routes.VIEW_CAMPAIGNS_ROUTE)
                 .then(resp => addDataToDOM(resp.data))
                 .catch(err => console.log(err))
         }
-
-        
     }
 }
 
