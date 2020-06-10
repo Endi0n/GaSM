@@ -1,4 +1,5 @@
 import { CHECK_AUTH_ROUTE } from '/scripts/routes.js'
+import BState from '/scripts/bee/BState.js'
 
 export default class Authentication {
     static _inited = false
@@ -40,5 +41,14 @@ export default class Authentication {
         Authentication._token = token
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
         Authentication._observers.forEach(async el => await el())
+    }
+
+    static logout() {
+        localStorage.removeItem('token')
+        Authentication._token = null
+        Authentication._valid = false
+        delete axios.defaults.headers.common['Authorization']
+        Authentication._observers.forEach(async el => await el())
+        BState.update()
     }
 }

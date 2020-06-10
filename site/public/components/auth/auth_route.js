@@ -1,6 +1,6 @@
 import BRoute from '/scripts/bee/components/BRoute.js'
 import Authentication from '/scripts/auth.js'
-import BHistory from '/scripts/bee/BHistory.js'
+import BState from '/scripts/bee/BState.js'
 
 
 class XAuthRequiredRoute extends BRoute {
@@ -8,7 +8,7 @@ class XAuthRequiredRoute extends BRoute {
         if (await Authentication.valid)
             return super.getComponent()
 
-        BHistory.replaceState('/auth/login', {
+        BState.replaceState('/auth/login', {
             refferal: window.location.pathname
         })
     }

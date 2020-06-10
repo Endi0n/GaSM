@@ -2,13 +2,13 @@ import Component from '/scripts/bee/Component.js'
 import BRoute from '/scripts/bee/components/BRoute.js'
 import BComponent from '/scripts/bee/components/BComponent.js'
 import ComponentsManager from '/scripts/bee/ComponentsManager.js'
-import BHistory from '/scripts/bee/BHistory.js'
+import BState from '/scripts/bee/BState.js'
 
 export default class BRouter extends Component {
     _routes = {}
 
     async componentDidLoad() {
-        BHistory.addObserver(this)
+        BState.addObserver(this)
 
         Array.from(this.childNodes)
             .filter(el => el instanceof BRoute)

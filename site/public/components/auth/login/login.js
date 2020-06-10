@@ -1,6 +1,6 @@
 import Component from '/scripts/bee/Component.js'
 import * as routes from '/scripts/routes.js'
-import BHistory from '/scripts/bee/BHistory.js'
+import BState from '/scripts/bee/BState.js'
 import Authentication from '/scripts/auth.js'
 
 class XLogin extends Component {
@@ -49,13 +49,13 @@ class XLogin extends Component {
         async function onAuthSuccess(data) {
             Authentication.token = data.token
 
-            if (history.state && history.state.refferal) {
-                console.log(history.state.refferal)
-                BHistory.replaceState(history.state.refferal)
+            if (BState.state && BState.state.refferal) {
+                console.log(BState.state.refferal)
+                BState.replaceState(BState.state.refferal)
                 return
             }
 
-            BHistory.pushState('/')
+            BState.pushState('/')
         }
 
         async function OnAuthFailure(data) {
