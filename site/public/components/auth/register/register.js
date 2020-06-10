@@ -1,5 +1,7 @@
 import * as routes from '/scripts/routes.js'
 import Component from '/scripts/bee/Component.js'
+import Authentication from '/scripts/auth.js'
+import BState from '/scripts/bee/BState.js'
 
 class XRegister extends Component {
 	async componentDidLoad() {
@@ -90,11 +92,26 @@ class XRegister extends Component {
                 const formData = new FormData(document.getElementsByTagName('form')[0]);
                 const jsonFormData = JSON.stringify(Object.fromEntries(formData));
                 axios.post(routes.REGISTER_ROUTE, jsonFormData)
-                .then(resp => console.log(resp))
-                .catch(err => console.log(err.response))
+                .then(async resp => await onRegistrationSuccess(resp.data))
+                .catch(err => console.log(err, err.data))
             }
 
             ok = 0;
+        }
+
+        async function onRegistrationSuccess(data) {
+            const formData = new FormData(document.getElementsByTagName('form')[0]);
+            const jsonFormData = JSON.stringify(Object.fromEntries(formData));
+
+            Authentication.token = (await axios.post(routes.LOGIN_ROUTE, jsonFormData)).data.token
+
+            if (BState.state && BState.state.refferal) {
+                console.log(BState.state.refferal)
+                BState.replaceState(BState.state.refferal)
+                return
+            }
+
+            BState.pushState('/')
         }
 
         function setErrorFor(input, message) {

@@ -12,7 +12,7 @@ class XMenu extends Component {
 
         $(this).children('.menu-link').click(() => menu_list.classList.toggle('show'))
 
-        $(this).children('#menu-logout').click(Authentication.logout)
+        $(this).find('#menu-logout').click(Authentication.logout)
     }
 }
 
