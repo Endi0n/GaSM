@@ -4,7 +4,7 @@ import BState from '/scripts/bee/BState.js'
 export default class BLink extends Component {
     constructor() {
         super()
-        this.onclick = (e) => BState.pushState(this.attributes.href.value)
+        this.onclick = (e) => BState.pushState(this.attributes.href.value, BState.state)
     }
 }
 

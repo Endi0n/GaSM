@@ -38,8 +38,6 @@ export default class ComponentsManager {
     static async _loadAsyncScriptsBatch(scripts) {
         scripts = (scripts instanceof Array) ? scripts : [ scripts ]
 
-        console.log(scripts)
-
         let scriptPromises = []
 
         for (let script of scripts) {
