@@ -1,4 +1,4 @@
-import * as deno from 'https://deno.land/std@0.53.0/http/server.ts'
+import * as deno from 'https://deno.land/std@0.56.0/http/server.ts'
 import { decode } from 'https://deno.land/std/encoding/utf8.ts'
 import Server from './server.ts'
 import Response from './response.ts'

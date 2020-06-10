@@ -1,4 +1,4 @@
-import * as deno from 'https://deno.land/std@0.53.0/http/server.ts'
+import * as deno from 'https://deno.land/std@0.56.0/http/server.ts'
 import { makeJwt, Jose, Payload } from "https://deno.land/x/djwt/create.ts"
 import Server from './server.ts'
 import Request from './request.ts'
