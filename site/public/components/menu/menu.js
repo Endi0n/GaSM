@@ -8,9 +8,9 @@ class XMenu extends Component {
 
         const menu_list = this.getElementsByClassName('menu-list')[0]
 
-        $(this).children('.menu-btn').click(() =>  menu_list.classList.toggle('show'))
+        $(this).find('.menu-btn').click(() =>  menu_list.classList.toggle('show'))
 
-        $(this).children('.menu-link').click(() => menu_list.classList.toggle('show'))
+        $(this).find('.menu-link').click(() => menu_list.classList.toggle('show'))
 
         $(this).find('#menu-logout').click(Authentication.logout)
     }
