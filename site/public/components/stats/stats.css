@@ -169,7 +169,7 @@ table {
     text-align: center;
     padding: 2em 0;
 }
-.pagination a:nth-child(2)
+#page_nr
 {
     background-color: #a75fff;
     text-decoration: none;

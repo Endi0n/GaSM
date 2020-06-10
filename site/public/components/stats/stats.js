@@ -1,6 +1,15 @@
 import Component from '/scripts/bee/Component.js'
 
 class XStats extends Component {
+    async componentDidLoad() {
+        let height = $('x-menu').outerHeight()
+        $("#meniu_secundar").css('top', height)
+
+        $(window).scroll(function(){
+            if ($( ".daterangepicker" ).css('display') !== 'none') 
+                $(".cancelBtn").click()
+        });
+    }
     async componentRemoved() {
         document.getElementsByClassName('daterangepicker')[0].remove()
     }

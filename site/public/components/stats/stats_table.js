@@ -1,5 +1,5 @@
 import Component from '/scripts/bee/Component.js'
-
+import { DUMPSTERS_STATS_LIST_ROUTE } from '/scripts/routes.js'
 class XStatsTable extends Component {
     firstId = null
     lastId = null
@@ -10,12 +10,12 @@ class XStatsTable extends Component {
         this.startDate = start
         this.endDate = end
         let thisReference = this
-
-        axios.get(`/api/dumpsters/stats/list?dateStart=${start.unix()}&dateEnd=${end.unix()}&lastId=${lastId || 0}&order=${order}`)
+        
+        axios.get(DUMPSTERS_STATS_LIST_ROUTE(start.unix(), end.unix(), lastId || 0, order))
         .then(function (response) {
             let table = '<table>\
                             <tr>\
-                                <th>Id pubela</th>\
+                                <th>Id</th>\
                                 <th>Locatie</th>\
                                 <th>Menajer</th>\
                                 <th>Plastic</th>\
@@ -53,7 +53,6 @@ class XStatsTable extends Component {
 
     async componentDidMount() {
         $('#page_nr').html("1");
-        this.updateTable(moment().subtract(29, 'days'), moment(), 0, 'asc')
     }
 
     next() {

@@ -1,18 +1,3 @@
-import { DUMPSTERS_STATS_ROUTE } from '/scripts/routes.js'
-
-
-function setTopStickyDateRangePicker() {
-    let height  = $('x-menu').outerHeight()
-    $("#meniu_secundar").css('top', height)
-}
-
-setTopStickyDateRangePicker();
-
-$(window).scroll(function(){
-    if ($( ".daterangepicker" ).css('display') !== 'none') 
-        $(".cancelBtn").click()
-});
-
 function semiDoughnutChart(id, labels, data) {
     var ctx = document.getElementById(id).getContext('2d');
     return new Chart(ctx, {
@@ -92,12 +77,14 @@ function barChart(id, name, labels, data)
     });
 }
 
-const xStatsTable = document.getElementsByTagName('x-stats-table')[0]
 
-$('.next-button')[0].addEventListener('click', xStatsTable.back.bind(xStatsTable))
-$('.next-button')[1].addEventListener('click', xStatsTable.next.bind(xStatsTable))
 
 function newStats(){
+    const xStatsTable = document.getElementsByTagName('x-stats-table')[0]
+
+    $('.next-button')[0].addEventListener('click', xStatsTable.back.bind(xStatsTable))
+    $('.next-button')[1].addEventListener('click', xStatsTable.next.bind(xStatsTable))
+    
     let doughnutChart = semiDoughnutChart('statistica_sortare', ['Hartie', 'Sticla', 'Plastic', 'Metal', 'Menajer'], []);
     let barChartHartie = barChart('statistica_top_hartie', 'hartie', ['Frumoasa', 'Pacurari', 'Restul cartierelor'], [60, 30, 40]);
     let barChartSetal = barChart('statistica_top_metal', 'metal', ['Dacia', 'Frumoasa', 'Restul cartierelor'], [40, 50, 40]);
@@ -106,7 +93,7 @@ function newStats(){
     let barChartMenajer = barChart('statistica_top_menajer','gunoi menajer', ['Tatarasi', 'Pacurari', 'Restul cartierelor'], [170, 150, 320]);
 
     function newRange(start, end) {
-        axios.get(DUMPSTERS_STATS_ROUTE(start.unix(), end.unix()))
+        axios.get(`/api/dumpsters/stats?dateStart=${start.unix()}&dateEnd=${end.unix()}`)
         .then(function (response) {
             doughnutChart.data.datasets[0].data = [response.data['hârtie'] || 0, response.data['sticlă'] || 0,
                                                    response.data['plastic'] || 0, response.data['metal'] || 0,
