@@ -1,0 +1,38 @@
+.x-infinite-scroll-loading {
+	opacity: 0;
+	display: flex;
+	justify-content: center;
+	margin-top: 5em;
+	transition: opacity .3s ease-in;
+}
+
+.x-infinite-scroll-loading.show {
+	opacity: 1;
+}
+
+.ball {
+	background-color: white;
+	border-radius: 50%;
+	margin: 5px;
+	height: 10px;
+	width: 10px;
+	animation: jump .5s ease-in infinite;
+}
+
+.ball:nth-of-type(2) {
+	animation-delay: 0.1s;
+}
+
+.ball:nth-of-type(3) {
+	animation-delay: 0.2s;
+}
+
+@keyframes jump {
+	0%, 100% {
+		transform: translateY(0);
+	}
+	
+	50% {
+		transform: translateY(-10px);
+	}
+}

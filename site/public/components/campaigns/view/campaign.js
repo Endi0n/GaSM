@@ -10,11 +10,14 @@ class XCampaign extends Component {
     async componentDidLoad() {
         $(this).find('.title').html(this.data.title)
         $(this).find('.description').html(this.data.content)
-        $(this).find('.address').html(this.data.address)
+        $(this).find('.address').html(this.data.location)
         $(this).find('.date').html(this.data.date)
     }
 }
 
 Component.define('x-campaign', XCampaign, {
     template: '/components/campaigns/view/campaign.html',
+    styles: [
+        '/components/campaigns/view/view_campaigns.css'
+    ]
 })

@@ -6,31 +6,6 @@ class XCampaigns extends Component {
         const xInfiniteScroll = this.getElementsByTagName('x-infinite-scroll')[0]
         await xInfiniteScroll.loadFrom(routes.VIEW_CAMPAIGNS_ROUTE)
     }
-
-	async componentDidLoad2() {
-        const container = document.getElementById('container');
-        const loading = document.querySelector('.loading');
-
-        axios.get(routes.VIEW_CAMPAIGNS_ROUTE)
-                .then(resp => addDataToDOM(resp.data))
-                .catch(err => console.log(err))
-
-        window.addEventListener('scroll', () => {
-            const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-            
-            if(clientHeight + scrollTop >= scrollHeight - 5) {
-                showLoading()
-            }
-        });
-
-        function showLoading() {
-            console.log('herre')
-            loading.classList.add('show');
-            axios.get(routes.VIEW_CAMPAIGNS_ROUTE)
-                .then(resp => addDataToDOM(resp.data))
-                .catch(err => console.log(err))
-        }
-    }
 }
 
 Component.define('x-campaigns', XCampaigns, {
