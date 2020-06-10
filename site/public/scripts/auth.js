@@ -11,10 +11,10 @@ export default class Authentication {
     static async _init() {
         Authentication._token = localStorage.token
 
-        if (Authentication._token)
+        if (Authentication._token) {
             axios.defaults.headers.common['Authorization'] = `Bearer ${Authentication._token}`
-
-        await Authentication.reCheck(false)
+            await Authentication.reCheck(false)
+        }
     }
 
     static addObserver(observer) {

@@ -35,6 +35,34 @@ export default class ComponentsManager {
         return (await fetch(templateURL)).text()
     }
 
+    static async _loadAsyncScriptsBatch(scripts) {
+        scripts = (scripts instanceof Array) ? scripts : [ scripts ]
+
+        console.log(scripts)
+
+        let scriptPromises = []
+
+        for (let script of scripts) {
+            if (!(script in ComponentsManager._loadedResources)) {
+                let scriptEl = document.createElement('script')
+                scriptEl.async = 1
+
+                scriptPromises.push(new Promise(
+                    resolve => scriptEl.onload = resolve
+                ))
+
+                scriptEl.src = script
+                document.head.appendChild(scriptEl)
+
+                ComponentsManager._loadedResources[script] = { count: 0, element: scriptEl }
+            }
+
+            ComponentsManager._loadedResources[script].count += 1
+        }
+
+        await Promise.all(scriptPromises)
+    }
+
     static async loadDependecies(component) {
         for (let style of component.styles || []) {
             if (!(style in ComponentsManager._loadedResources)) {
@@ -50,25 +78,8 @@ export default class ComponentsManager {
             ComponentsManager._loadedResources[style].count += 1
         }
 
-        for (let script of component.scripts || []) {
-            if (!(script in ComponentsManager._loadedResources)) {
-                let scriptEl = document.createElement('script')
-                scriptEl.type = 'text/javascript'
-
-                let scriptPromise = new Promise(
-                    resolve => scriptEl.onload = resolve
-                )
-
-                scriptEl.src = script
-                document.head.appendChild(scriptEl)
-
-                await scriptPromise
-
-                ComponentsManager._loadedResources[script] = { count: 0, element: scriptEl }
-            }
-
-            ComponentsManager._loadedResources[script].count += 1
-        }
+        for (let scripts of component.scripts || [])
+            await ComponentsManager._loadAsyncScriptsBatch(scripts)
     }
 
     static loadLazyDependencies(component) {

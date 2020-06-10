@@ -29,7 +29,13 @@ class XMap extends Component {
         ).addTo(this.map)
     
         this.loadData()
-        setInterval(this.refreshData.bind(this), 60e3) // every minute
+        
+        this.refreshDataInterval = this.refreshData.bind(this)
+        setInterval(this.refreshDataInterval, 60e3) // every minute
+    }
+
+    asyncComponentRemoved() {
+        clearInterval(this.refreshDataInterval)
     }
     
     initMap(mapDiv) {
@@ -125,6 +131,7 @@ Component.define('x-map', XMap, {
         // Leaflet MarkerCluster plugin 
         'https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js',
 
+        // Leaflet RotatedIcon plugin 
         '/components/map/leaflet-rotated-icon.js'
     ]
 })

@@ -12,8 +12,6 @@ export default class BComponent extends Component {
     }
 
     async componentDidMount() {
-        console.log(ComponentsManager.components)
-        console.log(this.getAttribute('type'), this.data)
         this.appendChild(new ComponentsManager.components[this.getAttribute('type')](this.data))
     }
 }
