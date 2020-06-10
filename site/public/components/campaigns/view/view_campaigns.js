@@ -17,5 +17,6 @@ Component.define('x-campaigns', XCampaigns, {
         '/components/campaigns/view/view_campaigns.css'
     ],
 
-    scripts: ['https://kit.fontawesome.com/df8e637184.js']
+    scripts: ['https://kit.fontawesome.com/df8e637184.js', 'https://cdn.jsdelivr.net/momentjs/latest/moment.min.js']
+
 })

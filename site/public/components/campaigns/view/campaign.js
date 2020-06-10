@@ -11,7 +11,7 @@ class XCampaign extends Component {
         $(this).find('.title').text(this.data.title)
         $(this).find('.description').text(this.data.content)
         $(this).find('.address').text(this.data.location)
-        $(this).find('.date').html(this.data.date)
+        $(this).find('.date').text(moment.utc(this.data.date).format('DD/MM/YYYY'))
     }
 }
 
