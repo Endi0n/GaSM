@@ -2,7 +2,6 @@ import Router from '../dino/router.ts'
 import Context from '../dino/context.ts'
 import Dumpster from '../models/dumpster.ts'
 
-
 @Router.route('/dumpsters')
 export class Dumpsters {
     static async get(ctx: Context) {
@@ -54,12 +53,32 @@ export class DumpstersStatsList {
 
         const dateStart = new Date(Number(params.get('dateStart'))*1000)
         const dateEnd = new Date(Number(params.get('dateEnd'))*1000)
-        const id = params.get('lastId')
+        let id = params.get('lastId') || 0        
         let ord = params.get('order') || 1
+
         if(ord == 'desc')
             ord = 0
         else
             ord = 1
-        ctx.response.body = await Dumpster.getTableData(dateStart, dateEnd, id, ord) || []
+
+        const limit = params.get('limit')
+        if(limit !== 'false') {
+            ctx.response.body = await Dumpster.getTableData(dateStart, dateEnd, id, ord) || []
+            return
+        }
+
+        let result : any = []
+        id = 0
+        ord = 1          
+        while(true){
+            const partialResult = await Dumpster.getTableData(dateStart, dateEnd, id, ord)
+            if(!partialResult)
+                break
+            partialResult.forEach((element: any) => {
+                result.push(element)
+                id = element['id']
+            });
+        }
+        ctx.response.body = result
     }
 }
