@@ -1,0 +1,925 @@
+    <!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>GasM Documentatie</title>
+
+	<link rel="stylesheet" href="css/scholarly.min.css">
+	<script src="js/scholarly.min.js"></script>
+</head>
+
+<body>
+
+	<div role="content-info">
+		<h1>GaSM Documentatie</h1>
+		<section typeof="sa:ProjectLinks">
+			<ul>
+				<li typeof="schema:WebPage" role="link" resource="https://github.com/Endi0n/GaSM"
+					property="schema:citation" id="github">
+					<cite property="schema:name">
+						<a href="https://github.com/Endi0n/GaSM">Github</a>
+					</cite>
+				</li>
+				<li typeof="schema:WebPage" role="link" resource="https://gasm.marecapitan.ro/"
+					property="schema:citation" id="github">
+					<cite property="schema:name">
+						<a href="https://gasm.marecapitan.ro/">Website</a>
+					</cite>
+				</li>
+			</ul>
+		</section>
+
+		<section typeof="sa:AuthorsList">
+			<h2>Autori</h2>
+			<ul>
+
+                <li typeof="sa:ContributorRole" property="schema:author">
+					<span typeof="schema:Person">
+						<meta property="schema:givenName" content="Adrian">
+						<meta property="schema:familyName" content="Plesescu">
+						<span property="schema:name">Adrian Plesescu</span>
+					</span>
+					<ul>
+						<li property="schema:roleContactPoint" typeof="schema:ContactPoint">
+							<a href="adrian.plesescu@info.uaic.ro" property="schema:email">adrian.plesescu@info.uaic.ro</a>
+						</li>
+					</ul>
+                </li>
+				
+				<li typeof="sa:ContributorRole" property="schema:author">
+					<span typeof="schema:Person">
+						<meta property="schema:givenName" content="Andrei">
+						<meta property="schema:familyName" content="Albisteanu">
+						<span property="schema:name">Andrei Albisteanu</span>
+					</span>
+					<ul>
+						<li property="schema:roleContactPoint" typeof="schema:ContactPoint">
+							<a href="andrei.albisteanu@info.uaic.com" property="schema:email">andrei.albisteanu@info.uaic.com</a>
+						</li>
+					</ul>
+				</li>
+                
+                <li typeof="sa:ContributorRole" property="schema:author">
+					<span typeof="schema:Person">
+						<meta property="schema:givenName" content="Octavian">
+						<meta property="schema:familyName" content="Avasiloaei">
+						<span property="schema:name">Octavian Avasiloaei</span>
+					</span>
+					<ul>
+						<li property="schema:roleContactPoint" typeof="schema:ContactPoint">
+							<a href="octavian.avasiloaei@info.uaic.com" property="schema:email">octavian.avasiloaei@info.uaic.com</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+        </section>
+        
+        <section typeof="sa:Affiliations">
+            <h2>Afiliati</h2>
+            <ul>
+              <li id="sa">
+                <span typeof="schema:Organization" resource="https://www.info.uaic.ro/">
+                  <span property="schema:name">Facultatea de Informatică</span>,
+                  <span property="schema:parentOrganization">
+                    <span typeof="schema:Organization">
+                      <span property="schema:name">Universitatea „Alexandru Ioan Cuza”</span>
+                      —
+                      <span property="schema:location" typeof="schema:Place">
+                        <span property="schema:address" typeof="schema:PostalAddress">
+                          <span property="schema:addressLocality">IS</span>,
+                          <span property="schema:addressRegion">IS</span>,
+                          <span property="schema:addressCountry">RO</span>
+                        </span>
+                      </span>
+                    </span>
+                  </span>
+                </span>
+              </li>
+            </ul>
+        </section>
+
+
+          <h2>Cuprins</h2>
+            <ol role="directory">
+                <li>
+                    <a href="#introducere">
+                        <span> 1. </span>
+                        Introducere
+                    </a>
+                </li>
+                <li>
+                    <a href="#database">
+                        <span> 2. </span>
+                        Database
+                    </a>
+
+                    <ol role="directory">
+                        <li>
+                            <a href="#userdb">
+                                <span> 2.1. </span>
+                                Tabelul User
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#user-typedb">
+                                <span> 2.2. </span>
+                                Tabelul User Type
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#campaigndb">
+                                <span> 2.3. </span>
+                                Tabelul Campaign
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#campaign-attendeedb">
+                                <span> 2.4. </span>
+                                Tabelul Campaign Attendee
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#collecteddb">
+                                <span> 2.5. </span>
+                                Tabelul Collected
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#dumpster-addressdb">
+                                <span> 2.6. </span>
+                                Tabelul Dumpster Address
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#garbage-typedb">
+                                <span> 2.7. </span>
+                                Tabelul Garbage Type
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#notificationdb">
+                                <span> 2.8. </span>
+                                Tabelul Notification
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#public-dumpsterdb">
+                                <span> 2.9. </span>
+                                Tabelul Public Dumpster
+                            </a>
+                        </li>
+                    </ol>
+                </li>
+                <li>
+                    <a href="#front-end">
+                        <span> 3. </span>
+                        Front End
+                    </a>
+
+                    <ol role="directory">
+                        <li>
+                            <a href="#hartafront">
+                                <span> 3.1. </span>
+                                Harta
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#statisticifront">
+                                <span> 3.2. </span>
+                                Statistici
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#authfront">
+                                <span> 3.3. </span>
+                                Autentificare
+                            </a>
+
+                            <ol role="directory">
+                                <li>
+                                    <a href="#registerfront">
+                                        <span> 3.3.1. </span>
+                                        Register
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#loginfront">
+                                        <span> 3.3.2. </span>
+                                        Login
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#logoutfront">
+                                        <span> 3.3.3. </span>
+                                        Logout
+                                    </a>
+                                </li>
+                            </ol>
+                        </li>
+
+                        <li>
+                            <a href="#campaniifront">
+                                <span> 3.4. </span>
+                                Campanii
+                            </a>
+
+                            <ol role="directory">
+                                <li>
+                                    <a href="#initiere-campaniefront">
+                                        <span> 3.4.1. </span>
+                                        Initiere Campanie
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#vizualizare-campaniifront">
+                                        <span> 3.4.2. </span>
+                                        Vizualizare Campanii
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#vizualizare-campaniefront">
+                                        <span> 3.4.3. </span>
+                                        Vizualizare Campanie
+                                    </a>
+                                </li>
+                            </ol>
+                        </li>
+                        <li>
+                            <a href="#alertefront">
+                                <span> 3.5. </span>
+                                Alerte
+                            </a>
+
+                            <ol role="directory">
+                                <li>
+                                    <a href="#initiere-alertafront">
+                                        <span> 3.5.1. </span>
+                                        Initiere Alerta
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#vizualizare-alertefront">
+                                        <span> 3.5.2. </span>
+                                        Vizualizare Alerte
+                                    </a>
+                                </li>
+                            </ol>
+                        </li>
+                    </ol>
+                </li>
+                <li>
+                    <a href="#back-end">
+                        <span> 4. </span>
+                        Back End
+                    </a>
+
+                    <ol role="directory">
+                        <li>
+                            <a href="#techback">
+                                <span> 4.1. </span>
+                                Tech (Dino & Bee)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#campaniiback">
+                                <span> 4.2. </span>
+                                Harta
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#statiscticiback">
+                                <span> 4.3. </span>
+                                Statistici
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#authback">
+                                <span> 4.4. </span>
+                                Autentificare
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#campaniiback">
+                                <span> 4.5. </span>
+                                Campanii
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#alerteback">
+                                <span> 4.5. </span>
+                                Alerte
+                            </a>
+                        </li>
+                    </ol>
+                </li>
+            </ol>
+        </div>
+
+        <section id="introducere">
+
+            <h3>
+                Introducere
+            </h3>
+
+            <p>GaSM este o aplicație Web capabilă, pe baza unui API REST propriu, să gestioneze informațiile privitoare la colectarea, sortarea și reciclarea gunoiului – pe categorii: menajer, hârtie, plastic etc. – la nivelul cetățeanului, personalului autorizat și factorilor de decizie.
+
+                Se ofera suport pentru raportarea de către utilizatori a locurilor unde s-a acumulat o cantitate substanțială de gunoi, în vederea descongestionării. Pe unitate de timp (zi, săptămână, lună), vor fi generate rapoarte numerice și grafice – disponibile în formatele HTML, CSV și PDF – referitoare la situația actuală la nivel de localitate, evidențiindu-se zonele cele mai curate/mizere.
+                
+                Interacțiunea cu utilizatorul respecta principiile designului Web responsiv. Sistemul ofera suport și pentru inițierea unor campanii de sensibilizare a locuitorilor privitoare la colectarea selectivă a gunoiului și a raportării incidentelor vizând depozitarea neadecvată a acestuia.
+            </p>
+
+            <p>
+                Site-ul este foarte modularizat de la frontend la backend. Am folosit decorator, façade si e foarte usor de adaugat componente noi.
+            </p>
+    
+        </section>
+    
+        <section id="database">
+    
+            <h3>
+                Database
+            </h3>
+            <p>S-au folosit statement-uri prepared de fiecare data cand
+                a fost interogata baza de date.</p>
+            <figure typeof="sa:image">
+                <img src="images/schemadb.PNG">
+                <figcaption>Fig.1 - Structura bazei de date</figcaption>
+            </figure>
+            <section id="userdb">
+                <h3>
+                    Tabelul User
+                </h3>
+                <p>Datele ce vor fi introduse in acest tabel sunt furnizate de form-ul din pagina de /register si corespund
+                    credentialelor contului nou creat.</p>
+                <p>Asa arata tabelul user, ca structura, acesta fiind tabelul unde vor fi stocate toate detaliile legate de
+                    un utilizator:</p>
+                <figure typeof="sa:image">
+                    <img src="images/tabelusersstructura.png">
+                    <figcaption>Fig.2 - Structura tabelului user</figcaption>
+                </figure>
+                <p>Exemplu de date stocate in tabelul user:</p>
+                <figure typeof="sa:image">
+                    <img src="images/tabelusersdate.png">
+                    <figcaption>Fig.3 - Exemplu de date din tabelul user</figcaption>
+                </figure>
+            </section>
+
+            <section id="user-typedb">
+                <h3>
+                    Tabelul User Type
+                </h3>
+                <p>Contine tipurile de utilizatori referentiate de tabelul user: administaror su utilizatorul standard</p>
+                <p>Structura tabelului user_type:</p>
+                <figure typeof="sa:image">
+                    <img src="images/tabelusertypestructura.png">
+                    <figcaption>Fig.4 - Structura tabelului user_type</figcaption>
+                </figure>
+                <p>Asa arata datele stocate in tabelul user_type:</p>
+                <figure typeof="sa:image">
+                    <img src="images/tabelusertypesdate.png">
+                    <figcaption>Fig.5 - Datele din tabelul user_type</figcaption>
+                </figure>
+            </section>
+
+            <section id="campaigndb">
+                <h3>
+                    Tabelul Campaign
+                </h3>
+                <p>Datele ce vor fi introduse in acest tabel sunt furnizate de form-ul din pagina de /campaign/create si corespund
+                    detaliilor campaniei nou create.</p>
+                <p>Structura tabelului campaign acesta fiind tabelul unde vor fi stocate toate detaliile legate de
+                    o campanie:</p>
+                <figure typeof="sa:image">
+                    <img src="images/tabelcampaignstructura.png">
+                    <figcaption>Fig.6 - Structura tabelului campaign</figcaption>
+                </figure>
+                <p>Exemplu de date stocate in tabelul campaign:</p>
+                <figure typeof="sa:image">
+                    <img src="images/tabelcampaigndate.png">
+                    <figcaption>Fig.7 - Exemplu de date din tabelul campaign</figcaption>
+                </figure>
+            </section>
+
+            <section id="campaign-attendeedb">
+                <h3>
+                    Tabelul Campaign Attendee
+                </h3>
+                <p>Acest tabel retine persoanele de participa la o capanie.</p>
+                <p>Structura tabelului campaign_attendee:</p>
+                <figure typeof="sa:image">
+                    <img src="images/tabelcampaignattendeestructura.png">
+                    <figcaption>Fig.8 - Structura tabelului campaign</figcaption>
+                </figure>
+            </section>
+
+            <section id="collecteddb">
+                <h3>
+                    Tabelul Collected
+                </h3>
+                <p>Stocheaza date despre gunoiul colectat dintr-o pubela.</p>
+                <p>Structura tabelului collected:</p>
+                <figure typeof="sa:image">
+                    <img src="images/tabelcollectedstructura.png">
+                    <figcaption>Fig.9 - Structura tabelului collected</figcaption>
+                </figure>
+                <p>Exemplu de date stocate in tabelul collected:</p>
+                <figure typeof="sa:image">
+                    <img src="images/tabelcollecteddate.png">
+                    <figcaption>Fig.10 - Exemplu de date din tabelul collected</figcaption>
+                </figure>
+            </section>
+    
+            <section id="dumpster-addressdb">
+                <h3>
+                    Tabelul Dumpster Address
+                </h3>
+                <p>Stocheaza locatia unui cos de gunoi.</p>
+                <p>Structura tabelului dumpster_address:</p>
+                <figure typeof="sa:image">
+                    <img src="images/tabeldumpsteraddressstructura.png">
+                    <figcaption>Fig.11 - Structura tabelului dumpster_address</figcaption>
+                </figure>
+                <p>Exemplu de date stocate in tabelul dumpster_address:</p>
+                <figure typeof="sa:image">
+                    <img src="images/tabeldumpsteraddressdate.png">
+                    <figcaption>Fig.12 - Exemplu de date din tabelul dumpster_address</figcaption>
+                </figure>
+            </section>
+
+            <section id="garbage-typedb">
+                <h3>
+                    Tabelul Garbage Type
+                </h3>
+                <p>Stocheaza tipurile posibile de gunoi.</p>
+                <p>Structura tabelului garbage_type:</p>
+                <figure typeof="sa:image">
+                    <img src="images/tabel_garbage_type_structura.png">
+                    <figcaption>Fig.13 - Structura tabelului garbage_type</figcaption>
+                </figure>
+                <p>Datele stocate in tabelul garbage_type:</p>
+                <figure typeof="sa:image">
+                    <img src="images/tabel_garbage_type_date.png">
+                    <figcaption>Fig.14 - Datele din tabelul garbage_type</figcaption>
+                </figure>
+            </section>
+
+            <section id="notificationdb">
+                <h3>
+                    Tabelul Notification
+                </h3>
+                <p>Stocheaza datele despre o alerta. Acestea sunt furnizate de formularul de la /alerts.</p>
+                <p>Structura tabelului notofication:</p>
+                <figure typeof="sa:image">
+                    <img src="images/tabel_notification_structura.png">
+                    <figcaption>Fig.15 - Structura tabelului notification</figcaption>
+                </figure>
+            </section>
+
+            <section id="public-dumpsterdb">
+                <h3>
+                    Tabelul Public Dumpster
+                </h3>
+                <p>Stocheaza informatii despre cosurile de gunoi.</p>
+                <p>Structura tabelului public_dumpster:</p>
+                <figure typeof="sa:image">
+                    <img src="images/tabel_public_dumpster_structura.png">
+                    <figcaption>Fig.16 - Structura tabelului public_dumpster</figcaption>
+                </figure>
+                <p>Datele stocate in tabelul public_dumpster:</p>
+                <figure typeof="sa:image">
+                    <img src="images/tabel_public_dumpster_date.png">
+                    <figcaption>Fig.17 - Exemplu de date din tabelul public_dumpster</figcaption>
+                </figure>
+            </section>
+        </section>
+
+        <section id="front-end">
+
+            <h3>
+                Front End
+            </h3>
+    
+            <p>Site-ul este construit ca un Single Page Application. 
+                Astfel, componentele se incarca dinamic si nu mai apare reincarcarea (refresh-ul) la navigarea intre pagini.
+                Trecerea de pe o pagina pe alta se efectuaza mult mai fluid si rapid.</p>
+            <p>Site-ul foloseste web-components / componente custom.</p>
+            <p>Fiecare pagina contine componenta "x-menu" ce se schimba daca utilizatorul este logat / neinregistrat.</p>
+            <p>Site-ul este responsive pe toate paginile lui. De exemplu recerea de pe o pagina pe alta se efectuaza mult mai fluid si rapid.</p>
+            
+            <section id="hartafront">
+                <h3>
+                    Harta
+                </h3>
+    
+                <p>Ruta de vizualizare a hartii este cea principala, /.</p>
+    
+                <p>Aceata pagina este alcatuita din meniu "x-menu" si din componenta de harta "x-map".</p>
+
+                <p>Harta a fost realizata prin leaftet. </p>
+
+                <p>Harta afiseaza toate cosurile si masinile de gunoi(urmarite in timp real) detinute de firma publica de salubrizare a orasului Iasi.
+                     Acestea sunt grupate pe zone in functie de zoom-ul aplicat.
+                </p>
+                
+                <figure typeof="sa:image">
+                    <img src="images/harta.PNG">
+                    <figcaption>Fig.18 - Pagina de / pe desktop</figcaption>
+                </figure>
+
+                <p>Navigarea este usurata de prezenta unor butoane de zoom in/out, de full-screen si 
+                    de eliminare/adaugare a masinilor/cosurilor.
+                </p>
+    
+                <p>Cand dam click pe o pubela ni se afiseaza numarul, adresa si tipul ei.</p>
+    
+                
+                <figure typeof="sa:image">
+                    <img src="images/detalii-pubela.png">
+                    <figcaption>Fig.19 - Detalii pubela</figcaption>
+                </figure>
+                </p>
+    
+            </section>
+            
+            <section id="statisticifront">
+                <h3>
+                    Statistici
+                </h3>
+    
+                <p>Ruta de vizualizare a statisticilor /stats.</p>
+    
+                <p>Aceata pagina este alcatuita din meniu "x-menu" si din componenta "x-stats". Aceasta are rolul de a afisa statistici
+                    cu privire la colectarea gunoiului
+                </p>
+
+                <p></p>
+
+                <figure typeof="sa:image">
+                    <img src="images/grafice.PNG">
+                    <figcaption>Fig.20 - Grafice</figcaption>
+                </figure>
+
+                <p>Pe langa graficele interactive, aceasta pagina contine si un meniu aditional din care se poate seta
+                    intervalul pentru date. Utilizatorul isi alege range-ul prestabilit (Astazi, Ieri, Utimele 7/30 zile, Luna aceasta/trecuta) 
+                    sau Custom. Alegera datei se poate face si introducand datele de la tastatura.
+                </p>
+
+                
+                <figure typeof="sa:image">
+                    <img src="images/calendar-custom.png">
+                    <figcaption>Fig.21 - Calendar Custom</figcaption>
+                </figure>
+
+    
+                <p>Tabelul isi actualizeaza si ei datele in funtie de range-ul selectat. Acesta este paginat, cu cate maxin 40 de linii pe pagina.</p>
+
+                <figure typeof="sa:image">
+                    <img src="images/tabel.PNG">
+                    <figcaption>Fig.22.1 - Tabel</figcaption>
+                </figure>
+
+                <figure typeof="sa:image">
+                    <img src="images/pagina-tabel.png">
+                    <figcaption>Fig.22.2 - Paginare tabel</figcaption>
+                </figure>
+                
+                <p>Butoanele de PDF, HTML si CSV permit descarcarea datelor din tabel.</p>
+    
+                <figure typeof="sa:image">
+                    <img src="images/rapoarte.png">
+                    <figcaption>Fig.23 - Descarcare rapoarte</figcaption>
+                </figure>
+                </p>
+
+            </section>
+
+            <section id="auth">
+
+                <h3>
+                    Autentificare
+                </h3>
+
+                <p>Formularele prezinta verificarea inputurilor pentru a se asigura ca utilizatorul introduce date corecte.</p>
+
+                <p>Spre exemplu numarul de telefon trebuie sa aiba formatul romanesc, email trebuie sa fie valid si parola trebuie sa aiba o lungime mai mare de 6 caractere pentru a fi valida. Validatea client-side este facuta prin precizarea tipurilor inputurilor si prin regex. Utilizatorului i se afiseaza un mesaj corespunzator atunci cand intampina o eroare.</p>
+        
+                <p>Input box-ul destinat introducerii parolei va avea ca tip "password" pentru ca textul introdus inauntru sa fie cenzurat.</p>
+                
+                <p>Nu se va putea inregistra un nou cont apasand butonul "Submit" fara ca toate campurile sa fie completate folosindu-se formatul specificat (pana cand toate campurile sunt inconjurate de border-ul verde).</p>
+
+                <p>Sub input box-uri se afla un buton de Submit cu latimea egala cu cea a formularului. Cand este apasat de utilizator, acesta va fi redirectionat 
+                    catre homepage si logat automat. De asemenea se va verifica server-side si daca adresa de mail / telefonul introdus mai exista, 
+                    iar daca da, acest lucru va fi specificat utilizatorului prin aparitia unui text de culoare rosie in partea inferioara a inputului si 
+                    border-ul specific unei erori de completare.</p>
+                
+        
+                <section id="registerfront">
+                    <h3>
+                        Register
+                    </h3>
+        
+                    <p>Aceata pagina (/register) este alcatuita din meniu "x-menu" si din componenta de harta "x-register".</p>
+    
+                    <p>Aceata pagina este alcatuita din meniul ce iti schimba forma in functie de rezolutia dispozitivului, din formularul de inregistrare si din avantajele crearii unui cont.</p>
+    
+                    <figure typeof="sa:image">
+                        <img src="images/register.PNG">
+                        <figcaption>Fig.24 - Pagina de /register pe desktop</figcaption>
+                    </figure>
+    
+                    <p>Pe mobile textul din partea dreapta ajunge sub formular.</p>
+                    
+                    <figure typeof="sa:image">
+                        <img src="images/register-mobile.png">
+                        <figcaption>Fig.25 - Pagina de /register pe mobile</figcaption>
+                    </figure>
+                    </p>
+        
+                </section>
+
+                <section id="loginfront">
+                    <h3>
+                        Login
+                    </h3>
+        
+                    <p>Aceata pagina (/login) este alcatuita din meniu "x-menu" si din componenta de login "x-login".</p>
+
+                    <p>Utilizatorul se poate loga ca administrator sau ca utilizator standard.</p>
+    
+                    <p>Utilizatorul poate ajunge pe pagina de login prin doua metode. Prima este prin apasarea butonului de login din meniu. 
+                        A doua varianta este prin accesarea unei rute ce necesita logarea pentru a fi accesata: /alerts, /campaigns.
+                    </p>
+    
+                    <p>Acest formular prezinta verificarea inputurilor pentru a se asigura ca utilizatorul introduce date corecte.
+                        In plus, linkul din footer trimite catre formularul de inregistrare pentru cazul in care user-ul nu are cont.
+                    </p>
+
+                    <p>In meniu apare butonul alerts.</p>
+                    
+                    <figure typeof="sa:image">
+                        <img src="images/login.png">
+                        <figcaption>Fig.26 - Pagina de /login pe desktop</figcaption>
+                    </figure>
+                </section>
+                
+                <section id="front">
+                    <h3>
+                        Logout
+                    </h3>
+    
+                    <p>Odata logat, meniul se schimba, butonul de login devine butonul de logout.</p>
+                    
+                    <figure typeof="sa:image">
+                        <img src="images/meniu-logout.png">
+                        <figcaption>Fig.27 - Meniul, cand utilizatorul este logat.</figcaption>
+                    </figure>
+
+                </section>
+
+            </section>
+
+            <section id="campaniifront">
+                <h3>
+                    Campanii
+                </h3>
+
+                <p>Ruta de vizualizare a campaniilor /campaigns.</p>
+
+                <section id="initiere-campaniefront">
+                    <h3>
+                        Initiere Campanie
+                    </h3>
+
+                    <p>Ruta: /campaign/create</p>
+
+                    <p>Necesita logare.</p>
+
+                    <p>Campuri formular: titlu, descriere, data, adresa</p>
+
+                    <p>Foloseste auth.css, foaia de stiluri a formularelor de autentificare.</p>
+                    
+                    <figure typeof="sa:image">
+                        <img src="images/pagina-creeaza-campanie.png">
+                        <figcaption>Fig.28 - Formularul de creare a unei campanii /campaign/create</figcaption>
+                    </figure>
+
+                </section>
+
+                <section id="vizualizare-campaniifront">
+                    <h3>
+                        Vizualizare Campanii
+                    </h3>
+
+                    <p>Foloseste o foaie de stiluri proprie, view_campaigns.css</p>
+
+                    <p>Lista de campanii se incarca prin infinite scrolling, cate 5, apelandu-se un request ajax get prin axios.</p>
+
+                    <figure typeof="schema:SoftwareSourceCode">
+                        <pre>
+                            < x-infinite-scroll component="x-campaign" > < /x-infinite-scroll >
+                        </pre>
+                    </figure>
+
+                    <p>Codul este atat de modularizat incat </p>
+
+                    <figure typeof="sa:image">
+                        <img src="images/campanii_curente.png">
+                        <figcaption>Fig.29 - Pagina de campanii curente /campaigns</figcaption>
+                    </figure>
+
+                    <p>Fiecare campanie contine campurile precisate in crearea campaniei si datele despre organizator.</p>
+
+                    <p>Se poate citi mai mult despre fiecare campanie individual si se poate apasa butonul "participa" pentru a 
+                        anunta ca vrei sa iei parte la activitatea respectiva.
+                    </p>
+
+
+                </section>
+
+                <section id="vizualizare-campaniefront">
+                    <h3>
+                        Vizualizare Campanie
+                    </h3>
+
+                </section>
+
+            </section>
+
+        <section id="alertefront"></section>
+
+            <h3>
+                Alerte
+            </h3>
+
+            <section id="initiere-alertafront">
+                <h3>
+                    Initiere Alerta
+                </h3>
+
+                <p>Ruta: /alerts</p>
+
+                <p>Necesita logare.</p>
+
+                <p>Campuri formular: titlu, descriere, data, adresa</p>
+
+                <p>Foloseste auth.css, foaia de stiluri a formularelor de autentificare.</p>
+                
+                <figure typeof="sa:image">
+                    <img src="images/pagina-creeaza-campanie.png">
+                    <figcaption>Fig.28 - Formularul de creare a unei campanii /campaign/create</figcaption>
+                </figure>
+
+            </section>
+
+            <section id="vizualizare-alertefront">
+                <h3>
+                    Vizualizare Alerte
+                </h3>
+
+                <p>Utilizatorul isi poate vedea alertele. Fiecare alerta poate fi stearasa de creator / actualizata de administrator cu statusul rezolvarii ei.</p>
+            </section>
+
+            <section id="vizualizare-campaniefront">
+                <h3>
+                    Vizualizare Campanie
+                </h3>
+
+            </section>
+
+        </section>
+    </section>
+
+    <section id="back-end">
+
+        <h3>
+            Back End
+        </h3>
+
+        <p>
+            Site-ul este foarte modularizat de la frontend la backend. Am folosit decorator, façade si e foarte usor de adaugat componente noi.
+        </p>
+        
+        <section id="techback">
+            <h3>
+                Tech
+            </h3>
+
+            <p>🐝</p>
+
+            <p>Bee este un framework facut de noi care ne-a ajutat la crearea site-ului de tip SPA. 
+                Pentru a incarca componente dinamic, trebuie sa definim cate o clasa care va extinde clasa Component definita in Bee. 
+                Aceasta clasa permite crearea unor metode sau atribute custom dar si suprascrierea unor metode prestabilite printre care: 
+                componentDidMount() care este apelata inainte de crearea componentei, componentDidLoad() care este apelata dupa ce componenta 
+                s-a incarcat, componentRemoved() care este apelata atunci cand componenta a fost distrusa (aceasta reprezentat de fapt un fel de 
+                destructor). Inainte sa fie incarcata componenta, se vor include toate resursele necesare acelei componente in mod dinamic, 
+                iar atunci cand este distrusa se elimina aceste resurse. Aceste resurse sunt specificate odata cu definirea tagului care va defini 
+                componenta respectiva prin cate un vector de path-uri pentru fiecare tip de resursa (script/style). De asemenea, scripturile pot fi 
+                incarcate atat inainte de crearea componentei, cat si dupa. La definirea tagului se poate include si un link catre un template html 
+                al componentei care va fi creata.
+            </p>
+
+            <p><figure typeof="schema:SoftwareSourceCode">
+                <pre>
+                    static middleware(middlewares: Array< Middleware> | Middleware) {
+                        let middlewares_arr: Middleware[] = (middlewares instanceof Array) ? middlewares : [ middlewares ]
+                
+                        return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
+                            const originalFunc: RequestHandler = descriptor.value
+                
+                            descriptor.value = async (ctx: Context, ...args: any[]) => {
+                                middlewares_arr.reverse()
+                                
+                                let finalCallee: RequestHandler = async (ctx: Context, ...args: any[]) => await middlewares_arr[0](originalFunc, ctx, ...args)
+                
+                                for (const middleware of middlewares_arr.slice(1)) {
+                                    const callee = finalCallee
+                                    finalCallee = async (ctx: Context, ...args: any[]) => await middleware(callee, ctx, ...args)
+                                }
+                
+                                await finalCallee(ctx, ...args)
+                            }
+                        }
+                    }
+                </pre>
+            </figure></p>
+
+            <p>🦕</p>
+
+            <p>Din moment ce nu avem voie sa folosim framework-uri si totusi aveam nevoie sa ne structuram codul am creat un framework propriu.
+                Am replicat foarte multe din functionalitatile unui framework standard de REST: suport middleware, suport jwt, suport parametrii 
+                in url-ul rutei, erori standard, schimbarea erorilor standard.
+            </p>
+
+            <p>Am folosit Deno pentru ca e versiunea imbunatatita a NodeJS si foloseste TypeScript by default.
+            </p>
+
+        </section>
+
+        <section id="hartaback">
+            <h3>
+                Harta
+            </h3>
+
+            <p>Pozitia vehiculelor este data de un serviciu expus de SalubrIS.
+            </p>
+
+        </section>
+
+        <section id="statisticiback">
+            <h3>
+                Informatiile pentru statistici sunt preluate dinamic facand request GET la rutele /dumpsters/stats de fiecare data cand se schimba range-ul. 
+Ruta /dumpsters/stats primeste ca parametrii dateStart si dateEnd in format unix si returneaza un JSON cu numarul de kg de gunoi colectat pentru fiecare tip de deseu (hartie, menajer, ...) apeland o functie definita in repository-ul pentru tomberoane. 
+Ruta /dumpsters/stats/list returneaza pentru fiecare adresa cate kg de gunoi s-a colectat pentru fiecare deseu. Aceasta ruta primeste si ea parametrii dateStart si dateEnd, dar si paramatrii order si lastId care sunt utilizate pentru navigarea prin paginile de tabel inainte/inapoi, si parametrul limit care daca este setat pe false atunci returneaza un JSON cu toate datele ci nu doar cate 40 (cat reprezinta o pagina).
+            </h3>
+
+            <p>
+            </p>
+
+        </section>
+
+        <section id="authback">
+            <h3>
+                Authorize
+            </h3>
+
+            <p>
+                Parolele sunt hash-uite cu brcrypt.
+                BCrypt adauga si un salt unic pt fiecare hash.
+            </p>
+
+            <p>
+                https://gasm.marecapitan.ro/alerts redirecteaza catre login
+            </p>
+
+        </section>
+
+        <section id="campaniiback">
+            <h3>
+                Campanii
+            </h3>
+
+            <p>
+                
+            </p>
+
+        </section>
+
+        <section id="alerteback">
+            <h3>
+                Alerte
+            </h3>
+
+            <p>Parolele sunt hash-uite cu brcrypt.
+                BCrypt adauga si un salt unic pt fiecare hash.
+            </p>
+
+        </section>
+    </section>
+
+
+
+        
+</body>
+</html>
